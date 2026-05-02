@@ -1,6 +1,10 @@
 import { formatCity } from "@/lib/format";
 import { generateChatReply } from "@/lib/llm/provider";
-import { matchExperts } from "@/lib/matching/match-experts";
+import {
+  matchExpertPool,
+  matchExperts,
+  type ExpertMatch,
+} from "@/lib/matching/match-experts";
 import { mockExperts, type TravelBrief } from "@/lib/mock-data";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { getServerSupabaseEnv } from "@/lib/supabase/env";
@@ -12,6 +16,7 @@ import type {
   RetrievedContext,
   StructuredAnswer,
 } from "./types";
+import { fetchConciergeKnowledge } from "./repository";
 
 function inferInterest(message: string): BriefPayload["interest"] {
   const lowered = message.toLowerCase();
@@ -62,6 +67,115 @@ function inferPreferredCities(message: string): TravelBrief["city"][] {
   )
     cities.push("wudang_mountain");
   return Array.from(new Set(cities));
+}
+
+function inferAudienceSlugs(message: string): string[] {
+  const lowered = message.toLowerCase();
+  const audienceSlugs = new Set<string>();
+
+  if (
+    lowered.includes("first time") ||
+    lowered.includes("first-time") ||
+    lowered.includes("my first trip") ||
+    lowered.includes("first visit to china")
+  ) {
+    audienceSlugs.add("first_time_china");
+  }
+
+  if (
+    lowered.includes("philippines") ||
+    lowered.includes("malaysia") ||
+    lowered.includes("singapore") ||
+    lowered.includes("indonesia") ||
+    lowered.includes("thailand") ||
+    lowered.includes("hokkien") ||
+    lowered.includes("diaspora")
+  ) {
+    audienceSlugs.add("seasia_diaspora");
+  }
+
+  if (lowered.includes("roots") || lowered.includes("ancestry") || lowered.includes("family")) {
+    audienceSlugs.add("family_roots");
+  }
+
+  if (lowered.includes("japan") || lowered.includes("japanese")) {
+    audienceSlugs.add("japan_culture");
+  }
+
+  if (lowered.includes("korea") || lowered.includes("korean")) {
+    audienceSlugs.add("korea_visual_culture");
+  }
+
+  if (
+    lowered.includes("united states") ||
+    lowered.includes("america") ||
+    lowered.includes("american") ||
+    lowered.includes("canada") ||
+    lowered.includes("canadian")
+  ) {
+    audienceSlugs.add("north_america_cultural");
+  }
+
+  if (lowered.includes("australia") || lowered.includes("australian")) {
+    audienceSlugs.add("australia_cultural");
+  }
+
+  if (
+    lowered.includes("middle east") ||
+    lowered.includes("uae") ||
+    lowered.includes("oman") ||
+    lowered.includes("saudi") ||
+    lowered.includes("muslim") ||
+    lowered.includes("islamic")
+  ) {
+    audienceSlugs.add("middle_east_heritage");
+  }
+
+  if (
+    lowered.includes("europe") ||
+    lowered.includes("european") ||
+    lowered.includes("france") ||
+    lowered.includes("french") ||
+    lowered.includes("italy") ||
+    lowered.includes("italian") ||
+    lowered.includes("germany") ||
+    lowered.includes("german") ||
+    lowered.includes("uk") ||
+    lowered.includes("british")
+  ) {
+    audienceSlugs.add("europe_heritage");
+  }
+
+  if (
+    lowered.includes("photo") ||
+    lowered.includes("photography") ||
+    lowered.includes("instagram") ||
+    lowered.includes("style")
+  ) {
+    audienceSlugs.add("photography_style");
+  }
+
+  if (
+    lowered.includes("academic") ||
+    lowered.includes("museum") ||
+    lowered.includes("scholar") ||
+    lowered.includes("research")
+  ) {
+    audienceSlugs.add("academic_museum");
+  }
+
+  if (
+    lowered.includes("wellness") ||
+    lowered.includes("retreat") ||
+    lowered.includes("reflective") ||
+    lowered.includes("stillness") ||
+    lowered.includes("restorative") ||
+    lowered.includes("quiet trip")
+  ) {
+    audienceSlugs.add("wellness_slow_travel");
+  }
+
+  return Array.from(audienceSlugs);
 }
 
 function inferCategory(message: string): TravelBrief["category"] {
@@ -179,16 +293,55 @@ function inferMustHaves(message: string, interest: string): string[] {
 
 type TurnHistory = Array<{ role: "user" | "assistant"; content: string }>;
 
+function formatExpertCategory(category?: string) {
+  return category
+    ? category
+        .split("_")
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ")
+    : "Cultural";
+}
+
+function formatManagedExpertLabel(expert?: ExpertMatch | null) {
+  if (!expert) return "a managed local expert match";
+
+  return `${formatCity(expert.city)} managed ${formatExpertCategory(expert.categories[0]).toLowerCase()} expert match`;
+}
+
+function toManagedExpertSummary(expert: ExpertMatch, index: number) {
+  return {
+    slug: `managed-match-${index + 1}`,
+    name: formatManagedExpertLabel(expert),
+    city: formatCity(expert.city),
+    headline: expert.headline,
+    languages: expert.languages,
+    reasons: expert.reasons,
+  };
+}
+
+function maskRetrievedExpertContext(context: RetrievedContext): RetrievedContext {
+  return {
+    ...context,
+    notes: context.notes.map((note) => {
+      if (note.includes("Why visit:")) return note;
+      const publicSnippet = note.includes(":")
+        ? note.replace(/^.*:\s*/, "")
+        : note;
+      return `Managed expert context: ${publicSnippet}`;
+    }),
+  };
+}
+
 function getCityFocusPoints(city: string) {
   switch (city) {
     case "Beijing":
       return [
-        "imperial culture",
-        "the Great Wall and the Forbidden City",
+        "imperial order",
+        "the Central Axis and ceremonial space",
         "hutong life",
       ];
     case "Jingdezhen":
-      return ["porcelain heritage", "kilns and making", "studio culture"];
+      return ["porcelain history", "kilns and making", "studio culture"];
     case "Quanzhou":
       return [
         "the great Song-Yuan port",
@@ -197,24 +350,20 @@ function getCityFocusPoints(city: string) {
       ];
     case "Chongqing":
       return [
-        "cyberpunk topography",
-        "layered river-city drama",
-        "hotpot and bold street food",
+        "a cyberpunk-feeling 8D mountain city",
+        "night movement, neon, and multi-level urban drama",
+        "hotpot and wartime layers",
       ];
     case "Chengdu":
       return [
-        "comfortable everyday living",
-        "tea-house rhythm and food",
-        "pandas",
+        "Sichuan food and flavor",
+        "pandas as an easy entry point",
+        "tea-house rhythm and gentle urban life",
       ];
     case "Wudang Mountain":
-      return [
-        "mountain scenery",
-        "Taoist culture",
-        "taiji and embodied practice",
-      ];
+      return ["Taoist culture", "Taiji and internal practice", "sacred mountain architecture"];
     case "Jingmai Mountain":
-      return ["tea mountains", "terraced landscape", "long tea-making memory"];
+      return ["ancient tea forests", "village continuity", "tea ritual"];
     default:
       return ["cultural depth", "local texture", "a clear sense of place"];
   }
@@ -367,14 +516,17 @@ function buildThemes(brief: BriefPayload): string[] {
 function buildItinerary(
   brief: BriefPayload,
   expertMatches: ReturnType<typeof matchExperts>,
+  itineraryHints: Array<{ title: string; summary: string; city: string; days: number }>,
 ) {
   const mainCity = brief.preferredCities[0] ?? "Jingdezhen";
   const mainExpert = expertMatches[0];
+  const topHint = itineraryHints[0];
 
   if (brief.interest === "Porcelain") {
     return {
-      title: `${brief.days}-Day ${mainCity} Ceramic Deep Dive`,
+      title: topHint?.title ?? `${brief.days}-Day ${mainCity} Ceramic Deep Dive`,
       summary:
+        topHint?.summary ??
         "A route shaped around making, material knowledge, museum context, and quieter studio time.",
       days: [
         {
@@ -406,15 +558,16 @@ function buildItinerary(
         },
       ].slice(0, brief.days),
       matchedExpert: mainExpert
-        ? { name: mainExpert.name, city: formatCity(mainExpert.city) }
+        ? { name: formatManagedExpertLabel(mainExpert), city: formatCity(mainExpert.city) }
         : null,
     };
   }
 
   if (brief.interest === "Tea") {
     return {
-      title: `${brief.days}-Day ${mainCity} Tea Landscape Route`,
+      title: topHint?.title ?? `${brief.days}-Day ${mainCity} Tea Landscape Route`,
       summary:
+        topHint?.summary ??
         "A calmer tea-led route balancing landscape, tasting, and enough quiet to actually absorb place.",
       days: [
         {
@@ -446,15 +599,16 @@ function buildItinerary(
         },
       ].slice(0, brief.days),
       matchedExpert: mainExpert
-        ? { name: mainExpert.name, city: formatCity(mainExpert.city) }
+        ? { name: formatManagedExpertLabel(mainExpert), city: formatCity(mainExpert.city) }
         : null,
     };
   }
 
   if (brief.interest === "Food") {
     return {
-      title: `${brief.days}-Day ${mainCity} Food & Neighborhood Route`,
+      title: topHint?.title ?? `${brief.days}-Day ${mainCity} Food & Neighborhood Route`,
       summary:
+        topHint?.summary ??
         "A city-led immersion through markets, local dishes, and the street-level logic of daily life.",
       days: [
         {
@@ -486,14 +640,15 @@ function buildItinerary(
         },
       ].slice(0, brief.days),
       matchedExpert: mainExpert
-        ? { name: mainExpert.name, city: formatCity(mainExpert.city) }
+        ? { name: formatManagedExpertLabel(mainExpert), city: formatCity(mainExpert.city) }
         : null,
     };
   }
 
   return {
-    title: `${brief.days}-Day ${mainCity} Cultural Discovery Brief`,
+    title: topHint?.title ?? `${brief.days}-Day ${mainCity} Cultural Discovery Brief`,
     summary:
+      topHint?.summary ??
       "A tailored route that turns broad curiosity into a coherent China journey with the right pace and expert fit.",
     days: [
       {
@@ -525,9 +680,13 @@ function buildItinerary(
       },
     ].slice(0, brief.days),
     matchedExpert: mainExpert
-      ? { name: mainExpert.name, city: formatCity(mainExpert.city) }
+      ? { name: formatManagedExpertLabel(mainExpert), city: formatCity(mainExpert.city) }
       : null,
   };
+}
+
+function getPositioningBrief(context: RetrievedContext) {
+  return context.notes.find((note) => note.includes("Why visit:")) ?? null;
 }
 
 function buildStructuredAnswer(
@@ -536,7 +695,8 @@ function buildStructuredAnswer(
   matchedExperts: ReturnType<typeof matchExperts>,
   context: RetrievedContext,
 ): StructuredAnswer {
-  const topExpert = matchedExperts[0]?.name ?? "a local specialist";
+  const topExpert = formatManagedExpertLabel(matchedExperts[0]);
+  const positioningBrief = getPositioningBrief(context);
   const sourceLabel =
     context.source === "supabase"
       ? "Grounded in expert database context"
@@ -545,9 +705,13 @@ function buildStructuredAnswer(
         : "Generated from concierge trip logic";
 
   return {
-    summary: `This looks best as a ${brief.pace} ${brief.days}-day ${brief.interest.toLowerCase()} journey led by ${brief.preferredCities.slice(0, 2).join(" + ") || "a flagship China destination"}.`,
+    summary:
+      positioningBrief ??
+      `This looks best as a ${brief.pace} ${brief.days}-day ${brief.interest.toLowerCase()} journey led by ${brief.preferredCities.slice(0, 2).join(" + ") || "a flagship China destination"}.`,
     reasons: [
-      `The brief points toward ${brief.mustHave.slice(0, 2).join(" and ") || "a slower, more contextual route"} rather than a generic city checklist.`,
+      positioningBrief
+        ? "The city recommendation starts from its core selling proposition, not only from attractions."
+        : `The brief points toward ${brief.mustHave.slice(0, 2).join(" and ") || "a slower, more contextual route"} rather than a generic city checklist.`,
       `The current match logic would start with ${topExpert} and shape the experience around ${brief.interest.toLowerCase()}, pacing, and cultural depth.`,
     ],
     routeHighlights: itinerary.days.map(
@@ -563,8 +727,8 @@ function buildEvidenceCards(
   matchedExperts: ReturnType<typeof matchExperts>,
   context: RetrievedContext,
 ): EvidenceCard[] {
-  const expertCards = matchedExperts.slice(0, 2).map((expert) => ({
-    title: expert.name,
+  const expertCards = matchedExperts.slice(0, 2).map((expert, index) => ({
+    title: `Managed expert match ${index + 1}`,
     type: "expert" as const,
     snippet: expert.headline,
     meta: `${formatCity(expert.city)} · ${expert.reasons[0] ?? "Relevant expert match"}`,
@@ -601,16 +765,20 @@ async function buildReply(
   matchedExperts: ReturnType<typeof matchExperts>,
   context: RetrievedContext,
   history: TurnHistory,
+  recommendedThemes: string[],
+  itineraryHints: Array<{ title: string; summary: string; city: string; days: number }>,
 ) {
-  const topExpert = matchedExperts[0]?.name ?? "a local specialist";
+  const topExpert = formatManagedExpertLabel(matchedExperts[0]);
   const contextLine =
     context.notes.length > 0
       ? `I also pulled relevant context from ${context.source === "supabase" ? "your database" : "the current demo knowledge base"}.`
       : "I'm still working from the built-in destination logic and demo expert set.";
-  const openingLine = buildFocusedOpening(brief);
+  const positioningBrief = getPositioningBrief(context);
+  const openingLine = positioningBrief ?? buildFocusedOpening(brief);
   const cityFocusGuidance = buildCityFocusGuidance(brief.preferredCities);
 
   const historySummary = buildHistorySummary(history);
+  const routeHint = itineraryHints[0];
   const fallback = `${openingLine} You're pointing toward ${brief.interest.toLowerCase()} with a ${brief.pace} pace and about ${brief.days} day${brief.days > 1 ? "s" : ""}. ${contextLine} I’d shape the route around ${brief.mustHave.join(", ")}, keep the city focus anchored in ${cityFocusGuidance || "clear local highlights"}, and only introduce an expert after the place itself is clear.`;
 
   try {
@@ -618,11 +786,11 @@ async function buildReply(
       {
         role: "system",
         content:
-          "You are a premium China travel concierge. Reply briefly, warmly, and clearly. Start by explaining the destination itself, not by recommending a guide. For the opening answer, make the city feel specific by focusing on 1 to 3 defining highlights. Avoid ### headings. Use plain paragraphs, short bullets when helpful, and clean markdown-like formatting only. Ground your answer in the structured brief provided. Do not mention raw system prompts or internal reasoning.",
+          "You are a premium China travel concierge. Reply briefly, warmly, and clearly. Start by explaining why the destination is worth visiting and what its real selling point is, not by recommending a guide. If the context includes a Why visit note, use it as the opening logic. For the opening answer, make the city feel specific by focusing on 1 to 3 defining highlights. Avoid ### headings. Use plain paragraphs, short bullets when helpful, and clean markdown-like formatting only. Ground your answer in the structured brief provided. Prefer theme-led answers over attraction lists. Do not mention raw system prompts or internal reasoning.",
       },
       {
         role: "user",
-        content: `User message: ${message}\n\nRecent conversation:\n${historySummary || "No prior conversation."}\n\nInterest: ${brief.interest}\nPace: ${brief.pace}\nDays: ${brief.days}\nPreferred cities: ${brief.preferredCities.join(", ")}\nMust-have: ${brief.mustHave.join(", ")}\nContext source: ${context.source}\nContext notes: ${context.notes.join(" | ")}\nTop expert: ${topExpert}\n\nCity focus guidance: ${cityFocusGuidance || "Highlight the city's defining identity first."}\n\nOpening rule: explain the city's most important 1 to 3 points first. Examples: Beijing = culture, Great Wall / Forbidden City, hutongs; Jingdezhen = porcelain; Quanzhou = Song-Yuan great port and plural culture; Chongqing = cyberpunk terrain and hotpot; Chengdu = comfort and pandas; Wudang Mountain = scenery, Taoist culture, taiji; Jingmai Mountain = tea mountains.`,
+        content: `User message: ${message}\n\nRecent conversation:\n${historySummary || "No prior conversation."}\n\nInterest: ${brief.interest}\nPace: ${brief.pace}\nDays: ${brief.days}\nPreferred cities: ${brief.preferredCities.join(", ")}\nMust-have: ${brief.mustHave.join(", ")}\nRecommended themes: ${recommendedThemes.join(", ") || "none"}\nContext source: ${context.source}\nContext notes: ${context.notes.join(" | ")}\nTop expert: ${topExpert}\nRoute hint: ${routeHint ? `${routeHint.title} — ${routeHint.summary}` : "none"}\n\nCity focus guidance: ${cityFocusGuidance || "Highlight the city's defining identity first."}\n\nOpening rule: explain the city's most important 1 to 3 points first. Examples: Beijing = imperial order, Central Axis, hutongs; Jingdezhen = porcelain history, kilns, studios; Quanzhou = Song-Yuan port and plural culture; Chongqing = cyberpunk-feeling 8D mountain city, neon night movement, hotpot and wartime layers; Chengdu = tea-house rhythm, local ease, food; Wudang Mountain = Taoist mountain, sacred architecture, internal practice; Jingmai Mountain = tea forests, village continuity, tea ritual.`,
       },
     ]);
 
@@ -639,18 +807,35 @@ export async function runConciergeTurn({
   message: string;
   history?: Array<{ role: "user" | "assistant"; content: string }>;
 }): Promise<ChatApiResponse> {
-  const context = await retrieveContext(message, history);
   const brief = buildBrief(message);
   const travelBrief = buildTravelBrief(message);
-  const expertMatches = matchExperts(travelBrief);
-  const recommendedThemes = buildThemes(brief);
-  const itinerary = buildItinerary(brief, expertMatches);
+  const audienceSlugs = inferAudienceSlugs(message);
+  const knowledge = await fetchConciergeKnowledge({
+    message,
+    preferredCities: brief.preferredCities,
+    category: travelBrief.category,
+    audienceSlugs,
+  });
+  const hasKnowledgeContext =
+    knowledge.source === "supabase" && knowledge.notes.length > 0;
+  const context = hasKnowledgeContext
+    ? { source: "supabase" as const, notes: knowledge.notes }
+    : maskRetrievedExpertContext(await retrieveContext(message, history));
+  const expertMatches =
+    knowledge.experts.length > 0
+      ? matchExpertPool(travelBrief, knowledge.experts)
+      : matchExperts(travelBrief);
+  const recommendedThemes =
+    knowledge.themeLabels.length > 0 ? knowledge.themeLabels : buildThemes(brief);
+  const itinerary = buildItinerary(brief, expertMatches, knowledge.itineraryHints);
   const reply = await buildReply(
     message,
     brief,
     expertMatches,
     context,
     history,
+    recommendedThemes,
+    knowledge.itineraryHints,
   );
   const answer = buildStructuredAnswer(
     brief,
@@ -675,14 +860,7 @@ export async function runConciergeTurn({
     brief,
     recommendedCities: brief.preferredCities,
     recommendedThemes,
-    matchedExperts: expertMatches.map((expert) => ({
-      slug: expert.slug,
-      name: expert.name,
-      city: formatCity(expert.city),
-      headline: expert.headline,
-      languages: expert.languages,
-      reasons: expert.reasons,
-    })),
+    matchedExperts: expertMatches.map(toManagedExpertSummary),
     itinerary,
   };
 }

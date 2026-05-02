@@ -43,11 +43,18 @@ function scoreExpert(expert: ExpertProfile, brief: TravelBrief): ExpertMatch {
   };
 }
 
-export function matchExperts(brief: TravelBrief): ExpertMatch[] {
-  return mockExperts
+export function matchExpertPool(
+  brief: TravelBrief,
+  experts: ExpertProfile[],
+): ExpertMatch[] {
+  return experts
     .map((expert) => scoreExpert(expert, brief))
     .sort((a, b) => b.score - a.score)
     .slice(0, 3);
+}
+
+export function matchExperts(brief: TravelBrief): ExpertMatch[] {
+  return matchExpertPool(brief, mockExperts);
 }
 
 export function getExpertBySlug(slug: string) {
