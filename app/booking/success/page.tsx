@@ -20,6 +20,12 @@ export default function BookingSuccessPage({
 	const timeWindowParam = Array.isArray(searchParams?.timeWindow)
 		? searchParams?.timeWindow[0]
 		: searchParams?.timeWindow;
+	const statusParam = Array.isArray(searchParams?.status)
+		? searchParams?.status[0]
+		: searchParams?.status;
+	const requestParam = Array.isArray(searchParams?.request)
+		? searchParams?.request[0]
+		: searchParams?.request;
 
 	const expert = slugParam ? getExpertBySlug(slugParam) : undefined;
 	const expertType = expert
@@ -44,9 +50,9 @@ export default function BookingSuccessPage({
 							Your request is in.
 						</h1>
 						<p className="max-w-2xl text-sm leading-7 text-[#685149] sm:text-[15px]">
-							In the real product, this page appears after payment succeeds and
-							the booking is written to the database. Expert identity remains
-							locked until platform confirmation.
+							This request is now ready for platform review. In the paid flow,
+							checkout comes next; expert identity remains locked until payment
+							and platform confirmation.
 						</p>
 					</div>
 
@@ -75,6 +81,24 @@ export default function BookingSuccessPage({
 							<p className="text-sm text-[#8f725d]">Identity status</p>
 							<p className="mt-1 font-medium text-[#241915]">
 								Released after confirmation
+							</p>
+						</div>
+						<div>
+							<p className="text-sm text-[#8f725d]">Request status</p>
+							<p className="mt-1 font-medium text-[#241915]">
+								{statusParam === "submitted"
+									? "Stored for platform review"
+									: statusParam === "invalid"
+										? "Invalid request"
+										: statusParam === "missing-expert"
+											? "Expert match missing"
+											: "Demo preview"}
+							</p>
+						</div>
+						<div>
+							<p className="text-sm text-[#8f725d]">Request ID</p>
+							<p className="mt-1 break-all font-medium text-[#241915]">
+								{requestParam || "Generated after Supabase is configured"}
 							</p>
 						</div>
 						<div className="sm:col-span-2">

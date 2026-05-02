@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { submitBookingRequest } from "@/app/booking/actions";
 import { formatCategory, formatCity } from "@/lib/format";
 import { getExpertBySlug } from "@/lib/matching/match-experts";
 import { usd } from "@/lib/money";
@@ -80,7 +81,7 @@ export default function BookingPage({
 									</p>
 								</div>
 
-								<form action="/booking/success" className="space-y-5">
+								<form action={submitBookingRequest} className="space-y-5">
 									<input name="expert" type="hidden" value={expert.slug} />
 									<input
 										name="duration"

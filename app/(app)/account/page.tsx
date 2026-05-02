@@ -27,6 +27,10 @@ const demoStatuses = [
 		value: "Pending platform checkout",
 	},
 	{
+		label: "Request",
+		value: "Submitted before payment",
+	},
+	{
 		label: "Expert identity",
 		value: "Locked until confirmation",
 	},
@@ -121,6 +125,12 @@ function WorkspacePreview({ email }: { email?: string | null }) {
 								? `Signed in as ${email}.`
 								: "The public site can stay browse-first. Account starts only when a traveler wants to save a brief or request a managed expert match."}
 						</p>
+					</div>
+
+					<div className="rounded-[1.4rem] border border-dashed border-[#d8c5ad] bg-[#fffaf5]/62 p-4 text-sm leading-6 text-[#6a554d]">
+						MVP logic: a booking request can be stored before payment. The
+						expert remains hidden until checkout and platform confirmation are
+						complete.
 					</div>
 
 					<dl className="space-y-3 border-y border-[#eadcc9] py-5 text-sm text-[#6a554d]">
