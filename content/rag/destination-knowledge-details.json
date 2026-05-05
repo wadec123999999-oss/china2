@@ -1,0 +1,338 @@
+[
+  {
+    "slug": "beijing",
+    "type": "experience_cluster",
+    "title": "Read the Central Axis as a ritual machine",
+    "text": "For a culture-led Beijing route, the Central Axis should be explained as a designed sequence of gates, thresholds, courts, altars, and sightlines. The visitor is not only seeing famous buildings; they are learning how imperial China made power visible through symmetry, distance, approach, and ceremony.",
+    "tags": ["beijing", "central_axis", "ritual_space", "architecture"],
+    "metadata": {"why_it_matters": "Turns familiar monuments into an interpretive story about power and spatial order."}
+  },
+  {
+    "slug": "beijing",
+    "type": "experience_cluster",
+    "title": "Hutong mornings before the tourist day starts",
+    "text": "The strongest hutong experience is early and slow: breakfast stalls, bicycle movement, school runs, market sounds, courtyard doorways, and small neighborhood rituals. This makes Beijing feel lived-in rather than reduced to palace history.",
+    "tags": ["beijing", "hutong", "daily_life", "slow_walk"],
+    "metadata": {"best_for": ["return visitors", "photographers", "families"]}
+  },
+  {
+    "slug": "beijing",
+    "type": "food_context",
+    "title": "Beijing food as northern urban memory",
+    "text": "Instead of presenting Beijing food as a restaurant list, connect noodles, dumplings, hotpot, roast duck, breakfast breads, sesame paste, and seasonal snacks to migration, winter climate, imperial service economies, and neighborhood routines.",
+    "tags": ["beijing", "food", "context", "northern_china"],
+    "metadata": {"concierge_use": "Use when a traveler asks what to eat beyond Peking duck."}
+  },
+  {
+    "slug": "beijing",
+    "type": "route_design_note",
+    "title": "Do not overload Beijing day one",
+    "text": "For foreign travelers arriving long-haul, Beijing works better with one anchoring site, one neighborhood walk, and one atmospheric meal. Saving the Forbidden City or Great Wall for a clearer morning often produces a better premium experience than forcing a checklist immediately.",
+    "tags": ["beijing", "arrival_day", "pacing", "route_design"],
+    "metadata": {"avoid": "Jet-lagged monument stacking."}
+  },
+  {
+    "slug": "beijing",
+    "type": "audience_angle",
+    "title": "Beijing for design and urban planning travelers",
+    "text": "Design-minded travelers can read Beijing through axes, courtyard typologies, socialist boulevards, ring roads, hutong preservation, adaptive reuse, and the tension between planned order and everyday improvisation.",
+    "tags": ["beijing", "design_travel", "urban_planning", "architecture"],
+    "metadata": {"market_fit": ["architects", "design schools", "museum patrons"]}
+  },
+  {
+    "slug": "beijing",
+    "type": "conversion_hook",
+    "title": "Why book a Beijing expert",
+    "text": "Beijing is easy to visit but hard to read. A good expert adds value by explaining hierarchy, ritual, symbolism, neighborhood history, and pacing, so the traveler does not leave with only photos of large buildings.",
+    "tags": ["beijing", "expert", "conversion", "interpretation"],
+    "metadata": {"cta": "Offer a private route reading rather than generic guiding."}
+  },
+  {
+    "slug": "chengdu",
+    "type": "experience_cluster",
+    "title": "Pandas as the soft entry into Sichuan",
+    "text": "For most foreign travelers, pandas create immediate emotional desire. The route should use that attention as an opening, then move into Sichuan food, tea houses, parks, opera, and neighborhood life so Chengdu becomes more than a single animal encounter.",
+    "tags": ["chengdu", "pandas", "family_travel", "emotional_hook"],
+    "metadata": {"best_for": ["families", "couples", "first-time China visitors"]}
+  },
+  {
+    "slug": "chengdu",
+    "type": "food_context",
+    "title": "Sichuan food is a complete travel language",
+    "text": "Chengdu food should be explained through aroma, mouthfeel, peppercorn numbness, shared tables, late meals, snacks, markets, and the social confidence of local diners. The point is not only spice; it is how flavor organizes the day.",
+    "tags": ["chengdu", "sichuan_food", "hotpot", "street_food"],
+    "metadata": {"concierge_use": "Use when travelers ask whether Chengdu is too spicy."}
+  },
+  {
+    "slug": "chengdu",
+    "type": "experience_cluster",
+    "title": "Tea houses as Chengdu's social engine",
+    "text": "A Chengdu tea house is not filler time. It shows the city's pace: sitting, talking, watching, playing mahjong, listening, and letting the afternoon stretch. For foreigners, it is one of the easiest ways to feel local life without heavy explanation.",
+    "tags": ["chengdu", "tea_house", "slow_travel", "daily_life"],
+    "metadata": {"why_it_matters": "Converts comfort into cultural depth."}
+  },
+  {
+    "slug": "chengdu",
+    "type": "route_design_note",
+    "title": "Build Chengdu around appetite and rest",
+    "text": "Chengdu routes should leave enough space between meals. A premium route works better with fewer sites, stronger food choices, a tea-house pause, and one atmospheric evening than with a packed checklist.",
+    "tags": ["chengdu", "pacing", "food_route", "route_design"],
+    "metadata": {"avoid": "Over-scheduling before a serious dinner."}
+  },
+  {
+    "slug": "chengdu",
+    "type": "audience_angle",
+    "title": "Chengdu for travelers nervous about China",
+    "text": "Chengdu can make China feel approachable because the emotional hooks are clear: pandas, food, parks, tea, warmth, and a slower street rhythm. It is useful for guests who want culture without feeling constantly overwhelmed.",
+    "tags": ["chengdu", "first_time_china", "comfort", "soft_landing"],
+    "metadata": {"market_fit": ["families", "older couples", "comfort-seeking premium guests"]}
+  },
+  {
+    "slug": "chengdu",
+    "type": "conversion_hook",
+    "title": "Why book a Chengdu food expert",
+    "text": "A food expert prevents Chengdu from becoming random spicy meals. The value is ordering well, controlling heat level, explaining ingredients, choosing the right neighborhood, and connecting each meal to Sichuan social life.",
+    "tags": ["chengdu", "expert", "food_expert", "conversion"],
+    "metadata": {"cta": "Offer a curated flavor walk or private hotpot ordering session."}
+  },
+  {
+    "slug": "chongqing",
+    "type": "experience_cluster",
+    "title": "8D navigation as the attraction",
+    "text": "In Chongqing, movement itself is the experience. Elevators, stairs, ramps, monorails, bridges, tunnels, and layered roads make the city feel like a vertical puzzle. A good route should let travelers feel disoriented in a controlled and pleasurable way.",
+    "tags": ["chongqing", "8d_city", "urban_experience", "navigation"],
+    "metadata": {"why_it_matters": "Makes the city memorable beyond individual photo spots."}
+  },
+  {
+    "slug": "chongqing",
+    "type": "photo_route",
+    "title": "Cyberpunk-feeling Chongqing after dark",
+    "text": "Chongqing's strongest visual hours are often evening and night, when neon, fog, river reflections, bridges, hillside towers, and moving trains create a cinematic atmosphere. The route should prioritize transitions, viewpoints, and walking sequences rather than one static overlook.",
+    "tags": ["chongqing", "cyberpunk", "night", "photography"],
+    "metadata": {"best_for": ["photographers", "younger premium travelers", "visual storytellers"]}
+  },
+  {
+    "slug": "chongqing",
+    "type": "food_context",
+    "title": "Hotpot as mountain-city temperament",
+    "text": "Chongqing hotpot should be presented as part of the city's intensity: heat, oil, steam, noise, late hours, shared risk, and appetite. It matches the geography rather than sitting apart from it.",
+    "tags": ["chongqing", "hotpot", "food", "nightlife"],
+    "metadata": {"concierge_use": "Use when comparing Chengdu and Chongqing food culture."}
+  },
+  {
+    "slug": "chongqing",
+    "type": "route_design_note",
+    "title": "Chongqing needs night routing",
+    "text": "A Chongqing itinerary that ends too early misses the city's strongest identity. At least one evening should be designed around river movement, height changes, lit bridges, hotpot, and a final viewpoint or walk.",
+    "tags": ["chongqing", "night_route", "route_design", "river_city"],
+    "metadata": {"avoid": "Daytime-only sightseeing."}
+  },
+  {
+    "slug": "chongqing",
+    "type": "audience_angle",
+    "title": "Chongqing for travelers who think they have seen China",
+    "text": "Chongqing works well for repeat visitors because it breaks expectations of what a Chinese city feels like. It is dense, vertical, humid, loud, cinematic, and emotionally different from capital, coastal, or garden-city narratives.",
+    "tags": ["chongqing", "repeat_china", "visual_travel", "city_contrast"],
+    "metadata": {"market_fit": ["repeat visitors", "Asia-savvy travelers", "urban explorers"]}
+  },
+  {
+    "slug": "chongqing",
+    "type": "conversion_hook",
+    "title": "Why book a Chongqing route designer",
+    "text": "Chongqing is easy to visit badly because navigation is confusing and viral stops can waste time. A route designer adds value by sequencing levels, transit, viewpoints, food, and night atmosphere into a coherent 8D experience.",
+    "tags": ["chongqing", "expert", "route_design", "conversion"],
+    "metadata": {"cta": "Offer a private 8D city walk and night route."}
+  },
+  {
+    "slug": "quanzhou",
+    "type": "experience_cluster",
+    "title": "Quanzhou as China's outward-facing port memory",
+    "text": "Quanzhou should be explained as a place where China met the wider world through trade, religion, migration, language, food, and craft. This is the opposite of a closed imperial narrative and makes the city especially legible for foreign visitors.",
+    "tags": ["quanzhou", "maritime_silk_road", "world_heritage", "port_city"],
+    "metadata": {"why_it_matters": "Differentiates Quanzhou from generic coastal tourism."}
+  },
+  {
+    "slug": "quanzhou",
+    "type": "audience_angle",
+    "title": "Quanzhou for Southeast Asian Hokkien travelers",
+    "text": "For travelers from the Philippines, Malaysia, Singapore, Indonesia, and Thailand, Quanzhou can connect family memory, temple practice, dialect, food, surnames, and ancestral geography. The emotional sell is origin, not only heritage.",
+    "tags": ["quanzhou", "hokkien", "diaspora", "southeast_asia"],
+    "metadata": {"market_fit": ["Philippines", "Malaysia", "Singapore", "Indonesia", "Thailand"]}
+  },
+  {
+    "slug": "quanzhou",
+    "type": "experience_cluster",
+    "title": "Plural religion as a walking route",
+    "text": "Quanzhou's religious landscape can be shaped as a walking story: temples, mosques, shrines, churches, ancestor halls, maritime gods, traders, and families all appear in a compact urban fabric. The point is coexistence through daily life, not only monuments.",
+    "tags": ["quanzhou", "religion", "old_city", "walking_route"],
+    "metadata": {"best_for": ["religion scholars", "UNESCO travelers", "Southeast Asian diaspora guests"]}
+  },
+  {
+    "slug": "quanzhou",
+    "type": "food_context",
+    "title": "Quanzhou food as diaspora memory",
+    "text": "Food in Quanzhou should be connected to Minnan taste, port life, family kitchens, temple neighborhoods, snacks, seafood, noodle textures, and Southeast Asian echoes. For many visitors, flavor may feel like recognition rather than novelty.",
+    "tags": ["quanzhou", "food", "minnan", "diaspora"],
+    "metadata": {"concierge_use": "Use for Hokkien and Southeast Asian market personalization."}
+  },
+  {
+    "slug": "quanzhou",
+    "type": "craft_context",
+    "title": "Zanhua, incense, tea, porcelain, and Nanyin as living culture",
+    "text": "Quanzhou's craft and performance appeal should be treated as living systems: zanhua photography, incense making, Anxi tea, Dehua white porcelain, and Nanyin can turn heritage into touch, sound, scent, and embodied memory.",
+    "tags": ["quanzhou", "zanhua", "incense", "tea", "nanyin", "craft"],
+    "metadata": {"route_use": "Good for 4-5 day routes that move beyond old-city walking."}
+  },
+  {
+    "slug": "quanzhou",
+    "type": "conversion_hook",
+    "title": "Why book a Quanzhou cultural interpreter",
+    "text": "Quanzhou contains layers that many visitors will miss alone: port history, clan memory, religious plurality, Minnan language, diaspora emotion, and craft meanings. The expert's value is connecting fragments into a personal story.",
+    "tags": ["quanzhou", "expert", "conversion", "cultural_interpreter"],
+    "metadata": {"cta": "Offer a diaspora roots or Maritime Silk Road interpretation session."}
+  },
+  {
+    "slug": "jingdezhen",
+    "type": "experience_cluster",
+    "title": "Porcelain as a world-system story",
+    "text": "Jingdezhen is powerful because porcelain links local clay and kilns to global trade, royal collections, taste, imitation, technology, and design history. It lets foreign travelers understand China through objects that changed the world.",
+    "tags": ["jingdezhen", "porcelain", "global_trade", "design_history"],
+    "metadata": {"why_it_matters": "Connects craft to global cultural history."}
+  },
+  {
+    "slug": "jingdezhen",
+    "type": "experience_cluster",
+    "title": "Studio visits over shopping stops",
+    "text": "The premium Jingdezhen experience should prioritize studios, makers, materials, tools, firing, glazing, and failures. Shopping can happen, but it should follow understanding, not replace it.",
+    "tags": ["jingdezhen", "studio_visit", "craft", "maker_culture"],
+    "metadata": {"avoid": "Turning the city into a ceramics mall."}
+  },
+  {
+    "slug": "jingdezhen",
+    "type": "hands_on_experience",
+    "title": "Hands-on clay work needs context",
+    "text": "A short making or glazing session is most valuable when framed by clay sourcing, wheel skill, kiln risk, glaze chemistry, and the difference between tourist activity and serious craft labor.",
+    "tags": ["jingdezhen", "hands_on", "clay", "glaze", "craft_learning"],
+    "metadata": {"best_for": ["families", "designers", "students", "creative professionals"]}
+  },
+  {
+    "slug": "jingdezhen",
+    "type": "audience_angle",
+    "title": "Jingdezhen for design schools and collectors",
+    "text": "Jingdezhen can support high-value groups because it offers museums, old kiln districts, working studios, contemporary makers, collecting conversations, and a clear bridge between historical craft and current design practice.",
+    "tags": ["jingdezhen", "design_school", "collectors", "creative_travel"],
+    "metadata": {"market_fit": ["design schools", "museum patrons", "ceramics collectors"]}
+  },
+  {
+    "slug": "jingdezhen",
+    "type": "route_design_note",
+    "title": "Pair Jingdezhen with Beijing or Jingmai",
+    "text": "Jingdezhen pairs well with Beijing for power and taste, or with Jingmai for tea and porcelain as a material culture journey. These pairings help foreign travelers understand Chinese culture through use, ritual, and objects.",
+    "tags": ["jingdezhen", "route_pairing", "beijing", "jingmai", "material_culture"],
+    "metadata": {"route_use": "Useful for 6-7 day premium routes."}
+  },
+  {
+    "slug": "jingdezhen",
+    "type": "conversion_hook",
+    "title": "Why book a Jingdezhen maker connection",
+    "text": "Jingdezhen's best experiences are not always visible from public listings. A local maker connection can open studios, explain quality, avoid tourist traps, and help visitors understand what they are seeing or buying.",
+    "tags": ["jingdezhen", "expert", "maker", "conversion"],
+    "metadata": {"cta": "Offer a private studio-and-kiln route."}
+  },
+  {
+    "slug": "jingmai-mountain",
+    "type": "experience_cluster",
+    "title": "Ancient tea forest as living landscape",
+    "text": "Jingmai should be understood as tea, forest, village, ecology, and memory woven together. The strongest experience is not a quick tasting but walking through a landscape where tea trees, households, rituals, and seasons form a living system.",
+    "tags": ["jingmai", "tea_forest", "ecology", "slow_travel"],
+    "metadata": {"why_it_matters": "Frames tea as landscape rather than beverage."}
+  },
+  {
+    "slug": "jingmai-mountain",
+    "type": "route_design_note",
+    "title": "Jingmai requires slower logistics",
+    "text": "Jingmai is not suited to rushed itineraries. The route needs buffer time for mountain roads, weather, village pacing, tea sessions, and quiet mornings. The premium value appears only when the schedule stops fighting the place.",
+    "tags": ["jingmai", "logistics", "slow_travel", "pacing"],
+    "metadata": {"avoid": "Treating Jingmai as a one-night checklist stop."}
+  },
+  {
+    "slug": "jingmai-mountain",
+    "type": "tea_context",
+    "title": "Tea tasting as conversation, not performance",
+    "text": "A strong Jingmai tea session should connect leaf, age, forest, family practice, water, storage, taste, and hospitality. Foreign travelers need patient interpretation so tasting becomes cultural understanding rather than a confusing sequence of cups.",
+    "tags": ["jingmai", "tea", "tasting", "hospitality"],
+    "metadata": {"concierge_use": "Use when guests ask what they actually do in Jingmai."}
+  },
+  {
+    "slug": "jingmai-mountain",
+    "type": "audience_angle",
+    "title": "Jingmai for high-aesthetic retreat travelers",
+    "text": "Jingmai fits travelers who want mist, texture, quiet, village time, tea, and a reflective break from urban China. It should not be sold as generic wellness; its retreat quality comes from real landscape and tea culture.",
+    "tags": ["jingmai", "retreat", "wellness_adjacent", "aesthetic_travel"],
+    "metadata": {"market_fit": ["slow travelers", "photographers", "tea travelers", "repeat China visitors"]}
+  },
+  {
+    "slug": "jingmai-mountain",
+    "type": "route_pairing",
+    "title": "Jingmai and Jingdezhen as tea-and-porcelain journey",
+    "text": "Pairing Jingmai with Jingdezhen creates a refined material culture route: tea forests, cups, clay, glaze, ritual, and the objects used to host people. It is a strong alternative to conventional city sightseeing.",
+    "tags": ["jingmai", "jingdezhen", "tea", "porcelain", "material_culture"],
+    "metadata": {"duration": "7 days"}
+  },
+  {
+    "slug": "jingmai-mountain",
+    "type": "conversion_hook",
+    "title": "Why book a Jingmai tea host",
+    "text": "Without a host, Jingmai can feel beautiful but opaque. A good tea host explains village etiquette, tea choices, forest context, tasting language, and pacing, making the slow journey feel intentional.",
+    "tags": ["jingmai", "expert", "tea_host", "conversion"],
+    "metadata": {"cta": "Offer hosted tea forest days rather than generic sightseeing."}
+  },
+  {
+    "slug": "wudang-mountain",
+    "type": "experience_cluster",
+    "title": "Taoist mountain as spatial philosophy",
+    "text": "Wudang's temples, paths, peaks, gates, courtyards, clouds, and ascent should be read as a philosophical landscape. The experience is strongest when architecture and movement are connected to Taoist ideas of balance, stillness, and cultivation.",
+    "tags": ["wudang", "taoism", "sacred_mountain", "architecture"],
+    "metadata": {"why_it_matters": "Prevents Wudang from becoming generic mountain scenery."}
+  },
+  {
+    "slug": "wudang-mountain",
+    "type": "hands_on_experience",
+    "title": "Taiji introduction for travelers, not training camp",
+    "text": "A short Taiji session works best as embodied interpretation: posture, breath, weight shift, attention, and the idea of internal practice. Most visitors need a meaningful introduction, not an unrealistic martial arts promise.",
+    "tags": ["wudang", "taiji", "body_practice", "taoist_culture"],
+    "metadata": {"best_for": ["wellness-adjacent travelers", "philosophy travelers", "families"]}
+  },
+  {
+    "slug": "wudang-mountain",
+    "type": "route_design_note",
+    "title": "Wudang should start early",
+    "text": "Early light, quieter paths, thinner crowds, mountain air, and temple atmosphere are central to Wudang. A route that begins late loses much of the sacred-mountain feeling.",
+    "tags": ["wudang", "early_morning", "pacing", "mountain_route"],
+    "metadata": {"avoid": "Late-start checklist touring."}
+  },
+  {
+    "slug": "wudang-mountain",
+    "type": "audience_angle",
+    "title": "Wudang for philosophy and practice travelers",
+    "text": "Wudang is especially strong for visitors who want culture through body and mind: Taoism, Taiji, breath, mountain walking, architecture, and reflective space. It is not only for martial arts fans.",
+    "tags": ["wudang", "philosophy", "practice", "reflective_travel"],
+    "metadata": {"market_fit": ["Taoism learners", "martial culture travelers", "wellness-adjacent guests"]}
+  },
+  {
+    "slug": "wudang-mountain",
+    "type": "route_pairing",
+    "title": "Wudang and Beijing as ritual contrast",
+    "text": "Beijing and Wudang make a strong contrast: state ritual and imperial order in the capital, then mountain spirituality and internal cultivation in Wudang. This pairing gives travelers two different models of Chinese order.",
+    "tags": ["wudang", "beijing", "route_pairing", "ritual_contrast"],
+    "metadata": {"duration": "6-7 days"}
+  },
+  {
+    "slug": "wudang-mountain",
+    "type": "conversion_hook",
+    "title": "Why book a Wudang practice interpreter",
+    "text": "A Wudang interpreter adds value by connecting temples, stories, Taoist ideas, Taiji movement, and route pacing. Without that context, visitors may see scenery and performances but miss the internal logic of the place.",
+    "tags": ["wudang", "expert", "taiji", "conversion"],
+    "metadata": {"cta": "Offer a Taoist mountain and Taiji primer."}
+  }
+]

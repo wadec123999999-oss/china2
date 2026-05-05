@@ -6,6 +6,7 @@ const rootDir = process.cwd();
 const sourcePath = path.join(rootDir, "lib", "destination-positioning.ts");
 const outputDir = path.join(rootDir, "content", "rag");
 const outputPath = path.join(outputDir, "destination-knowledge.jsonl");
+const detailCardsPath = path.join(outputDir, "destination-knowledge-details.json");
 
 const cityLabels = {
 	beijing: "Beijing",
@@ -38,7 +39,16 @@ function normalizeId(value) {
 		.replace(/^-+|-+$/g, "");
 }
 
-function createRecord({ slug, type, title, text, tags = [], metadata = {} }) {
+function createRecord({
+	slug,
+	type,
+	title,
+	text,
+	tags = [],
+	metadata = {},
+	source = "a-deeper-china-redesign/lib/destination-positioning.ts",
+	version = "v1-static-positioning",
+}) {
 	return {
 		id: `${slug}:${type}:${normalizeId(title)}`,
 		destination_slug: slug.replace(/-/g, "_"),
@@ -49,9 +59,47 @@ function createRecord({ slug, type, title, text, tags = [], metadata = {} }) {
 		text,
 		tags,
 		metadata,
-		source: "a-deeper-china-redesign/lib/destination-positioning.ts",
-		version: "v1-static-positioning",
+		source,
+		version,
 	};
+}
+
+function readDetailCards() {
+	if (!fs.existsSync(detailCardsPath)) return [];
+	return JSON.parse(fs.readFileSync(detailCardsPath, "utf8"));
+}
+
+function toAllowedContentType(type) {
+	const allowedTypes = new Set([
+		"positioning_overview",
+		"sell_point",
+		"audience_fit",
+		"route_seed",
+		"traveler_faq",
+		"attraction",
+		"experience",
+		"food",
+		"transport",
+		"market_profile",
+		"source_note",
+	]);
+
+	if (allowedTypes.has(type)) return type;
+
+	const mappings = {
+		experience_cluster: "experience",
+		photo_route: "experience",
+		craft_context: "experience",
+		hands_on_experience: "experience",
+		tea_context: "experience",
+		food_context: "food",
+		route_design_note: "route_seed",
+		route_pairing: "route_seed",
+		audience_angle: "market_profile",
+		conversion_hook: "source_note",
+	};
+
+	return mappings[type] ?? "source_note";
 }
 
 function buildRecords(positioningBySlug) {
@@ -133,7 +181,22 @@ function buildRecords(positioningBySlug) {
 }
 
 const positioningBySlug = readPositioningObject();
-const records = buildRecords(positioningBySlug);
+const detailCards = readDetailCards();
+const records = [
+	...buildRecords(positioningBySlug),
+	...detailCards.map((card) =>
+		createRecord({
+			...card,
+			type: toAllowedContentType(card.type),
+			metadata: {
+				...(card.metadata ?? {}),
+				detail_type: card.type,
+			},
+			source: "a-deeper-china-redesign/content/rag/destination-knowledge-details.json",
+			version: "v1-curated-detail-cards",
+		}),
+	),
+];
 
 fs.mkdirSync(outputDir, { recursive: true });
 fs.writeFileSync(
