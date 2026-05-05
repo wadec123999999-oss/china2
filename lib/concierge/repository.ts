@@ -136,6 +136,64 @@ type RagDocumentRow = {
 	metadata: Record<string, unknown>;
 };
 
+function getEmbeddingConfig() {
+	const apiKey =
+		process.env.EMBEDDING_API_KEY ??
+		process.env.OPENAI_API_KEY ??
+		process.env.LLM_API_KEY;
+	const baseUrl =
+		process.env.EMBEDDING_BASE_URL ??
+		process.env.OPENAI_BASE_URL ??
+		process.env.LLM_BASE_URL ??
+		"https://api.openai.com/v1";
+	const model = process.env.EMBEDDING_MODEL ?? "text-embedding-3-small";
+	const dimensions = Number.parseInt(
+		process.env.EMBEDDING_DIMENSIONS ?? "1536",
+		10,
+	);
+
+	if (!apiKey || dimensions !== 1536) return null;
+
+	return {
+		apiKey,
+		baseUrl,
+		model,
+		dimensions,
+	};
+}
+
+async function createQueryEmbedding(text: string) {
+	const config = getEmbeddingConfig();
+	if (!config) return null;
+
+	try {
+		const response = await fetch(
+			`${config.baseUrl.replace(/\/$/, "")}/embeddings`,
+			{
+				method: "POST",
+				headers: {
+					Authorization: `Bearer ${config.apiKey}`,
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					model: config.model,
+					input: text,
+					dimensions: config.dimensions,
+				}),
+			},
+		);
+
+		if (!response.ok) return null;
+		const data = await response.json();
+		const embedding = data?.data?.[0]?.embedding;
+		return Array.isArray(embedding) && embedding.length === config.dimensions
+			? embedding
+			: null;
+	} catch {
+		return null;
+	}
+}
+
 function isCity(value: string): value is City {
 	return [
 		"beijing",
@@ -652,11 +710,18 @@ export async function fetchConciergeKnowledge({
 		}
 
 		try {
-			const ragResult = await supabase.rpc("search_rag_documents", {
-				query_text: message,
-				match_destination_slugs: citySlugs,
-				match_limit: 12,
-			});
+			const queryEmbedding = await createQueryEmbedding(message);
+			const ragResult = queryEmbedding
+				? await supabase.rpc("match_rag_documents", {
+						query_embedding: queryEmbedding,
+						match_destination_slugs: citySlugs,
+						match_limit: 12,
+					})
+				: await supabase.rpc("search_rag_documents", {
+						query_text: message,
+						match_destination_slugs: citySlugs,
+						match_limit: 12,
+					});
 
 			if (!ragResult.error) {
 				ragDocumentRows = (ragResult.data ?? []) as RagDocumentRow[];
