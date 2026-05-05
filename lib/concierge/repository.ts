@@ -101,6 +101,28 @@ type PositioningRow = {
 	conversion_pitch: string;
 };
 
+type SellPointRow = {
+	destination_slug: string;
+	sort_order: number;
+	title: string;
+	body: string;
+};
+
+type RouteSeedRow = {
+	destination_slug: string;
+	sort_order: number;
+	title: string;
+	duration: string;
+	body: string;
+};
+
+type FaqRow = {
+	destination_slug: string;
+	sort_order: number;
+	question: string;
+	answer: string;
+};
+
 function isCity(value: string): value is City {
 	return [
 		"beijing",
@@ -386,6 +408,9 @@ export async function fetchConciergeKnowledge({
 		let audienceFitRows: AudienceFitRow[] = [];
 		let destinationAudienceFits: DestinationAudienceFitRow[] = [];
 		let destinationComparisons: DestinationComparisonRow[] = [];
+		let sellPointRows: SellPointRow[] = [];
+		let routeSeedRows: RouteSeedRow[] = [];
+		let faqRows: FaqRow[] = [];
 
 		if (audienceSlugs.length > 0 && knowledgeCardIds.length > 0) {
 			const { data } = await supabase
@@ -425,6 +450,46 @@ export async function fetchConciergeKnowledge({
 
 			destinationComparisons = (comparisonResult.data ??
 				[]) as DestinationComparisonRow[];
+		}
+
+		try {
+			const sellPointQuery = supabase
+				.from("destination_sell_point_cards")
+				.select("destination_slug, sort_order, title, body")
+				.order("sort_order", { ascending: true })
+				.limit(24);
+			const routeSeedQuery = supabase
+				.from("destination_route_seeds")
+				.select("destination_slug, sort_order, title, duration, body")
+				.order("sort_order", { ascending: true })
+				.limit(24);
+			const faqQuery = supabase
+				.from("destination_faqs")
+				.select("destination_slug, sort_order, question, answer")
+				.order("sort_order", { ascending: true })
+				.limit(20);
+
+			const [sellPointResult, routeSeedResult, faqResult] = await Promise.all([
+				citySlugs.length > 0
+					? sellPointQuery.in("destination_slug", citySlugs)
+					: sellPointQuery,
+				citySlugs.length > 0
+					? routeSeedQuery.in("destination_slug", citySlugs)
+					: routeSeedQuery,
+				citySlugs.length > 0 ? faqQuery.in("destination_slug", citySlugs) : faqQuery,
+			]);
+
+			if (!sellPointResult.error) {
+				sellPointRows = (sellPointResult.data ?? []) as SellPointRow[];
+			}
+			if (!routeSeedResult.error) {
+				routeSeedRows = (routeSeedResult.data ?? []) as RouteSeedRow[];
+			}
+			if (!faqResult.error) {
+				faqRows = (faqResult.data ?? []) as FaqRow[];
+			}
+		} catch {
+			// These tables are additive V1 decision-support data. Ignore them until the migration is applied.
 		}
 
 		const destinationNotes = (destinationRows ?? [])
@@ -508,6 +573,20 @@ export async function fetchConciergeKnowledge({
 				return `${comparison.comparison_question} Short answer: ${comparison.short_answer} ${leftCity}: ${comparison.why_left} ${rightCity}: ${comparison.why_right} Deciding factor: ${comparison.deciding_factor}`;
 			});
 
+		const sellPointNotes = sellPointRows.slice(0, 6).map((point) => {
+			const cityLabel = isCity(point.destination_slug)
+				? formatCity(point.destination_slug)
+				: point.destination_slug;
+			return `${cityLabel} selling point: ${point.title}. ${point.body}`;
+		});
+
+		const faqNotes = faqRows.slice(0, 4).map((faq) => {
+			const cityLabel = isCity(faq.destination_slug)
+				? formatCity(faq.destination_slug)
+				: faq.destination_slug;
+			return `${cityLabel} traveler FAQ: ${faq.question} Answer direction: ${faq.answer}`;
+		});
+
 		const rankedModules = ((moduleRows ?? []) as ModuleRow[])
 			.map((module) => {
 				let score = 0;
@@ -559,6 +638,17 @@ export async function fetchConciergeKnowledge({
 			});
 		}
 
+		for (const route of routeSeedRows.slice(0, 4)) {
+			itineraryHints.push({
+				title: route.title,
+				city: isCity(route.destination_slug)
+					? formatCity(route.destination_slug)
+					: route.destination_slug,
+				days: Number.parseInt(route.duration, 10) || 1,
+				summary: `${route.duration}: ${route.body}`,
+			});
+		}
+
 		const itineraryNotes = itineraryHints.map(
 			(item) =>
 				`${item.title} (${item.city}, ${item.days} days): ${item.summary}`,
@@ -573,8 +663,10 @@ export async function fetchConciergeKnowledge({
 			...positioningNotes,
 			...comparisonNotes,
 			...destinationFitNotes,
+			...sellPointNotes,
 			...destinationNotes,
 			...cardNotes,
+			...faqNotes,
 			...itineraryNotes,
 			...expertNotes,
 		].slice(0, 12);

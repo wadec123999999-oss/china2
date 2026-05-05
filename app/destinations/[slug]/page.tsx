@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { cityShowcase } from "@/lib/city-showcase";
+import { destinationPositioningBySlug } from "@/lib/destination-positioning";
 
 const cityScenes: Record<
   (typeof cityShowcase)[number]["slug"],
@@ -106,6 +107,7 @@ export default function DestinationDetailPage({
   }
 
   const scene = cityScenes[city.slug];
+  const positioning = destinationPositioningBySlug[city.slug];
 
   return (
     <main className="relative min-h-[calc(100vh-76px)] overflow-hidden bg-[#f6efe6] px-6 py-8 text-[#231815]">
@@ -137,7 +139,7 @@ export default function DestinationDetailPage({
               <span>Route lens</span>
             </div>
             <p className="mt-5 text-2xl font-semibold tracking-[-0.035em] text-[#271a16]">
-              {city.blurb}
+              {positioning.signatureHook}
             </p>
             <p className="mt-4 text-sm leading-7 text-[#5e4b43] sm:text-[15px]">
               {city.rhythm}
@@ -201,6 +203,105 @@ export default function DestinationDetailPage({
             <p className="mt-3 text-sm leading-7 text-[#634f47] sm:text-[15px]">
               {scene.fitBody}
             </p>
+          </div>
+        </section>
+
+        <section className="grid gap-4 lg:grid-cols-[0.9fr_1.1fr]">
+          <div className="rounded-[2rem] border border-white/60 bg-[linear-gradient(180deg,rgba(255,252,247,0.84),rgba(244,236,225,0.72))] p-5 shadow-[0_30px_80px_-44px_rgba(58,36,24,0.28)] backdrop-blur-2xl sm:p-6">
+            <p className="text-[11px] uppercase tracking-[0.24em] text-[#8f725d]">
+              Why come here
+            </p>
+            <h2 className="mt-4 text-3xl font-semibold tracking-[-0.04em] text-[#241915] sm:text-[2.15rem]">
+              The reason this city earns a place in the route.
+            </h2>
+            <p className="mt-4 text-sm leading-7 text-[#634f47] sm:text-[15px]">
+              {positioning.whyVisit}
+            </p>
+            <div className="mt-5 rounded-[1.35rem] border border-[#e4d3c0] bg-[#fffaf5]/76 p-4">
+              <p className="text-[10px] uppercase tracking-[0.22em] text-[#9d7e63]">
+                Avoid this framing
+              </p>
+              <p className="mt-2 text-sm leading-6 text-[#6a554d]">
+                {positioning.doNotSellAs}
+              </p>
+            </div>
+          </div>
+
+          <div className="grid gap-3">
+            {positioning.coreSellPoints.map((point) => (
+              <div
+                key={point.title}
+                className="rounded-[1.65rem] border border-white/60 bg-[rgba(255,251,246,0.84)] p-5 shadow-[0_22px_58px_-38px_rgba(58,36,24,0.2)]"
+              >
+                <p className="text-[10px] uppercase tracking-[0.22em] text-[#9d7e63]">
+                  Core selling point
+                </p>
+                <h3 className="mt-2 text-xl font-semibold tracking-[-0.035em] text-[#241915]">
+                  {point.title}
+                </h3>
+                <p className="mt-2 text-sm leading-7 text-[#634f47]">
+                  {point.body}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="grid gap-4 lg:grid-cols-[0.82fr_1.18fr]">
+          <div className="rounded-[2rem] border border-white/60 bg-[linear-gradient(180deg,rgba(255,252,247,0.82),rgba(244,236,225,0.72))] p-5 shadow-[0_26px_70px_-42px_rgba(58,36,24,0.24)] backdrop-blur-2xl sm:p-6">
+            <p className="text-[11px] uppercase tracking-[0.24em] text-[#8f725d]">
+              Best for
+            </p>
+            <div className="mt-5 flex flex-wrap gap-2">
+              {positioning.bestFor.map((fit) => (
+                <span
+                  key={fit}
+                  className="rounded-full border border-[#e3d2bf] bg-[#fffaf5] px-3 py-1.5 text-xs leading-5 text-[#6b574e]"
+                >
+                  {fit}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div className="grid gap-3 md:grid-cols-3">
+            {positioning.routeSeeds.map((route) => (
+              <div
+                key={route.title}
+                className="rounded-[1.65rem] border border-[#decbb4]/70 bg-[rgba(255,251,246,0.9)] p-5 shadow-[0_22px_58px_-38px_rgba(58,36,24,0.22)]"
+              >
+                <p className="text-[10px] uppercase tracking-[0.22em] text-[#9d7e63]">
+                  {route.duration}
+                </p>
+                <h3 className="mt-2 text-lg font-semibold tracking-[-0.035em] text-[#241915]">
+                  {route.title}
+                </h3>
+                <p className="mt-2 text-sm leading-6 text-[#634f47]">
+                  {route.body}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="rounded-[2rem] border border-white/60 bg-[linear-gradient(180deg,rgba(255,252,247,0.82),rgba(244,236,225,0.72))] p-5 shadow-[0_30px_80px_-44px_rgba(58,36,24,0.24)] backdrop-blur-2xl sm:p-6">
+          <p className="text-[11px] uppercase tracking-[0.24em] text-[#8f725d]">
+            Traveler questions
+          </p>
+          <div className="mt-5 grid gap-3 md:grid-cols-2">
+            {positioning.faq.map((item) => (
+              <div
+                key={item.question}
+                className="rounded-[1.45rem] border border-[#e4d3c0] bg-[#fffaf5]/76 p-4"
+              >
+                <h3 className="text-base font-semibold tracking-[-0.025em] text-[#241915]">
+                  {item.question}
+                </h3>
+                <p className="mt-2 text-sm leading-6 text-[#6a554d]">
+                  {item.answer}
+                </p>
+              </div>
+            ))}
           </div>
         </section>
 

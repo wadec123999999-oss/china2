@@ -40,7 +40,7 @@ export default function Home() {
 			</div>
 
 			<div className="relative z-10 flex min-h-[calc(100vh-76px)] flex-col justify-between">
-				<section className="grain-overlay relative left-1/2 right-1/2 ml-[-50vw] mr-[-50vw] w-screen overflow-hidden bg-transparent px-6 pt-8 pb-2">
+				<section className="grain-overlay relative left-1/2 right-1/2 ml-[-50vw] mr-[-50vw] w-screen overflow-hidden bg-transparent px-6 pb-2 pt-8">
 					<div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
 						<div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#fff4e6]/62 via-[#fff4e8]/24 to-transparent" />
 					</div>
@@ -52,7 +52,7 @@ export default function Home() {
 						<p className="mx-auto mt-3 max-w-2xl text-base leading-7 text-[#725b57] sm:mt-4 sm:text-xl sm:leading-8">
 							A refined way into China for travelers drawn to culture,
 							architecture, food, ritual, craft, and the routes that do not feel
-							like everyone else’s.
+							like everyone else&apos;s.
 						</p>
 					</div>
 				</section>
