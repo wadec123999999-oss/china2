@@ -6,7 +6,7 @@ const rootDir = process.cwd();
 const sourcePath = path.join(rootDir, "lib", "destination-positioning.ts");
 const outputDir = path.join(rootDir, "content", "rag");
 const outputPath = path.join(outputDir, "destination-knowledge.jsonl");
-const detailCardsPath = path.join(outputDir, "destination-knowledge-details.json");
+const detailCardFilePattern = /^destination-knowledge-(details|practical)\.json$/;
 
 const cityLabels = {
 	beijing: "Beijing",
@@ -65,8 +65,19 @@ function createRecord({
 }
 
 function readDetailCards() {
-	if (!fs.existsSync(detailCardsPath)) return [];
-	return JSON.parse(fs.readFileSync(detailCardsPath, "utf8"));
+	if (!fs.existsSync(outputDir)) return [];
+
+	return fs
+		.readdirSync(outputDir)
+		.filter((fileName) => detailCardFilePattern.test(fileName))
+		.flatMap((fileName) =>
+			JSON.parse(fs.readFileSync(path.join(outputDir, fileName), "utf8")).map(
+				(card) => ({
+					...card,
+					sourceFile: fileName,
+				}),
+			),
+		);
 }
 
 function toAllowedContentType(type) {
@@ -192,7 +203,7 @@ const records = [
 				...(card.metadata ?? {}),
 				detail_type: card.type,
 			},
-			source: "a-deeper-china-redesign/content/rag/destination-knowledge-details.json",
+			source: `a-deeper-china-redesign/content/rag/${card.sourceFile}`,
 			version: "v1-curated-detail-cards",
 		}),
 	),
