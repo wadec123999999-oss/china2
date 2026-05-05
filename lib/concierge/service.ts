@@ -700,6 +700,8 @@ function buildStructuredAnswer(
   const sourceLabel =
     context.source === "supabase"
       ? "Grounded in expert database context"
+      : context.source === "static"
+        ? "Grounded in destination knowledge base"
       : context.source === "mock"
         ? "Grounded in curated destination demo data"
         : "Generated from concierge trip logic";
@@ -744,9 +746,11 @@ function buildEvidenceCards(
     meta:
       context.source === "supabase"
         ? "Expert database context"
-        : context.source === "mock"
-          ? "Curated demo knowledge"
-          : "Concierge internal context",
+        : context.source === "static"
+          ? "Destination knowledge base"
+          : context.source === "mock"
+            ? "Curated demo knowledge"
+            : "Concierge internal context",
   }));
 
   const signalCard = {
@@ -771,7 +775,7 @@ async function buildReply(
   const topExpert = formatManagedExpertLabel(matchedExperts[0]);
   const contextLine =
     context.notes.length > 0
-      ? `I also pulled relevant context from ${context.source === "supabase" ? "your database" : "the current demo knowledge base"}.`
+      ? `I also pulled relevant context from ${context.source === "supabase" ? "your database" : context.source === "static" ? "the destination knowledge base" : "the current demo knowledge base"}.`
       : "I'm still working from the built-in destination logic and demo expert set.";
   const positioningBrief = getPositioningBrief(context);
   const openingLine = positioningBrief ?? buildFocusedOpening(brief);
@@ -817,9 +821,9 @@ export async function runConciergeTurn({
     audienceSlugs,
   });
   const hasKnowledgeContext =
-    knowledge.source === "supabase" && knowledge.notes.length > 0;
+    knowledge.source !== "none" && knowledge.notes.length > 0;
   const context = hasKnowledgeContext
-    ? { source: "supabase" as const, notes: knowledge.notes }
+    ? { source: knowledge.source, notes: knowledge.notes }
     : maskRetrievedExpertContext(await retrieveContext(message, history));
   const expertMatches =
     knowledge.experts.length > 0

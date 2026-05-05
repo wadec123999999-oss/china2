@@ -1,5 +1,5 @@
 export type RetrievedContext = {
-  source: "supabase" | "mock" | "none";
+  source: "supabase" | "static" | "mock" | "none";
   notes: string[];
 };
 
@@ -50,7 +50,7 @@ export type ChatApiResponse = {
   answer: StructuredAnswer;
   evidence: EvidenceCard[];
   followUpQuestions: string[];
-  contextSource: "supabase" | "mock" | "none";
+  contextSource: "supabase" | "static" | "mock" | "none";
   usedModel: boolean;
   brief: BriefPayload;
   recommendedCities: string[];

@@ -1,11 +1,12 @@
 import type { Category, City } from "@/lib/constants";
+import { destinationPositioningBySlug } from "@/lib/destination-positioning";
 import { formatCategory, formatCity } from "@/lib/format";
 import type { ExpertProfile } from "@/lib/mock-data";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { getServerSupabaseEnv } from "@/lib/supabase/env";
 
 export type ConciergeKnowledge = {
-	source: "supabase" | "none";
+	source: "supabase" | "static" | "none";
 	notes: string[];
 	experts: ExpertProfile[];
 	itineraryHints: Array<{
@@ -190,6 +191,70 @@ function normalizeCitySlug(city: string) {
 	return city.toLowerCase().replace(/\s+/g, "_");
 }
 
+function toStaticDestinationSlug(city: string) {
+	const normalized = normalizeCitySlug(city);
+	return normalized.replace(/_/g, "-") as keyof typeof destinationPositioningBySlug;
+}
+
+function buildStaticDestinationKnowledge(preferredCities: string[]): ConciergeKnowledge {
+	const citySlugs = preferredCities
+		.map(toStaticDestinationSlug)
+		.filter((slug) => slug in destinationPositioningBySlug);
+
+	if (citySlugs.length === 0) {
+		return {
+			source: "none",
+			notes: [],
+			experts: [],
+			itineraryHints: [],
+			themeLabels: [],
+			audienceLabels: [],
+		};
+	}
+
+	const notes = citySlugs.flatMap((slug) => {
+		const positioning = destinationPositioningBySlug[slug];
+		return [
+			`${slug.replace(/-/g, " ")}: ${positioning.signatureHook} Why visit: ${positioning.whyVisit}`,
+			...positioning.coreSellPoints
+				.slice(0, 3)
+				.map((point) => `${slug.replace(/-/g, " ")} selling point: ${point.title}. ${point.body}`),
+			...positioning.faq
+				.slice(0, 2)
+				.map((item) => `${slug.replace(/-/g, " ")} traveler FAQ: ${item.question} Answer direction: ${item.answer}`),
+		];
+	});
+
+	const itineraryHints = citySlugs.flatMap((slug) => {
+		const positioning = destinationPositioningBySlug[slug];
+		return positioning.routeSeeds.slice(0, 3).map((route) => ({
+			title: route.title,
+			city: slug.replace(/-/g, " "),
+			days: Number.parseInt(route.duration, 10) || 1,
+			summary: `${route.duration}: ${route.body}`,
+		}));
+	});
+
+	const themeLabels = Array.from(
+		new Set(
+			citySlugs.flatMap((slug) =>
+				destinationPositioningBySlug[slug].coreSellPoints.map(
+					(point) => point.title,
+				),
+			),
+		),
+	).slice(0, 4);
+
+	return {
+		source: "static",
+		notes: notes.slice(0, 12),
+		experts: [],
+		itineraryHints,
+		themeLabels,
+		audienceLabels: [],
+	};
+}
+
 function shouldCompareCities(message: string, citySlugs: City[]) {
 	const lowered = message.toLowerCase();
 	return (
@@ -279,14 +344,7 @@ export async function fetchConciergeKnowledge({
 }): Promise<ConciergeKnowledge> {
 	const env = getServerSupabaseEnv();
 	if (!env.success) {
-		return {
-			source: "none",
-			notes: [],
-			experts: [],
-			itineraryHints: [],
-			themeLabels: [],
-			audienceLabels: [],
-		};
+		return buildStaticDestinationKnowledge(preferredCities);
 	}
 
 	try {
@@ -394,14 +452,7 @@ export async function fetchConciergeKnowledge({
 			moduleError ||
 			positioningError
 		) {
-			return {
-				source: "none",
-				notes: [],
-				experts: [],
-				itineraryHints: [],
-				themeLabels: [],
-				audienceLabels: [],
-			};
+			return buildStaticDestinationKnowledge(preferredCities);
 		}
 
 		const knowledgeCardIds = (cardRows ?? []).map((row) => row.id);
@@ -676,14 +727,7 @@ export async function fetchConciergeKnowledge({
 			experts.length === 0 &&
 			itineraryHints.length === 0
 		) {
-			return {
-				source: "none",
-				notes: [],
-				experts: [],
-				itineraryHints: [],
-				themeLabels: [],
-				audienceLabels: [],
-			};
+			return buildStaticDestinationKnowledge(preferredCities);
 		}
 
 		return {
@@ -695,13 +739,6 @@ export async function fetchConciergeKnowledge({
 			audienceLabels,
 		};
 	} catch {
-		return {
-			source: "none",
-			notes: [],
-			experts: [],
-			itineraryHints: [],
-			themeLabels: [],
-			audienceLabels: [],
-		};
+		return buildStaticDestinationKnowledge(preferredCities);
 	}
 }
