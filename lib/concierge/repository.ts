@@ -196,6 +196,13 @@ function toStaticDestinationSlug(city: string) {
 	return normalized.replace(/_/g, "-") as keyof typeof destinationPositioningBySlug;
 }
 
+function formatStaticDestinationSlug(
+	slug: keyof typeof destinationPositioningBySlug,
+) {
+	const databaseSlug = slug.replace(/-/g, "_");
+	return isCity(databaseSlug) ? formatCity(databaseSlug) : slug.replace(/-/g, " ");
+}
+
 function buildStaticDestinationKnowledge(preferredCities: string[]): ConciergeKnowledge {
 	const citySlugs = preferredCities
 		.map(toStaticDestinationSlug)
@@ -214,14 +221,15 @@ function buildStaticDestinationKnowledge(preferredCities: string[]): ConciergeKn
 
 	const notes = citySlugs.flatMap((slug) => {
 		const positioning = destinationPositioningBySlug[slug];
+		const cityLabel = formatStaticDestinationSlug(slug);
 		return [
-			`${slug.replace(/-/g, " ")}: ${positioning.signatureHook} Why visit: ${positioning.whyVisit}`,
+			`${cityLabel}: ${positioning.signatureHook} Why visit: ${positioning.whyVisit}`,
 			...positioning.coreSellPoints
 				.slice(0, 3)
-				.map((point) => `${slug.replace(/-/g, " ")} selling point: ${point.title}. ${point.body}`),
+				.map((point) => `${cityLabel} selling point: ${point.title}. ${point.body}`),
 			...positioning.faq
 				.slice(0, 2)
-				.map((item) => `${slug.replace(/-/g, " ")} traveler FAQ: ${item.question} Answer direction: ${item.answer}`),
+				.map((item) => `${cityLabel} traveler FAQ: ${item.question} Answer direction: ${item.answer}`),
 		];
 	});
 
@@ -229,7 +237,7 @@ function buildStaticDestinationKnowledge(preferredCities: string[]): ConciergeKn
 		const positioning = destinationPositioningBySlug[slug];
 		return positioning.routeSeeds.slice(0, 3).map((route) => ({
 			title: route.title,
-			city: slug.replace(/-/g, " "),
+			city: formatStaticDestinationSlug(slug),
 			days: Number.parseInt(route.duration, 10) || 1,
 			summary: `${route.duration}: ${route.body}`,
 		}));
