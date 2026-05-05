@@ -686,7 +686,8 @@ function buildItinerary(
 }
 
 function getPositioningBrief(context: RetrievedContext) {
-  return context.notes.find((note) => note.includes("Why visit:")) ?? null;
+  const note = context.notes.find((item) => item.includes("Why visit:"));
+  return note?.split(" Why visit:")[0] ?? null;
 }
 
 function buildStructuredAnswer(
