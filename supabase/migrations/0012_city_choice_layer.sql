@@ -43,6 +43,29 @@ create index if not exists idx_destination_audience_fits_audience
 create index if not exists idx_destination_comparisons_pair
   on public.destination_comparisons(left_destination_slug, right_destination_slug);
 
+insert into public.traveler_audiences (slug, name, market_scope, description, trip_motive)
+values
+  (
+    'first_time_china',
+    'First-time China Travelers',
+    'global',
+    'Travelers who need a clear first framework for understanding China before moving into more specialized destinations.',
+    'orientation, iconic context, lower-friction planning, and confidence building'
+  ),
+  (
+    'wellness_slow_travel',
+    'Wellness and Slow Travel Guests',
+    'global',
+    'Travelers seeking restorative pace, embodied culture, nature, tea, movement, and reflective settings without generic wellness packaging.',
+    'slow pace, mountain routes, tea, practice, quiet, and cultural substance'
+  )
+on conflict (slug) do update set
+  name = excluded.name,
+  market_scope = excluded.market_scope,
+  description = excluded.description,
+  trip_motive = excluded.trip_motive,
+  updated_at = timezone('utc', now());
+
 insert into public.destination_audience_fits (
   destination_slug,
   audience_slug,

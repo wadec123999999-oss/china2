@@ -3,7 +3,7 @@ on public.rag_documents
 using gin (
   to_tsvector(
     'english',
-    coalesce(title, '') || ' ' || coalesce(body, '') || ' ' || array_to_string(tags, ' ')
+    coalesce(title, '') || ' ' || coalesce(body, '')
   )
 );
 
@@ -41,7 +41,7 @@ as $$
     ts_rank_cd(
       to_tsvector(
         'english',
-        coalesce(doc.title, '') || ' ' || coalesce(doc.body, '') || ' ' || array_to_string(doc.tags, ' ')
+        coalesce(doc.title, '') || ' ' || coalesce(doc.body, '')
       ),
       query.tsq
     ) as rank
@@ -49,7 +49,7 @@ as $$
   where
     query.tsq @@ to_tsvector(
       'english',
-      coalesce(doc.title, '') || ' ' || coalesce(doc.body, '') || ' ' || array_to_string(doc.tags, ' ')
+      coalesce(doc.title, '') || ' ' || coalesce(doc.body, '')
     )
     and (
       match_destination_slugs is null

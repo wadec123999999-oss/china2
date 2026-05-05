@@ -652,17 +652,11 @@ export async function fetchConciergeKnowledge({
 		}
 
 		try {
-			const ragQuery = supabase
-				.from("rag_documents")
-				.select(
-					"id, destination_slug, destination_name, content_type, title, body, tags, metadata",
-				)
-				.limit(80);
-
-			const ragResult =
-				citySlugs.length > 0
-					? await ragQuery.in("destination_slug", citySlugs)
-					: await ragQuery;
+			const ragResult = await supabase.rpc("search_rag_documents", {
+				query_text: message,
+				match_destination_slugs: citySlugs,
+				match_limit: 12,
+			});
 
 			if (!ragResult.error) {
 				ragDocumentRows = (ragResult.data ?? []) as RagDocumentRow[];
