@@ -5,12 +5,22 @@ This folder contains exportable seed records for the destination knowledge layer
 ## Files
 
 - `destination-knowledge.jsonl`: JSONL records generated from `lib/destination-positioning.ts`.
+- `destination-knowledge.seed.sql`: SQL seed generated from the JSONL file for `public.rag_documents`.
 
 ## Generate
 
 ```bash
 pnpm export:destination-rag
+pnpm export:destination-rag-sql
 ```
+
+## Supabase Import
+
+When a real Supabase project is available:
+
+1. Apply migrations through `supabase db push`, or paste `supabase/migrations/0018_rag_documents.sql` into Supabase SQL Editor.
+2. Paste `content/rag/destination-knowledge.seed.sql` into Supabase SQL Editor to upsert the 70 seed rows.
+3. Later, add embeddings / pgvector on top of `rag_documents.body`. Until then, keyword retrieval can still use `destination_slug`, `content_type`, `tags`, `title`, and `body`.
 
 ## Record Shape
 

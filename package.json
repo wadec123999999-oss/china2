@@ -12,6 +12,7 @@
     "biome:check": "biome check .",
     "biome:write": "biome check . --write",
     "export:destination-rag": "node scripts/export-destination-rag.mjs",
+    "export:destination-rag-sql": "node scripts/export-destination-rag-sql.mjs",
     "verify:supabase": "node --import=dotenv/config scripts/verify-supabase.ts"
   },
   "dependencies": {

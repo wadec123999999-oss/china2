@@ -1,4 +1,5 @@
 import type { Category, City } from "@/lib/constants";
+import { searchDestinationRag } from "@/lib/destination-rag";
 import { destinationPositioningBySlug } from "@/lib/destination-positioning";
 import { formatCategory, formatCity } from "@/lib/format";
 import type { ExpertProfile } from "@/lib/mock-data";
@@ -203,7 +204,13 @@ function formatStaticDestinationSlug(
 	return isCity(databaseSlug) ? formatCity(databaseSlug) : slug.replace(/-/g, " ");
 }
 
-function buildStaticDestinationKnowledge(preferredCities: string[]): ConciergeKnowledge {
+function buildStaticDestinationKnowledge({
+	message,
+	preferredCities,
+}: {
+	message: string;
+	preferredCities: string[];
+}): ConciergeKnowledge {
 	const citySlugs = preferredCities
 		.map(toStaticDestinationSlug)
 		.filter((slug) => slug in destinationPositioningBySlug);
@@ -219,19 +226,37 @@ function buildStaticDestinationKnowledge(preferredCities: string[]): ConciergeKn
 		};
 	}
 
-	const notes = citySlugs.flatMap((slug) => {
-		const positioning = destinationPositioningBySlug[slug];
-		const cityLabel = formatStaticDestinationSlug(slug);
-		return [
-			`${cityLabel}: ${positioning.signatureHook} Why visit: ${positioning.whyVisit}`,
-			...positioning.coreSellPoints
-				.slice(0, 3)
-				.map((point) => `${cityLabel} selling point: ${point.title}. ${point.body}`),
-			...positioning.faq
-				.slice(0, 2)
-				.map((item) => `${cityLabel} traveler FAQ: ${item.question} Answer direction: ${item.answer}`),
-		];
+	const rankedRecords = searchDestinationRag({
+		message,
+		preferredCities,
+		limit: 10,
 	});
+
+	const notes =
+		rankedRecords.length > 0
+			? rankedRecords.map(
+					(record) =>
+						`${record.destination_name} ${record.content_type.replace(/_/g, " ")}: ${record.text}`,
+				)
+			: citySlugs.flatMap((slug) => {
+					const positioning = destinationPositioningBySlug[slug];
+					const cityLabel = formatStaticDestinationSlug(slug);
+					return [
+						`${cityLabel}: ${positioning.signatureHook} Why visit: ${positioning.whyVisit}`,
+						...positioning.coreSellPoints
+							.slice(0, 3)
+							.map(
+								(point) =>
+									`${cityLabel} selling point: ${point.title}. ${point.body}`,
+							),
+						...positioning.faq
+							.slice(0, 2)
+							.map(
+								(item) =>
+									`${cityLabel} traveler FAQ: ${item.question} Answer direction: ${item.answer}`,
+							),
+					];
+				});
 
 	const itineraryHints = citySlugs.flatMap((slug) => {
 		const positioning = destinationPositioningBySlug[slug];
@@ -245,11 +270,15 @@ function buildStaticDestinationKnowledge(preferredCities: string[]): ConciergeKn
 
 	const themeLabels = Array.from(
 		new Set(
-			citySlugs.flatMap((slug) =>
-				destinationPositioningBySlug[slug].coreSellPoints.map(
-					(point) => point.title,
-				),
-			),
+			rankedRecords.length > 0
+				? rankedRecords
+						.filter((record) => record.content_type === "sell_point")
+						.map((record) => record.title)
+				: citySlugs.flatMap((slug) =>
+						destinationPositioningBySlug[slug].coreSellPoints.map(
+							(point) => point.title,
+						),
+					),
 		),
 	).slice(0, 4);
 
@@ -352,7 +381,7 @@ export async function fetchConciergeKnowledge({
 }): Promise<ConciergeKnowledge> {
 	const env = getServerSupabaseEnv();
 	if (!env.success) {
-		return buildStaticDestinationKnowledge(preferredCities);
+		return buildStaticDestinationKnowledge({ message, preferredCities });
 	}
 
 	try {
@@ -460,7 +489,7 @@ export async function fetchConciergeKnowledge({
 			moduleError ||
 			positioningError
 		) {
-			return buildStaticDestinationKnowledge(preferredCities);
+			return buildStaticDestinationKnowledge({ message, preferredCities });
 		}
 
 		const knowledgeCardIds = (cardRows ?? []).map((row) => row.id);
@@ -735,7 +764,7 @@ export async function fetchConciergeKnowledge({
 			experts.length === 0 &&
 			itineraryHints.length === 0
 		) {
-			return buildStaticDestinationKnowledge(preferredCities);
+			return buildStaticDestinationKnowledge({ message, preferredCities });
 		}
 
 		return {
@@ -747,6 +776,6 @@ export async function fetchConciergeKnowledge({
 			audienceLabels,
 		};
 	} catch {
-		return buildStaticDestinationKnowledge(preferredCities);
+		return buildStaticDestinationKnowledge({ message, preferredCities });
 	}
 }
