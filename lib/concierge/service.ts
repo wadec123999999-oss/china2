@@ -700,7 +700,7 @@ function buildStructuredAnswer(
   const positioningBrief = getPositioningBrief(context);
   const sourceLabel =
     context.source === "supabase"
-      ? "Grounded in expert database context"
+      ? "Grounded in Supabase knowledge database"
       : context.source === "static"
         ? "Grounded in destination knowledge base"
       : context.source === "mock"
@@ -746,7 +746,7 @@ function buildEvidenceCards(
     snippet: note,
     meta:
       context.source === "supabase"
-        ? "Expert database context"
+        ? "Supabase knowledge database"
         : context.source === "static"
           ? "Destination knowledge base"
           : context.source === "mock"
