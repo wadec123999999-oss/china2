@@ -125,6 +125,17 @@ type FaqRow = {
 	answer: string;
 };
 
+type RagDocumentRow = {
+	id: string;
+	destination_slug: string | null;
+	destination_name: string;
+	content_type: string;
+	title: string;
+	body: string;
+	tags: string[];
+	metadata: Record<string, unknown>;
+};
+
 function isCity(value: string): value is City {
 	return [
 		"beijing",
@@ -368,6 +379,65 @@ function rankCards({
 		.sort((a, b) => b.score - a.score);
 }
 
+function rankRagDocuments({
+	rows,
+	tokens,
+	citySlugs,
+}: {
+	rows: RagDocumentRow[];
+	tokens: string[];
+	citySlugs: City[];
+}) {
+	return rows
+		.map((row) => {
+			let score = 0;
+			if (row.destination_slug && citySlugs.includes(row.destination_slug as City)) {
+				score += 80;
+			}
+
+			const searchable = [
+				row.destination_name,
+				row.destination_slug ?? "",
+				row.content_type,
+				row.title,
+				row.body,
+				...(row.tags ?? []),
+			]
+				.join(" ")
+				.toLowerCase();
+
+			for (const token of tokens) {
+				if (row.title.toLowerCase().includes(token)) score += 12;
+				if ((row.destination_slug ?? "").includes(token)) score += 20;
+				if ((row.tags ?? []).some((tag) => tag.toLowerCase().includes(token))) {
+					score += 8;
+				}
+				if (searchable.includes(token)) score += 4;
+			}
+
+			switch (row.content_type) {
+				case "positioning_overview":
+					score += 16;
+					break;
+				case "sell_point":
+					score += 12;
+					break;
+				case "route_seed":
+					score += 10;
+					break;
+				case "traveler_faq":
+					score += 6;
+					break;
+				default:
+					score += 3;
+			}
+
+			return { row, score };
+		})
+		.filter((item) => item.score > 0)
+		.sort((a, b) => b.score - a.score);
+}
+
 export async function fetchConciergeKnowledge({
 	message,
 	preferredCities,
@@ -499,6 +569,7 @@ export async function fetchConciergeKnowledge({
 		let sellPointRows: SellPointRow[] = [];
 		let routeSeedRows: RouteSeedRow[] = [];
 		let faqRows: FaqRow[] = [];
+		let ragDocumentRows: RagDocumentRow[] = [];
 
 		if (audienceSlugs.length > 0 && knowledgeCardIds.length > 0) {
 			const { data } = await supabase
@@ -578,6 +649,26 @@ export async function fetchConciergeKnowledge({
 			}
 		} catch {
 			// These tables are additive V1 decision-support data. Ignore them until the migration is applied.
+		}
+
+		try {
+			const ragQuery = supabase
+				.from("rag_documents")
+				.select(
+					"id, destination_slug, destination_name, content_type, title, body, tags, metadata",
+				)
+				.limit(80);
+
+			const ragResult =
+				citySlugs.length > 0
+					? await ragQuery.in("destination_slug", citySlugs)
+					: await ragQuery;
+
+			if (!ragResult.error) {
+				ragDocumentRows = (ragResult.data ?? []) as RagDocumentRow[];
+			}
+		} catch {
+			// RAG documents are optional until the Supabase import pipeline is run.
 		}
 
 		const destinationNotes = (destinationRows ?? [])
@@ -661,6 +752,17 @@ export async function fetchConciergeKnowledge({
 				return `${comparison.comparison_question} Short answer: ${comparison.short_answer} ${leftCity}: ${comparison.why_left} ${rightCity}: ${comparison.why_right} Deciding factor: ${comparison.deciding_factor}`;
 			});
 
+		const rankedRagDocuments = rankRagDocuments({
+			rows: ragDocumentRows,
+			tokens,
+			citySlugs,
+		}).slice(0, 8);
+
+		const ragNotes = rankedRagDocuments.map(
+			({ row }) =>
+				`${row.destination_name} ${row.content_type.replace(/_/g, " ")}: ${row.body}`,
+		);
+
 		const sellPointNotes = sellPointRows.slice(0, 6).map((point) => {
 			const cityLabel = isCity(point.destination_slug)
 				? formatCity(point.destination_slug)
@@ -715,6 +817,19 @@ export async function fetchConciergeKnowledge({
 				summary: row.summary,
 			}));
 
+		for (const { row } of rankedRagDocuments) {
+			if (row.content_type !== "route_seed") continue;
+			itineraryHints.push({
+				title: row.title,
+				city: row.destination_name,
+				days:
+					typeof row.metadata?.duration === "string"
+						? Number.parseInt(row.metadata.duration, 10) || 1
+						: 1,
+				summary: row.body,
+			});
+		}
+
 		for (const { module } of rankedModules) {
 			itineraryHints.push({
 				title: module.title,
@@ -748,6 +863,7 @@ export async function fetchConciergeKnowledge({
 		);
 
 		const notes = [
+			...ragNotes,
 			...positioningNotes,
 			...comparisonNotes,
 			...destinationFitNotes,
@@ -772,7 +888,16 @@ export async function fetchConciergeKnowledge({
 			notes,
 			experts,
 			itineraryHints,
-			themeLabels,
+			themeLabels:
+				themeLabels.length > 0
+					? themeLabels
+					: Array.from(
+							new Set(
+								rankedRagDocuments
+									.filter(({ row }) => row.content_type === "sell_point")
+									.map(({ row }) => row.title),
+							),
+						).slice(0, 4),
 			audienceLabels,
 		};
 	} catch {
