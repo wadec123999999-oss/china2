@@ -4,6 +4,7 @@ import vm from "node:vm";
 
 const rootDir = process.cwd();
 const sourcePath = path.join(rootDir, "lib", "destination-positioning.ts");
+const guideSourcePath = path.join(rootDir, "lib", "destination-guides.ts");
 const outputDir = path.join(rootDir, "content", "rag");
 const outputPath = path.join(outputDir, "destination-knowledge.jsonl");
 const detailCardFilePattern =
@@ -27,6 +28,20 @@ function readPositioningObject() {
 
 	if (start === -1 || end === -1 || end <= start) {
 		throw new Error("Could not locate destinationPositioningBySlug export.");
+	}
+
+	const objectSource = source.slice(start + startToken.length, end);
+	return vm.runInNewContext(`(${objectSource})`, {}, { timeout: 1000 });
+}
+
+function readGuidesObject() {
+	const source = fs.readFileSync(guideSourcePath, "utf8");
+	const startToken = "export const destinationGuides = ";
+	const start = source.indexOf(startToken);
+	const end = source.lastIndexOf(" satisfies Record<DestinationSlug, DestinationGuide>;");
+
+	if (start === -1 || end === -1 || end <= start) {
+		throw new Error("Could not locate destinationGuides export.");
 	}
 
 	const objectSource = source.slice(start + startToken.length, end);
@@ -192,10 +207,112 @@ function buildRecords(positioningBySlug) {
 	return records;
 }
 
+function buildGuideRecords(guidesBySlug) {
+	const records = [];
+
+	for (const [slug, guide] of Object.entries(guidesBySlug)) {
+		const cityName = cityLabels[slug] ?? slug;
+
+		records.push(
+			createRecord({
+				slug,
+				type: "source_note",
+				title: `${cityName} editorial guide frame`,
+				text: `${guide.editorialLead}\n\nNot generic: ${guide.notGeneric.title}. ${guide.notGeneric.body}\n\nVisual direction: ${guide.visualCaption}`,
+				tags: ["editorial_guide", "avoid_generic", "visual_direction"],
+				source: "a-deeper-china-redesign/lib/destination-guides.ts",
+				version: "v1-editorial-guides",
+			}),
+		);
+
+		for (const [index, item] of guide.readTheCity.entries()) {
+			records.push(
+				createRecord({
+					slug,
+					type: "experience",
+					title: `${cityName} city reading - ${item.title}`,
+					text: `${item.title}: ${item.body}`,
+					tags: ["read_the_city", "interpretation", "differentiated_guide"],
+					metadata: { sort_order: index + 1 },
+					source: "a-deeper-china-redesign/lib/destination-guides.ts",
+					version: "v1-editorial-guides",
+				}),
+			);
+		}
+
+		for (const [index, day] of guide.signatureDays.entries()) {
+			records.push(
+				createRecord({
+					slug,
+					type: "route_seed",
+					title: `${cityName} signature day - ${day.title}`,
+					text: `${day.title}: ${day.body}`,
+					tags: ["signature_day", "itinerary", "route_logic"],
+					metadata: { sort_order: index + 1 },
+					source: "a-deeper-china-redesign/lib/destination-guides.ts",
+					version: "v1-editorial-guides",
+				}),
+			);
+		}
+
+		for (const [index, fit] of guide.travelerFit.entries()) {
+			records.push(
+				createRecord({
+					slug,
+					type: "market_profile",
+					title: `${cityName} traveler fit - ${fit.title}`,
+					text: `${fit.title}: ${fit.body}`,
+					tags: ["traveler_fit", "audience", "conversion"],
+					metadata: { sort_order: index + 1 },
+					source: "a-deeper-china-redesign/lib/destination-guides.ts",
+					version: "v1-editorial-guides",
+				}),
+			);
+		}
+
+		for (const [index, signal] of guide.planningSignals.entries()) {
+			records.push(
+				createRecord({
+					slug,
+					type: "source_note",
+					title: `${cityName} planning signal - ${signal.title}`,
+					text: `${signal.title}: ${signal.body}`,
+					tags: ["planning_signal", "route_design", "concierge"],
+					metadata: { sort_order: index + 1 },
+					source: "a-deeper-china-redesign/lib/destination-guides.ts",
+					version: "v1-editorial-guides",
+				}),
+			);
+		}
+
+		records.push(
+			createRecord({
+				slug,
+				type: "source_note",
+				title: `${cityName} research anchors`,
+				text: guide.sourceAnchors
+					.map((source) => `${source.label}: ${source.url}`)
+					.join("\n"),
+				tags: ["source_anchor", "research", "evidence"],
+				metadata: {
+					source_count: guide.sourceAnchors.length,
+					urls: guide.sourceAnchors.map((source) => source.url),
+				},
+				source: "a-deeper-china-redesign/lib/destination-guides.ts",
+				version: "v1-editorial-guides",
+			}),
+		);
+	}
+
+	return records;
+}
+
 const positioningBySlug = readPositioningObject();
+const guidesBySlug = readGuidesObject();
 const detailCards = readDetailCards();
 const records = [
 	...buildRecords(positioningBySlug),
+	...buildGuideRecords(guidesBySlug),
 	...detailCards.map((card) =>
 		createRecord({
 			...card,
