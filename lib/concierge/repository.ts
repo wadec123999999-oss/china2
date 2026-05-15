@@ -3,6 +3,7 @@ import { searchDestinationRag } from "@/lib/destination-rag";
 import { destinationPositioningBySlug } from "@/lib/destination-positioning";
 import { formatCategory, formatCity } from "@/lib/format";
 import type { ExpertProfile } from "@/lib/mock-data";
+import { routeCombinations } from "@/lib/route-combinations";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { getServerSupabaseEnv } from "@/lib/supabase/env";
 
@@ -257,6 +258,56 @@ function buildKeywordTokens(message: string) {
 		.filter((token) => token.length >= 4);
 }
 
+function inferDesiredDays(message: string) {
+	const match = message.match(/(\d+)\s*(?:day|days|night|nights)/i);
+	if (!match) return null;
+	return Number.parseInt(match[1], 10);
+}
+
+function parseDurationRange(duration: string) {
+	const numbers = duration.match(/\d+/g)?.map((value) => Number.parseInt(value, 10));
+	if (!numbers || numbers.length === 0) return null;
+	return {
+		min: numbers[0],
+		max: numbers[numbers.length - 1],
+	};
+}
+
+function scoreDurationFit(duration: string | undefined, desiredDays: number | null) {
+	if (!duration || !desiredDays) return 0;
+	const range = parseDurationRange(duration);
+	if (!range) return 0;
+	if (desiredDays >= range.min && desiredDays <= range.max) return 24;
+	const distance = Math.min(
+		Math.abs(desiredDays - range.min),
+		Math.abs(desiredDays - range.max),
+	);
+	return distance <= 2 ? 10 : -8;
+}
+
+function hasRouteCombinationIntent(message: string) {
+	const lowered = message.toLowerCase();
+	return [
+		"route",
+		"itinerary",
+		"combine",
+		"combination",
+		"multi-city",
+		"multi city",
+		"which cities",
+		"city order",
+		"how many days",
+		"first trip",
+		"first-time",
+		"first time",
+		"worth visiting",
+		"pair",
+		"vs",
+		"versus",
+		"compare",
+	].some((marker) => lowered.includes(marker));
+}
+
 function normalizeCitySlug(city: string) {
 	return city.toLowerCase().replace(/\s+/g, "_");
 }
@@ -285,6 +336,45 @@ function buildStaticDestinationKnowledge({
 		.filter((slug) => slug in destinationPositioningBySlug);
 
 	if (citySlugs.length === 0) {
+		if (hasRouteCombinationIntent(message)) {
+			const rankedRecords = searchDestinationRag({
+				message,
+				preferredCities,
+				limit: 10,
+			});
+			const rankedCombinations = rankRouteCombinations({
+				message,
+				citySlugs: [],
+				limit: 3,
+			});
+
+			const notes = [
+				...rankedCombinations.map(formatRouteCombinationNote),
+				...rankedRecords.map(
+					(record) =>
+						`${record.destination_name} ${record.content_type.replace(/_/g, " ")}: ${record.text}`,
+				),
+			].slice(0, 12);
+
+			const itineraryHints = rankedCombinations.map((route) => ({
+				title: route.title,
+				city: route.cities
+					.map((slug) => formatStaticDestinationSlug(slug.replace(/_/g, "-") as keyof typeof destinationPositioningBySlug))
+					.join(" + "),
+				days: Number.parseInt(route.duration, 10) || 1,
+				summary: `${route.duration}: ${route.routeLogic} ${route.conversionQuestion}`,
+			}));
+
+			return {
+				source: notes.length > 0 ? "static" : "none",
+				notes,
+				experts: [],
+				itineraryHints,
+				themeLabels: rankedCombinations.map((route) => route.title).slice(0, 4),
+				audienceLabels: [],
+			};
+		}
+
 		return {
 			source: "none",
 			notes: [],
@@ -359,6 +449,87 @@ function buildStaticDestinationKnowledge({
 		themeLabels,
 		audienceLabels: [],
 	};
+}
+
+function rankRouteCombinations({
+	message,
+	citySlugs,
+	limit = 4,
+}: {
+	message: string;
+	citySlugs: City[];
+	limit?: number;
+}) {
+	const tokens = buildKeywordTokens(message);
+	const combinationIntent = hasRouteCombinationIntent(message);
+	const desiredDays = inferDesiredDays(message);
+
+	return routeCombinations
+		.map((route) => {
+			let score = combinationIntent ? 18 : 0;
+			score += scoreDurationFit(route.duration, desiredDays);
+			const databaseCities = route.cities.map((city) => city.replace(/-/g, "_"));
+			const matchedCities = databaseCities.filter((city): city is City =>
+				isCity(city),
+			);
+
+			score += matchedCities.filter((city) => citySlugs.includes(city)).length * 36;
+
+			const searchable = [
+				route.title,
+				route.duration,
+				route.bestFor,
+				route.routeLogic,
+				route.whyNotGeneric,
+				route.conversionQuestion,
+				...route.cityOrder,
+				...route.cities,
+			]
+				.join(" ")
+				.toLowerCase();
+
+			for (const token of tokens) {
+				if (route.title.toLowerCase().includes(token)) score += 14;
+				if (route.cities.some((city) => city.includes(token))) score += 12;
+				if (searchable.includes(token)) score += 5;
+			}
+
+			return { route, score };
+		})
+		.filter((item) => item.score > 0)
+		.sort((a, b) => b.score - a.score)
+		.slice(0, limit)
+		.map((item) => item.route);
+}
+
+function formatRouteCombinationNote(route: (typeof routeCombinations)[number]) {
+	return `Route combination: ${route.title} (${route.duration}). Cities: ${route.cities.join(" + ")}. Best for: ${route.bestFor} Route logic: ${route.routeLogic} Why it is different: ${route.whyNotGeneric} Conversion question: ${route.conversionQuestion}`;
+}
+
+function expandCitiesForRouteCombinations({
+	message,
+	citySlugs,
+}: {
+	message: string;
+	citySlugs: City[];
+}) {
+	if (!hasRouteCombinationIntent(message)) return citySlugs;
+
+	const rankedCombinations = rankRouteCombinations({
+		message,
+		citySlugs,
+		limit: 3,
+	});
+	const expanded = new Set<City>(citySlugs);
+
+	for (const route of rankedCombinations) {
+		for (const city of route.cities) {
+			const databaseSlug = city.replace(/-/g, "_");
+			if (isCity(databaseSlug)) expanded.add(databaseSlug);
+		}
+	}
+
+	return Array.from(expanded);
 }
 
 function shouldCompareCities(message: string, citySlugs: City[]) {
@@ -441,11 +612,15 @@ function rankRagDocuments({
 	rows,
 	tokens,
 	citySlugs,
+	message,
 }: {
 	rows: RagDocumentRow[];
 	tokens: string[];
 	citySlugs: City[];
+	message: string;
 }) {
+	const desiredDays = inferDesiredDays(message);
+
 	return rows
 		.map((row) => {
 			let score = 0;
@@ -490,6 +665,16 @@ function rankRagDocuments({
 					score += 3;
 			}
 
+			if ((row.tags ?? []).includes("route_combination")) {
+				score += hasRouteCombinationIntent(searchable) ? 22 : 10;
+				score += scoreDurationFit(
+					typeof row.metadata?.duration === "string"
+						? row.metadata.duration
+						: undefined,
+					desiredDays,
+				);
+			}
+
 			return { row, score };
 		})
 		.filter((item) => item.score > 0)
@@ -515,6 +700,10 @@ export async function fetchConciergeKnowledge({
 	try {
 		const supabase = createSupabaseAdminClient();
 		const citySlugs = preferredCities.map(normalizeCitySlug).filter(isCity);
+		const searchCitySlugs = expandCitiesForRouteCombinations({
+			message,
+			citySlugs,
+		});
 		const tokens = buildKeywordTokens(message);
 
 		const destinationQuery = supabase
@@ -564,30 +753,32 @@ export async function fetchConciergeKnowledge({
 			.limit(12);
 
 		const destinationPromise =
-			citySlugs.length > 0
-				? destinationQuery.in("slug", citySlugs)
+			searchCitySlugs.length > 0
+				? destinationQuery.in("slug", searchCitySlugs)
 				: destinationQuery;
 		const expertPromise =
-			citySlugs.length > 0 ? expertQuery.in("city", citySlugs) : expertQuery;
+			searchCitySlugs.length > 0
+				? expertQuery.in("city", searchCitySlugs)
+				: expertQuery;
 		const itineraryPromise =
-			citySlugs.length > 0
-				? itineraryQuery.in("city", citySlugs)
+			searchCitySlugs.length > 0
+				? itineraryQuery.in("city", searchCitySlugs)
 				: itineraryQuery;
 		const themePromise =
-			citySlugs.length > 0
-				? themeQuery.in("destination_slug", citySlugs)
+			searchCitySlugs.length > 0
+				? themeQuery.in("destination_slug", searchCitySlugs)
 				: themeQuery;
 		const cardPromise =
-			citySlugs.length > 0
-				? cardQuery.in("destination_slug", citySlugs)
+			searchCitySlugs.length > 0
+				? cardQuery.in("destination_slug", searchCitySlugs)
 				: cardQuery;
 		const modulePromise =
-			citySlugs.length > 0
-				? moduleQuery.in("destination_slug", citySlugs)
+			searchCitySlugs.length > 0
+				? moduleQuery.in("destination_slug", searchCitySlugs)
 				: moduleQuery;
 		const positioningPromise =
-			citySlugs.length > 0
-				? positioningQuery.in("destination_slug", citySlugs)
+			searchCitySlugs.length > 0
+				? positioningQuery.in("destination_slug", searchCitySlugs)
 				: positioningQuery;
 
 		const [
@@ -638,25 +829,28 @@ export async function fetchConciergeKnowledge({
 			audienceFitRows = (data ?? []) as AudienceFitRow[];
 		}
 
-		if (citySlugs.length > 0 && audienceSlugs.length > 0) {
+		if (searchCitySlugs.length > 0 && audienceSlugs.length > 0) {
 			const { data } = await supabase
 				.from("destination_audience_fits")
 				.select(
 					"destination_slug, audience_slug, fit_score, rationale, best_entry_angle, trip_length_hint, caution_note",
 				)
-				.in("destination_slug", citySlugs)
+				.in("destination_slug", searchCitySlugs)
 				.in("audience_slug", audienceSlugs);
 			destinationAudienceFits = (data ?? []) as DestinationAudienceFitRow[];
 		}
 
-		if (shouldCompareCities(message, citySlugs) && citySlugs.length >= 2) {
+		if (
+			shouldCompareCities(message, searchCitySlugs) &&
+			searchCitySlugs.length >= 2
+		) {
 			const comparisonQuery = supabase
 				.from("destination_comparisons")
 				.select(
 					"left_destination_slug, right_destination_slug, audience_slug, comparison_question, short_answer, why_left, why_right, deciding_factor",
 				)
 				.or(
-					`and(left_destination_slug.eq.${citySlugs[0]},right_destination_slug.eq.${citySlugs[1]}),and(left_destination_slug.eq.${citySlugs[1]},right_destination_slug.eq.${citySlugs[0]})`,
+					`and(left_destination_slug.eq.${searchCitySlugs[0]},right_destination_slug.eq.${searchCitySlugs[1]}),and(left_destination_slug.eq.${searchCitySlugs[1]},right_destination_slug.eq.${searchCitySlugs[0]})`,
 				)
 				.limit(4);
 
@@ -687,13 +881,15 @@ export async function fetchConciergeKnowledge({
 				.limit(20);
 
 			const [sellPointResult, routeSeedResult, faqResult] = await Promise.all([
-				citySlugs.length > 0
-					? sellPointQuery.in("destination_slug", citySlugs)
+				searchCitySlugs.length > 0
+					? sellPointQuery.in("destination_slug", searchCitySlugs)
 					: sellPointQuery,
-				citySlugs.length > 0
-					? routeSeedQuery.in("destination_slug", citySlugs)
+				searchCitySlugs.length > 0
+					? routeSeedQuery.in("destination_slug", searchCitySlugs)
 					: routeSeedQuery,
-				citySlugs.length > 0 ? faqQuery.in("destination_slug", citySlugs) : faqQuery,
+				searchCitySlugs.length > 0
+					? faqQuery.in("destination_slug", searchCitySlugs)
+					: faqQuery,
 			]);
 
 			if (!sellPointResult.error) {
@@ -714,12 +910,12 @@ export async function fetchConciergeKnowledge({
 			const ragResult = queryEmbedding
 				? await supabase.rpc("match_rag_documents", {
 						query_embedding: queryEmbedding,
-						match_destination_slugs: citySlugs,
+						match_destination_slugs: searchCitySlugs,
 						match_limit: 12,
 					})
 				: await supabase.rpc("search_rag_documents", {
 						query_text: message,
-						match_destination_slugs: citySlugs,
+						match_destination_slugs: searchCitySlugs,
 						match_limit: 12,
 					});
 
@@ -814,12 +1010,22 @@ export async function fetchConciergeKnowledge({
 		const rankedRagDocuments = rankRagDocuments({
 			rows: ragDocumentRows,
 			tokens,
-			citySlugs,
+			citySlugs: searchCitySlugs,
+			message,
 		}).slice(0, 8);
+
+		const rankedRouteCombinations = rankRouteCombinations({
+			message,
+			citySlugs,
+			limit: 3,
+		});
 
 		const ragNotes = rankedRagDocuments.map(
 			({ row }) =>
 				`${row.destination_name} ${row.content_type.replace(/_/g, " ")}: ${row.body}`,
+		);
+		const routeCombinationNotes = rankedRouteCombinations.map(
+			formatRouteCombinationNote,
 		);
 
 		const sellPointNotes = sellPointRows.slice(0, 6).map((point) => {
@@ -876,6 +1082,17 @@ export async function fetchConciergeKnowledge({
 				summary: row.summary,
 			}));
 
+		for (const route of rankedRouteCombinations) {
+			itineraryHints.push({
+				title: route.title,
+				city: route.cities
+					.map((slug) => formatStaticDestinationSlug(slug))
+					.join(" + "),
+				days: Number.parseInt(route.duration, 10) || 1,
+				summary: `${route.duration}: ${route.routeLogic} ${route.conversionQuestion}`,
+			});
+		}
+
 		for (const { row } of rankedRagDocuments) {
 			if (row.content_type !== "route_seed") continue;
 			itineraryHints.push({
@@ -922,6 +1139,7 @@ export async function fetchConciergeKnowledge({
 		);
 
 		const notes = [
+			...routeCombinationNotes,
 			...ragNotes,
 			...positioningNotes,
 			...comparisonNotes,

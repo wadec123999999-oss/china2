@@ -1,4 +1,4 @@
-import { formatCity } from "@/lib/format";
+﻿import { formatCity } from "@/lib/format";
 import { generateChatReply } from "@/lib/llm/provider";
 import {
   matchExpertPool,
@@ -48,7 +48,6 @@ function inferInterest(message: string): BriefPayload["interest"] {
     return "Martial Arts & Taoism";
   return "Cultural Discovery";
 }
-
 function inferPreferredCities(message: string): TravelBrief["city"][] {
   const lowered = message.toLowerCase();
   const cities: TravelBrief["city"][] = [];
@@ -411,7 +410,7 @@ async function retrieveContext(
         return {
           source: "supabase",
           notes: data.map(
-            (expert) => `${expert.name} — ${expert.city}: ${expert.headline}`,
+            (expert) => `${expert.name} -${expert.city}: ${expert.headline}`,
           ),
         };
       }
@@ -442,7 +441,7 @@ async function retrieveContext(
       source: "mock",
       notes: matchedExperts
         .slice(0, 5)
-        .map((expert) => `${expert.name} — ${expert.city}: ${expert.headline}`),
+        .map((expert) => `${expert.name} -${expert.city}: ${expert.headline}`),
     };
   }
 
@@ -686,6 +685,13 @@ function buildItinerary(
 }
 
 function getPositioningBrief(context: RetrievedContext) {
+  const routeCombination = context.notes.find((item) =>
+    item.startsWith("Route combination:"),
+  );
+  if (routeCombination) {
+    return routeCombination.split(" Best for:")[0] ?? routeCombination;
+  }
+
   const note = context.notes.find((item) => item.includes("Why visit:"));
   return note?.split(" Why visit:")[0] ?? null;
 }
@@ -698,6 +704,9 @@ function buildStructuredAnswer(
 ): StructuredAnswer {
   const topExpert = formatManagedExpertLabel(matchedExperts[0]);
   const positioningBrief = getPositioningBrief(context);
+  const hasRouteCombination = context.notes.some((item) =>
+    item.startsWith("Route combination:"),
+  );
   const sourceLabel =
     context.source === "supabase"
       ? "Grounded in Supabase knowledge database"
@@ -712,14 +721,18 @@ function buildStructuredAnswer(
       positioningBrief ??
       `This looks best as a ${brief.pace} ${brief.days}-day ${brief.interest.toLowerCase()} journey led by ${brief.preferredCities.slice(0, 2).join(" + ") || "a flagship China destination"}.`,
     reasons: [
-      positioningBrief
+      hasRouteCombination
+        ? "The recommendation uses a city-combination route logic, not a generic list of famous stops."
+        : positioningBrief
         ? "The city recommendation starts from its core selling proposition, not only from attractions."
         : `The brief points toward ${brief.mustHave.slice(0, 2).join(" and ") || "a slower, more contextual route"} rather than a generic city checklist.`,
-      `The current match logic would start with ${topExpert} and shape the experience around ${brief.interest.toLowerCase()}, pacing, and cultural depth.`,
+      hasRouteCombination
+        ? "The next step is to calibrate pace, comfort, budget, and expert support after the city order feels right."
+        : `The current match logic would start with ${topExpert} and shape the experience around ${brief.interest.toLowerCase()}, pacing, and cultural depth.`,
     ],
     routeHighlights: itinerary.days.map(
       (day) =>
-        `Day ${day.day}: ${day.theme} — ${day.activities[0] ?? "Tailored local immersion"}`,
+        `Day ${day.day}: ${day.theme} - ${day.activities[0] ?? "Tailored local immersion"}`,
     ),
     sourceLabel,
   };
@@ -730,12 +743,20 @@ function buildEvidenceCards(
   matchedExperts: ReturnType<typeof matchExperts>,
   context: RetrievedContext,
 ): EvidenceCard[] {
-  const expertCards = matchedExperts.slice(0, 2).map((expert, index) => ({
-    title: `Managed expert match ${index + 1}`,
-    type: "expert" as const,
-    snippet: expert.headline,
-    meta: `${formatCity(expert.city)} · ${expert.reasons[0] ?? "Relevant expert match"}`,
-  }));
+  const hasRouteCombination = context.notes.some((item) =>
+    item.startsWith("Route combination:"),
+  );
+  const shouldShowExperts =
+    !hasRouteCombination &&
+    (brief.preferredCities.length > 0 || brief.interest !== "Cultural Discovery");
+  const expertCards = shouldShowExperts
+    ? matchedExperts.slice(0, 2).map((expert, index) => ({
+        title: `Managed expert match ${index + 1}`,
+        type: "expert" as const,
+        snippet: expert.headline,
+        meta: `${formatCity(expert.city)} - ${expert.reasons[0] ?? "Relevant expert match"}`,
+      }))
+    : [];
 
   const contextCards = context.notes.slice(0, 2).map((note, index) => ({
     title:
@@ -757,7 +778,7 @@ function buildEvidenceCards(
   const signalCard = {
     title: "Trip signals",
     type: "signal" as const,
-    snippet: `${brief.interest} · ${brief.pace} pace · ${brief.days} days · ${brief.budget}`,
+    snippet: `${brief.interest} - ${brief.pace} pace - ${brief.days} days - ${brief.budget}`,
     meta: `Must-have: ${brief.mustHave.join(", ") || "none captured yet"}`,
   };
 
@@ -784,7 +805,7 @@ async function buildReply(
 
   const historySummary = buildHistorySummary(history);
   const routeHint = itineraryHints[0];
-  const fallback = `${openingLine} You're pointing toward ${brief.interest.toLowerCase()} with a ${brief.pace} pace and about ${brief.days} day${brief.days > 1 ? "s" : ""}. ${contextLine} I’d shape the route around ${brief.mustHave.join(", ")}, keep the city focus anchored in ${cityFocusGuidance || "clear local highlights"}, and only introduce an expert after the place itself is clear.`;
+  const fallback = `${openingLine} You're pointing toward ${brief.interest.toLowerCase()} with a ${brief.pace} pace and about ${brief.days} day${brief.days > 1 ? "s" : ""}. ${contextLine} I'd shape the route around ${brief.mustHave.join(", ")}, keep the city focus anchored in ${cityFocusGuidance || "clear local highlights"}, and only introduce an expert after the place itself is clear.`;
 
   try {
     const modelReply = await generateChatReply([
@@ -795,7 +816,7 @@ async function buildReply(
       },
       {
         role: "user",
-        content: `User message: ${message}\n\nRecent conversation:\n${historySummary || "No prior conversation."}\n\nInterest: ${brief.interest}\nPace: ${brief.pace}\nDays: ${brief.days}\nPreferred cities: ${brief.preferredCities.join(", ")}\nMust-have: ${brief.mustHave.join(", ")}\nRecommended themes: ${recommendedThemes.join(", ") || "none"}\nContext source: ${context.source}\nContext notes: ${context.notes.join(" | ")}\nTop expert: ${topExpert}\nRoute hint: ${routeHint ? `${routeHint.title} — ${routeHint.summary}` : "none"}\n\nCity focus guidance: ${cityFocusGuidance || "Highlight the city's defining identity first."}\n\nOpening rule: explain the city's most important 1 to 3 points first. Examples: Beijing = imperial order, Central Axis, hutongs; Jingdezhen = porcelain history, kilns, studios; Quanzhou = Song-Yuan port and plural culture; Chongqing = cyberpunk-feeling 8D mountain city, neon night movement, hotpot and wartime layers; Chengdu = tea-house rhythm, local ease, food; Wudang Mountain = Taoist mountain, sacred architecture, internal practice; Jingmai Mountain = tea forests, village continuity, tea ritual.`,
+        content: `User message: ${message}\n\nRecent conversation:\n${historySummary || "No prior conversation."}\n\nInterest: ${brief.interest}\nPace: ${brief.pace}\nDays: ${brief.days}\nPreferred cities: ${brief.preferredCities.join(", ")}\nMust-have: ${brief.mustHave.join(", ")}\nRecommended themes: ${recommendedThemes.join(", ") || "none"}\nContext source: ${context.source}\nContext notes: ${context.notes.join(" | ")}\nTop expert: ${topExpert}\nRoute hint: ${routeHint ? `${routeHint.title} -${routeHint.summary}` : "none"}\n\nCity focus guidance: ${cityFocusGuidance || "Highlight the city's defining identity first."}\n\nOpening rule: explain the city's most important 1 to 3 points first. Examples: Beijing = imperial order, Central Axis, hutongs; Jingdezhen = porcelain history, kilns, studios; Quanzhou = Song-Yuan port and plural culture; Chongqing = cyberpunk-feeling 8D mountain city, neon night movement, hotpot and wartime layers; Chengdu = tea-house rhythm, local ease, food; Wudang Mountain = Taoist mountain, sacred architecture, internal practice; Jingmai Mountain = tea forests, village continuity, tea ritual.`,
       },
     ]);
 

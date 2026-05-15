@@ -11,7 +11,13 @@ export type DestinationRagRecord = {
 		| "sell_point"
 		| "audience_fit"
 		| "route_seed"
-		| "traveler_faq";
+		| "traveler_faq"
+		| "attraction"
+		| "experience"
+		| "food"
+		| "transport"
+		| "market_profile"
+		| "source_note";
 	title: string;
 	text: string;
 	tags: string[];
@@ -55,6 +61,27 @@ function tokenize(value: string) {
 
 function normalizeDestinationSlug(value: string) {
 	return value.toLowerCase().replace(/[\s-]+/g, "_");
+}
+
+function hasRouteCombinationIntent(value: string) {
+	const lowered = value.toLowerCase();
+	return [
+		"route",
+		"itinerary",
+		"combine",
+		"combination",
+		"multi-city",
+		"multi city",
+		"which cities",
+		"city order",
+		"first trip",
+		"first-time",
+		"first time",
+		"pair",
+		"vs",
+		"versus",
+		"compare",
+	].some((marker) => lowered.includes(marker));
 }
 
 function scoreRecord({
@@ -106,6 +133,22 @@ function scoreRecord({
 		case "audience_fit":
 			score += 4;
 			break;
+		case "market_profile":
+			score += 5;
+			break;
+		case "experience":
+			score += 5;
+			break;
+		case "source_note":
+			score += 3;
+			break;
+	}
+
+	if (
+		record.tags.some((tag) => tag === "route_combination") &&
+		hasRouteCombinationIntent(`${tokens.join(" ")} ${record.title}`)
+	) {
+		score += 26;
 	}
 
 	return score;
