@@ -1,0 +1,170 @@
+[
+  {
+    "slug": "beijing",
+    "type": "source_note",
+    "title": "Beijing overseas content hook",
+    "text": "Beijing overseas content should not lead with a generic bucket list. Strong hooks include: how imperial power was staged through the Central Axis, why hutongs make the capital human, how to read ritual space, and why Beijing is the best first chapter for understanding China.",
+    "tags": ["beijing", "overseas_growth", "content_hook", "seo", "social"],
+    "metadata": {"channels": ["YouTube Shorts", "TikTok", "Instagram", "Google Search"], "funnel_stage": "inspire"}
+  },
+  {
+    "slug": "beijing",
+    "type": "source_note",
+    "title": "Beijing SEO cluster",
+    "text": "Beijing SEO should target decision-stage queries such as refined Beijing itinerary, Beijing culture guide for first timers, Beijing hutong private walk, Central Axis Beijing guide, Beijing with expert guide, and how many days in Beijing for culture travel.",
+    "tags": ["beijing", "seo", "keyword_cluster", "search_intent"],
+    "metadata": {"intent": "route planning and expert-led culture travel"}
+  },
+  {
+    "slug": "beijing",
+    "type": "source_note",
+    "title": "Beijing paid acquisition angle",
+    "text": "Paid ads for Beijing should sell a calm first-China orientation: private cultural route, fewer tourist traps, expert interpretation, hutong life, palace order, and a route that prepares the traveler for deeper China cities.",
+    "tags": ["beijing", "paid_ads", "google_ads", "meta_ads", "conversion"],
+    "metadata": {"landing_target": "/chat", "cta": "Plan a refined first route into China"}
+  },
+  {
+    "slug": "chengdu",
+    "type": "source_note",
+    "title": "Chengdu overseas content hook",
+    "text": "Chengdu content should lead with pandas and Sichuan food, then deepen into tea houses, parks, social rhythm, market flavors, and the feeling that China can be relaxed and appetite-led rather than overwhelming.",
+    "tags": ["chengdu", "overseas_growth", "content_hook", "pandas", "food"],
+    "metadata": {"channels": ["TikTok", "Instagram Reels", "YouTube Shorts", "Pinterest"], "funnel_stage": "inspire"}
+  },
+  {
+    "slug": "chengdu",
+    "type": "source_note",
+    "title": "Chengdu SEO cluster",
+    "text": "Chengdu SEO should target high-intent queries such as Chengdu panda and food itinerary, Chengdu food guide for foreigners, Chengdu tea house culture, how many days in Chengdu, Chengdu and Chongqing itinerary, and family trip Chengdu pandas.",
+    "tags": ["chengdu", "seo", "keyword_cluster", "food_travel"],
+    "metadata": {"intent": "family, food, and soft-landing China travel"}
+  },
+  {
+    "slug": "chengdu",
+    "type": "source_note",
+    "title": "Chengdu paid acquisition angle",
+    "text": "Paid ads for Chengdu should combine emotional clarity and comfort: pandas, food without chaos, expert ordering help, tea-house afternoons, and a private route that makes Sichuan easy for families and first-time visitors.",
+    "tags": ["chengdu", "paid_ads", "meta_ads", "family_travel", "conversion"],
+    "metadata": {"landing_target": "/chat", "cta": "Design a panda and Sichuan food route"}
+  },
+  {
+    "slug": "chongqing",
+    "type": "source_note",
+    "title": "Chongqing overseas content hook",
+    "text": "Chongqing content should be visual-first: China's 8D mountain city, cyberpunk-feeling nights, monorails through levels, bridges, river fog, hotpot steam, and why movement through the city is the attraction.",
+    "tags": ["chongqing", "overseas_growth", "content_hook", "cyberpunk", "8d_city"],
+    "metadata": {"channels": ["TikTok", "YouTube Shorts", "Instagram Reels"], "funnel_stage": "viral awareness"}
+  },
+  {
+    "slug": "chongqing",
+    "type": "source_note",
+    "title": "Chongqing SEO cluster",
+    "text": "Chongqing SEO should target visual and itinerary queries such as Chongqing 8D city itinerary, cyberpunk Chongqing guide, Chongqing night view route, Chengdu and Chongqing itinerary, Chongqing hotpot guide for foreigners, and is Chongqing worth visiting.",
+    "tags": ["chongqing", "seo", "keyword_cluster", "visual_travel"],
+    "metadata": {"intent": "visual city break and Chengdu pairing"}
+  },
+  {
+    "slug": "chongqing",
+    "type": "source_note",
+    "title": "Chongqing paid acquisition angle",
+    "text": "Paid ads for Chongqing should target atmosphere-led travelers with a promise of controlled intensity: the cinematic 8D city without wasting time on random viral stops, with night routing, hotpot, transit moments, and viewpoint sequencing.",
+    "tags": ["chongqing", "paid_ads", "creator_travel", "night_route", "conversion"],
+    "metadata": {"landing_target": "/chat", "cta": "Build a cinematic Chongqing route"}
+  },
+  {
+    "slug": "quanzhou",
+    "type": "source_note",
+    "title": "Quanzhou overseas content hook",
+    "text": "Quanzhou overseas content should speak to Maritime Silk Road, Hokkien roots, religious coexistence, old-city food, zanhua, Nanyin, incense, tea, and why this city explains China as a connected port civilization.",
+    "tags": ["quanzhou", "overseas_growth", "content_hook", "maritime_silk_road", "diaspora"],
+    "metadata": {"channels": ["YouTube", "Facebook", "Reddit", "Google Search"], "funnel_stage": "heritage and depth"}
+  },
+  {
+    "slug": "quanzhou",
+    "type": "source_note",
+    "title": "Quanzhou SEO cluster",
+    "text": "Quanzhou SEO should target queries such as Quanzhou Maritime Silk Road itinerary, Hokkien roots travel, Quanzhou UNESCO guide, Quanzhou vs Xiamen, Quanzhou food for overseas Chinese, and Quanzhou religious heritage.",
+    "tags": ["quanzhou", "seo", "keyword_cluster", "hokkien", "unesco"],
+    "metadata": {"intent": "diaspora roots and UNESCO cultural depth"}
+  },
+  {
+    "slug": "quanzhou",
+    "type": "source_note",
+    "title": "Quanzhou paid acquisition angle",
+    "text": "Paid ads for Quanzhou should segment by ancestry and curiosity. For Southeast Asian Chinese travelers, sell origin, temple memory, surname, food, and Hokkien culture. For non-diaspora travelers, sell UNESCO port history and religious plurality.",
+    "tags": ["quanzhou", "paid_ads", "diaspora", "southeast_asia", "conversion"],
+    "metadata": {"landing_target": "/chat", "cta": "Explore your Hokkien or Maritime Silk Road route"}
+  },
+  {
+    "slug": "jingdezhen",
+    "type": "source_note",
+    "title": "Jingdezhen overseas content hook",
+    "text": "Jingdezhen content should show hands, clay, kilns, glaze, failure, studios, and the global story of porcelain. The strongest angle is not shopping but how one city shaped taste, trade, collecting, and design across the world.",
+    "tags": ["jingdezhen", "overseas_growth", "content_hook", "porcelain", "craft"],
+    "metadata": {"channels": ["Instagram", "Pinterest", "YouTube", "Google Search"], "funnel_stage": "niche high intent"}
+  },
+  {
+    "slug": "jingdezhen",
+    "type": "source_note",
+    "title": "Jingdezhen SEO cluster",
+    "text": "Jingdezhen SEO should target queries such as Jingdezhen porcelain itinerary, Jingdezhen ceramics studio visit, Jingdezhen for designers, China porcelain capital travel, Jingdezhen workshop for foreigners, and porcelain culture China trip.",
+    "tags": ["jingdezhen", "seo", "keyword_cluster", "design_travel"],
+    "metadata": {"intent": "craft, design, studio access, and collectors"}
+  },
+  {
+    "slug": "jingdezhen",
+    "type": "source_note",
+    "title": "Jingdezhen paid acquisition angle",
+    "text": "Paid ads for Jingdezhen should target designers, collectors, museum audiences, and creative travelers with access language: private studio route, maker conversations, kiln context, and curated porcelain learning instead of generic souvenir shopping.",
+    "tags": ["jingdezhen", "paid_ads", "design_travel", "craft_access", "conversion"],
+    "metadata": {"landing_target": "/chat", "cta": "Plan a porcelain and studio access route"}
+  },
+  {
+    "slug": "jingmai-mountain",
+    "type": "source_note",
+    "title": "Jingmai overseas content hook",
+    "text": "Jingmai content should be slow and sensory: ancient tea forests, mist, village hospitality, cups, hands, quiet mornings, ecology, and the idea of tea as a landscape rather than a product.",
+    "tags": ["jingmai", "overseas_growth", "content_hook", "tea", "slow_travel"],
+    "metadata": {"channels": ["YouTube", "Instagram", "Pinterest", "newsletter"], "funnel_stage": "retreat and slow travel"}
+  },
+  {
+    "slug": "jingmai-mountain",
+    "type": "source_note",
+    "title": "Jingmai SEO cluster",
+    "text": "Jingmai SEO should target queries such as Jingmai tea mountain itinerary, ancient tea forest China, Yunnan tea travel, slow travel China tea village, Jingmai Mountain guide, and China tea culture trip.",
+    "tags": ["jingmai", "seo", "keyword_cluster", "tea_travel"],
+    "metadata": {"intent": "tea, slow travel, photography, and retreat"}
+  },
+  {
+    "slug": "jingmai-mountain",
+    "type": "source_note",
+    "title": "Jingmai paid acquisition angle",
+    "text": "Paid ads for Jingmai should be cautious and high-fit: target tea lovers, slow-luxury travelers, photographers, and repeat China visitors. The promise is hosted tea forest access and quiet, not fast sightseeing.",
+    "tags": ["jingmai", "paid_ads", "slow_luxury", "tea_host", "conversion"],
+    "metadata": {"landing_target": "/chat", "cta": "Design a hosted tea forest retreat"}
+  },
+  {
+    "slug": "wudang-mountain",
+    "type": "source_note",
+    "title": "Wudang overseas content hook",
+    "text": "Wudang content should lead with Taoist mountain atmosphere, Taiji, breath, posture, mist, temples, and the difference between real internal practice and kung-fu fantasy. The sell is spiritual weight with cultural specificity.",
+    "tags": ["wudang", "overseas_growth", "content_hook", "taoism", "taiji"],
+    "metadata": {"channels": ["YouTube", "Instagram", "Google Search", "wellness newsletters"], "funnel_stage": "meaning and practice"}
+  },
+  {
+    "slug": "wudang-mountain",
+    "type": "source_note",
+    "title": "Wudang SEO cluster",
+    "text": "Wudang SEO should target queries such as Wudang Mountain Taoist itinerary, Taiji travel China, Wudang for beginners, Taoist mountain China guide, Wudang martial arts culture, and China spiritual travel.",
+    "tags": ["wudang", "seo", "keyword_cluster", "taiji", "taoism"],
+    "metadata": {"intent": "practice, philosophy, and reflective mountain travel"}
+  },
+  {
+    "slug": "wudang-mountain",
+    "type": "source_note",
+    "title": "Wudang paid acquisition angle",
+    "text": "Paid ads for Wudang should target wellness-adjacent and martial-culture travelers with grounded claims: Taoist mountain route, short Taiji introduction, breath and posture, temple interpretation, and reflective pacing.",
+    "tags": ["wudang", "paid_ads", "wellness_adjacent", "taiji", "conversion"],
+    "metadata": {"landing_target": "/chat", "cta": "Plan a Taoist mountain and Taiji route"}
+  }
+]

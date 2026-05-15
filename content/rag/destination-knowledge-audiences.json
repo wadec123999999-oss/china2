@@ -1,0 +1,282 @@
+[
+  {
+    "slug": "beijing",
+    "type": "market_profile",
+    "title": "Beijing for North American first-timers",
+    "text": "North American first-time visitors often need Beijing to provide orientation: dynastic history, national scale, food safety confidence, neighborhood life, and the logic of moving through a very large Chinese city. The concierge should keep the route clear and not over-intellectualize the first day.",
+    "tags": ["beijing", "north_america", "first_time_china", "market_profile"],
+    "metadata": {"priority_market": ["United States", "Canada"], "lead_question": "Is this your first time in China or your first time beyond Shanghai/Hong Kong?"}
+  },
+  {
+    "slug": "beijing",
+    "type": "market_profile",
+    "title": "Beijing for European heritage and architecture travelers",
+    "text": "European travelers with interest in architecture, museums, and historical cities can be sold Beijing through ceremonial space, axes, gates, courtyard typologies, urban preservation, and the contrast between imperial and modern state planning.",
+    "tags": ["beijing", "europe", "architecture", "heritage_travel"],
+    "metadata": {"priority_market": ["United Kingdom", "France", "Germany", "Italy", "Spain"]}
+  },
+  {
+    "slug": "beijing",
+    "type": "market_profile",
+    "title": "Beijing for families needing a confident China opening",
+    "text": "For families, Beijing should be designed with fewer stops, stronger stories, good meal timing, and clear movement. Children can understand walls, gates, dragons, courtyards, noodles, and the Great Wall more easily than abstract dynastic lectures.",
+    "tags": ["beijing", "family_travel", "first_time_china", "pacing"],
+    "metadata": {"lead_question": "How old are the children, and how much walking can they handle?"}
+  },
+  {
+    "slug": "beijing",
+    "type": "source_note",
+    "title": "Beijing sales message by traveler maturity",
+    "text": "For first-timers, sell Beijing as orientation. For repeat visitors, sell it as a second reading of hutongs, altars, food, and urban form. For experts, sell it through access, interpretation, and the ability to read space rather than simply see sites.",
+    "tags": ["beijing", "sales_message", "traveler_maturity", "conversion"],
+    "metadata": {"segmentation": ["first-timer", "repeat visitor", "specialist"]}
+  },
+  {
+    "slug": "beijing",
+    "type": "traveler_faq",
+    "title": "Which traveler should start in Beijing instead of Shanghai?",
+    "text": "Travelers who want historical grammar, imperial space, ritual order, and a strong first explanation of China should usually start in Beijing. Travelers who mainly want international ease, design retail, and cosmopolitan dining may prefer Shanghai.",
+    "tags": ["beijing", "shanghai_comparison", "faq", "trip_start"],
+    "metadata": {"answer_style": "Use as a decision filter, not a city ranking."}
+  },
+  {
+    "slug": "chengdu",
+    "type": "market_profile",
+    "title": "Chengdu for Southeast Asian food travelers",
+    "text": "Southeast Asian travelers often understand food as a primary travel language. Chengdu can be sold through flavor confidence, shared tables, snacks, markets, late meals, tea, and the pleasure of a city organized around appetite.",
+    "tags": ["chengdu", "southeast_asia", "food_travel", "market_profile"],
+    "metadata": {"priority_market": ["Singapore", "Malaysia", "Thailand", "Indonesia", "Philippines"]}
+  },
+  {
+    "slug": "chengdu",
+    "type": "market_profile",
+    "title": "Chengdu for Japanese and Korean short-break travelers",
+    "text": "Japanese and Korean travelers can be attracted by Chengdu's direct emotional hooks: pandas, food, teahouses, relaxed street life, and a manageable city break that feels different from East Asian urban order.",
+    "tags": ["chengdu", "japan", "korea", "short_break", "pandas"],
+    "metadata": {"priority_market": ["Japan", "South Korea"], "trip_length": "3-4 days"}
+  },
+  {
+    "slug": "chengdu",
+    "type": "market_profile",
+    "title": "Chengdu for premium families",
+    "text": "Premium families are likely to convert in Chengdu because the route can satisfy children through pandas and snacks while giving adults Sichuan food, tea-house culture, opera, parks, and slower social observation.",
+    "tags": ["chengdu", "family_travel", "pandas", "premium_family"],
+    "metadata": {"lead_question": "Are pandas the main reason for Chengdu, or should food be equal priority?"}
+  },
+  {
+    "slug": "chengdu",
+    "type": "source_note",
+    "title": "Chengdu sales message by comfort level",
+    "text": "For cautious travelers, sell Chengdu as a soft landing with pandas, parks, and controlled spice. For adventurous eaters, sell market-led Sichuan flavor and hotpot confidence. For slow travelers, sell teahouses and unhurried social rhythm.",
+    "tags": ["chengdu", "sales_message", "comfort_level", "conversion"],
+    "metadata": {"segmentation": ["cautious", "food-adventurous", "slow traveler"]}
+  },
+  {
+    "slug": "chengdu",
+    "type": "traveler_faq",
+    "title": "Is Chengdu better before or after Beijing?",
+    "text": "For first-time travelers, Beijing usually works first because it gives historical structure. Chengdu works well afterward as the emotional softening: pandas, food, teahouses, parks, and slower local life.",
+    "tags": ["chengdu", "beijing_pairing", "faq", "route_order"],
+    "metadata": {"answer_style": "Recommend Beijing then Chengdu for most first-timers."}
+  },
+  {
+    "slug": "chongqing",
+    "type": "market_profile",
+    "title": "Chongqing for young Asian visual travelers",
+    "text": "Young travelers from Japan, Korea, Southeast Asia, and global urban centers may be especially responsive to Chongqing's cinematic visuals: 8D levels, neon, river haze, transit moments, and hotpot nights. The sell should be atmosphere and movement.",
+    "tags": ["chongqing", "young_travelers", "asia", "photography", "cyberpunk"],
+    "metadata": {"priority_market": ["Japan", "South Korea", "Singapore", "Malaysia", "Thailand"]}
+  },
+  {
+    "slug": "chongqing",
+    "type": "market_profile",
+    "title": "Chongqing for repeat China visitors",
+    "text": "Repeat China visitors are strong Chongqing candidates because the city disrupts familiar China images. It offers vertical density, confusing levels, river scale, fog, heat, and nightlife energy rather than classical heritage or polished cosmopolitanism.",
+    "tags": ["chongqing", "repeat_china", "urban_exploration", "market_profile"],
+    "metadata": {"lead_question": "Have you already seen Beijing, Shanghai, Xi'an, or Chengdu?"}
+  },
+  {
+    "slug": "chongqing",
+    "type": "market_profile",
+    "title": "Chongqing for photographers and video creators",
+    "text": "Photographers and video creators need Chongqing sequenced by light, height, movement, and weather. The route should include night transitions, elevated viewpoints, transit scenes, river edges, food steam, and controlled walking through vertical neighborhoods.",
+    "tags": ["chongqing", "photography", "video", "creator_travel"],
+    "metadata": {"lead_question": "Are you optimizing for photos, video, food, or general atmosphere?"}
+  },
+  {
+    "slug": "chongqing",
+    "type": "source_note",
+    "title": "Chongqing sales message by energy level",
+    "text": "For high-energy travelers, sell stairs, hotpot, night routes, and visual intensity. For moderate travelers, sell a curated version with fewer climbs and stronger transport support. For low-energy travelers, recommend Chengdu as the main base and Chongqing as optional.",
+    "tags": ["chongqing", "sales_message", "energy_level", "conversion"],
+    "metadata": {"segmentation": ["high energy", "moderate energy", "low energy"]}
+  },
+  {
+    "slug": "chongqing",
+    "type": "traveler_faq",
+    "title": "Should older travelers visit Chongqing?",
+    "text": "Yes, but only with careful pacing. Chongqing can be challenging because of stairs, slopes, humidity, and confusing levels. A route for older travelers should reduce climbs, use drivers strategically, and focus on river views, food, and selected viewpoints.",
+    "tags": ["chongqing", "older_travelers", "mobility", "faq"],
+    "metadata": {"answer_style": "Qualify strongly by mobility and comfort."}
+  },
+  {
+    "slug": "quanzhou",
+    "type": "market_profile",
+    "title": "Quanzhou for Filipino Chinese travelers",
+    "text": "Filipino Chinese travelers may connect with Quanzhou through Hokkien roots, surnames, temple practice, family food memory, and maritime migration. The concierge should ask about family origin stories and whether the trip is emotional, cultural, or exploratory.",
+    "tags": ["quanzhou", "philippines", "filipino_chinese", "hokkien", "diaspora"],
+    "metadata": {"priority_market": ["Philippines"], "lead_question": "Does your family identify with Hokkien, Fujian, Minnan, or a specific ancestral county?"}
+  },
+  {
+    "slug": "quanzhou",
+    "type": "market_profile",
+    "title": "Quanzhou for Malaysian and Singaporean Chinese travelers",
+    "text": "Malaysian and Singaporean Chinese travelers can read Quanzhou through Minnan language echoes, temple networks, clan memory, food similarities, and the feeling that Southeast Asian Chinese life has upstream roots here.",
+    "tags": ["quanzhou", "malaysia", "singapore", "hokkien", "diaspora"],
+    "metadata": {"priority_market": ["Malaysia", "Singapore"]}
+  },
+  {
+    "slug": "quanzhou",
+    "type": "market_profile",
+    "title": "Quanzhou for Middle Eastern heritage travelers",
+    "text": "Middle Eastern travelers interested in Islamic history, maritime trade, and Zayton can be introduced to Quanzhou through mosques, tombs, port memory, spice routes, and the idea of China as part of an Indian Ocean trade world.",
+    "tags": ["quanzhou", "middle_east", "islamic_history", "zayton", "maritime_trade"],
+    "metadata": {"priority_market": ["UAE", "Oman", "Saudi Arabia", "Qatar"]}
+  },
+  {
+    "slug": "quanzhou",
+    "type": "source_note",
+    "title": "Quanzhou sales message by ancestry connection",
+    "text": "If the traveler has Hokkien ancestry, sell origin and family memory. If not, sell Quanzhou as China's outward-facing port city. For Muslim or Middle Eastern travelers, highlight maritime Islam and trade memory. For Europeans, highlight UNESCO and medieval world trade.",
+    "tags": ["quanzhou", "sales_message", "diaspora", "market_segmentation"],
+    "metadata": {"segmentation": ["Hokkien diaspora", "UNESCO traveler", "Muslim heritage traveler", "European maritime history traveler"]}
+  },
+  {
+    "slug": "quanzhou",
+    "type": "traveler_faq",
+    "title": "Is Quanzhou meaningful if I do not have Chinese ancestry?",
+    "text": "Yes. Without ancestry, Quanzhou still works as a rare way to understand China as a global maritime civilization with UNESCO heritage, religious coexistence, food, craft, and old-city life.",
+    "tags": ["quanzhou", "faq", "non_diaspora", "maritime_silk_road"],
+    "metadata": {"answer_style": "Separate diaspora value from global heritage value."}
+  },
+  {
+    "slug": "jingdezhen",
+    "type": "market_profile",
+    "title": "Jingdezhen for European design travelers",
+    "text": "European design travelers can be attracted through porcelain's role in global taste, collecting, imitation, royal courts, trade, and modern craft practice. The route should connect historical porcelain to contemporary studios.",
+    "tags": ["jingdezhen", "europe", "design_travel", "porcelain"],
+    "metadata": {"priority_market": ["France", "Italy", "United Kingdom", "Germany", "Netherlands"]}
+  },
+  {
+    "slug": "jingdezhen",
+    "type": "market_profile",
+    "title": "Jingdezhen for Japanese and Korean craft travelers",
+    "text": "Japanese and Korean travelers with craft sensitivity may appreciate Jingdezhen through ceramic lineage, kiln culture, restraint, studio practice, material discipline, and the relationship between historical craft and contemporary making.",
+    "tags": ["jingdezhen", "japan", "korea", "craft_travel", "ceramics"],
+    "metadata": {"priority_market": ["Japan", "South Korea"]}
+  },
+  {
+    "slug": "jingdezhen",
+    "type": "market_profile",
+    "title": "Jingdezhen for education and museum groups",
+    "text": "Jingdezhen is strong for universities, museums, collectors' circles, and design schools because it offers a coherent learning arc: material, production, labor, trade, taste, collecting, and contemporary practice.",
+    "tags": ["jingdezhen", "education", "museum_group", "design_school"],
+    "metadata": {"lead_question": "Is this a leisure trip, collector trip, or education-led group?"}
+  },
+  {
+    "slug": "jingdezhen",
+    "type": "source_note",
+    "title": "Jingdezhen sales message by craft literacy",
+    "text": "For beginners, sell tactile discovery and hands-on making. For designers, sell process and studio access. For collectors, sell quality literacy. For museums and schools, sell the full porcelain world-system story.",
+    "tags": ["jingdezhen", "sales_message", "craft_literacy", "conversion"],
+    "metadata": {"segmentation": ["beginner", "designer", "collector", "education group"]}
+  },
+  {
+    "slug": "jingdezhen",
+    "type": "traveler_faq",
+    "title": "Can Jingdezhen work for people who do not collect ceramics?",
+    "text": "Yes, if they are curious about how things are made. Jingdezhen is not only collecting; it is clay, fire, risk, labor, design, history, and the chance to understand culture through objects.",
+    "tags": ["jingdezhen", "faq", "non_collector", "craft_process"],
+    "metadata": {"answer_style": "Broaden from collecting to process and material culture."}
+  },
+  {
+    "slug": "jingmai-mountain",
+    "type": "market_profile",
+    "title": "Jingmai for tea travelers in Asia",
+    "text": "Tea travelers from Singapore, Malaysia, Thailand, Japan, Korea, and Taiwan-adjacent tea cultures may value Jingmai because tea appears as forest, village, hospitality, taste, ecology, and daily life rather than only a purchased product.",
+    "tags": ["jingmai", "asia", "tea_travel", "market_profile"],
+    "metadata": {"priority_market": ["Singapore", "Malaysia", "Thailand", "Japan", "South Korea"]}
+  },
+  {
+    "slug": "jingmai-mountain",
+    "type": "market_profile",
+    "title": "Jingmai for Western slow-luxury travelers",
+    "text": "Western slow-luxury travelers may respond to Jingmai's mist, tea forests, village rhythm, quiet mornings, ecology, and distance from mass tourism. The sell should be calm specificity, not generic wellness.",
+    "tags": ["jingmai", "western_markets", "slow_luxury", "tea_forest"],
+    "metadata": {"priority_market": ["United States", "Canada", "Australia", "United Kingdom", "France", "Germany"]}
+  },
+  {
+    "slug": "jingmai-mountain",
+    "type": "market_profile",
+    "title": "Jingmai for photographers",
+    "text": "Photographers can be attracted by mist, tea terraces and forests, village roofs, morning light, textures, hands, cups, smoke, and the quiet rhythm of hospitality. The route should protect early and late light.",
+    "tags": ["jingmai", "photography", "morning_light", "aesthetic_travel"],
+    "metadata": {"lead_question": "Are you more interested in tea learning, photography, or quiet retreat time?"}
+  },
+  {
+    "slug": "jingmai-mountain",
+    "type": "source_note",
+    "title": "Jingmai sales message by patience level",
+    "text": "For high-patience travelers, sell deep slowness and hosted tea time. For moderate travelers, pair Jingmai with a stronger city. For low-patience travelers, do not force it; they may be happier in Chengdu, Chongqing, or Beijing.",
+    "tags": ["jingmai", "sales_message", "patience_level", "conversion"],
+    "metadata": {"segmentation": ["high patience", "moderate patience", "low patience"]}
+  },
+  {
+    "slug": "jingmai-mountain",
+    "type": "traveler_faq",
+    "title": "Should Jingmai be included on a first China trip?",
+    "text": "Usually only if the traveler strongly values tea, slow travel, photography, or quiet landscapes. For general first-timers, Jingmai is better as a second-China destination or as a deliberate retreat chapter after a major city.",
+    "tags": ["jingmai", "faq", "first_time_china", "slow_travel"],
+    "metadata": {"answer_style": "Filter carefully rather than over-selling."}
+  },
+  {
+    "slug": "wudang-mountain",
+    "type": "market_profile",
+    "title": "Wudang for Western wellness-adjacent travelers",
+    "text": "Western wellness-adjacent travelers may respond to Wudang if it is framed through real Taoist culture, breath, posture, mountain walking, and quiet rather than vague wellness language. The credibility comes from specificity.",
+    "tags": ["wudang", "western_markets", "wellness_adjacent", "taoism"],
+    "metadata": {"priority_market": ["United States", "Canada", "Australia", "United Kingdom", "Germany"]}
+  },
+  {
+    "slug": "wudang-mountain",
+    "type": "market_profile",
+    "title": "Wudang for martial arts and Taiji learners",
+    "text": "Martial arts and Taiji learners are natural Wudang candidates, but expectations must be managed. The premium travel product is not instant mastery; it is access to place, lineage atmosphere, embodied introduction, and philosophical context.",
+    "tags": ["wudang", "taiji", "martial_arts", "market_profile"],
+    "metadata": {"lead_question": "Do you want a cultural introduction, a practice session, or a more serious training arrangement?"}
+  },
+  {
+    "slug": "wudang-mountain",
+    "type": "market_profile",
+    "title": "Wudang for repeat China visitors seeking meaning",
+    "text": "Repeat China visitors who have already seen major cities may value Wudang because it changes the register of the trip: from sightseeing and food into mountain space, Taoist ideas, movement, silence, and reflection.",
+    "tags": ["wudang", "repeat_china", "meaningful_travel", "sacred_mountain"],
+    "metadata": {"priority_market": ["repeat visitors", "culture-led couples", "solo reflective travelers"]}
+  },
+  {
+    "slug": "wudang-mountain",
+    "type": "source_note",
+    "title": "Wudang sales message by practice interest",
+    "text": "For practice-minded guests, sell Taiji, breath, posture, and Taoist context. For atmosphere-minded guests, sell temples, mist, mountain paths, and quiet. For general tourists, keep Wudang short or suggest a better-fit city.",
+    "tags": ["wudang", "sales_message", "practice_interest", "conversion"],
+    "metadata": {"segmentation": ["practice-minded", "atmosphere-minded", "general tourist"]}
+  },
+  {
+    "slug": "wudang-mountain",
+    "type": "traveler_faq",
+    "title": "Is Wudang too serious for casual travelers?",
+    "text": "It can be, if sold as deep practice only. Casual travelers can still enjoy Wudang through mountain architecture, temple atmosphere, short Taiji introduction, and reflective walking, but the route should remain gentle and well explained.",
+    "tags": ["wudang", "faq", "casual_traveler", "taoist_mountain"],
+    "metadata": {"answer_style": "Make accessible without turning Wudang into entertainment."}
+  }
+]

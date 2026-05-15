@@ -7,7 +7,7 @@ const sourcePath = path.join(rootDir, "lib", "destination-positioning.ts");
 const outputDir = path.join(rootDir, "content", "rag");
 const outputPath = path.join(outputDir, "destination-knowledge.jsonl");
 const detailCardFilePattern =
-	/^destination-knowledge-(details|practical|planning)\.json$/;
+	/^destination-knowledge-(details|practical|planning|audiences|growth)\.json$/;
 
 const cityLabels = {
 	beijing: "Beijing",
