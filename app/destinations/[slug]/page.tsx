@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 
 import { cityShowcase } from "@/lib/city-showcase";
 import { destinationGuides } from "@/lib/destination-guides";
+import { destinationItineraryBlueprints } from "@/lib/destination-itineraries";
 import { destinationPositioningBySlug } from "@/lib/destination-positioning";
 
 export default function DestinationDetailPage({
@@ -19,6 +20,7 @@ export default function DestinationDetailPage({
 
   const positioning = destinationPositioningBySlug[city.slug];
   const guide = destinationGuides[city.slug];
+  const itineraryBlueprints = destinationItineraryBlueprints[city.slug];
 
   return (
     <main className="relative min-h-[calc(100vh-76px)] overflow-hidden bg-[#f6efe6] px-6 py-8 text-[#231815]">
@@ -199,6 +201,66 @@ export default function DestinationDetailPage({
                   {day.body}
                 </p>
               </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="rounded-[2rem] border border-white/60 bg-[linear-gradient(180deg,rgba(255,252,247,0.82),rgba(244,236,225,0.72))] p-5 shadow-[0_30px_80px_-44px_rgba(58,36,24,0.24)] backdrop-blur-2xl sm:p-6">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="text-[11px] uppercase tracking-[0.24em] text-[#8f725d]">
+                3 / 5 / 7 day blueprints
+              </p>
+              <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-[#241915] sm:text-[2.15rem]">
+                Pick the depth before picking the sights.
+              </h2>
+            </div>
+            <p className="max-w-md text-sm leading-7 text-[#634f47]">
+              These route blueprints are designed to help the concierge avoid a
+              generic checklist and choose the right depth for the traveler.
+            </p>
+          </div>
+
+          <div className="mt-6 grid gap-4 lg:grid-cols-3">
+            {itineraryBlueprints.map((blueprint) => (
+              <article
+                key={blueprint.duration}
+                className="flex h-full flex-col rounded-[1.75rem] border border-[#decbb4]/70 bg-[rgba(255,251,246,0.9)] p-5 shadow-[0_22px_58px_-38px_rgba(58,36,24,0.22)]"
+              >
+                <p className="text-[10px] uppercase tracking-[0.22em] text-[#9d7e63]">
+                  {blueprint.duration}
+                </p>
+                <h3 className="mt-2 text-xl font-semibold tracking-[-0.035em] text-[#241915]">
+                  {blueprint.title}
+                </h3>
+                <p className="mt-3 text-sm leading-6 text-[#634f47]">
+                  {blueprint.routeLogic}
+                </p>
+                <div className="mt-4 rounded-[1.2rem] border border-[#eadbca] bg-white/62 p-4">
+                  <p className="text-[10px] uppercase tracking-[0.22em] text-[#9d7e63]">
+                    Best for
+                  </p>
+                  <p className="mt-2 text-sm leading-6 text-[#6a554d]">
+                    {blueprint.bestFor}
+                  </p>
+                </div>
+                <ol className="mt-4 flex flex-1 flex-col gap-2">
+                  {blueprint.days.map((day, index) => (
+                    <li
+                      key={day}
+                      className="grid grid-cols-[2.2rem_1fr] gap-3 rounded-[1rem] border border-[#eadbca] bg-[#fffaf5]/72 p-3 text-sm leading-6 text-[#604c44]"
+                    >
+                      <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#2a211d] text-xs font-semibold text-white">
+                        {index + 1}
+                      </span>
+                      <span>{day}</span>
+                    </li>
+                  ))}
+                </ol>
+                <p className="mt-4 rounded-[1.2rem] bg-[#2a211d] p-4 text-sm leading-6 text-white/88">
+                  {blueprint.conversionPrompt}
+                </p>
+              </article>
             ))}
           </div>
         </section>

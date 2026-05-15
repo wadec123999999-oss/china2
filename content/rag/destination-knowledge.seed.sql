@@ -2612,6 +2612,510 @@ Hubei Foreign Affairs Office: Wudang Mountain: https://www.fohb.gov.cn/info/2022
   'v1-editorial-guides'
 ),
 (
+  'beijing:route_seed:beijing-3-days-route-blueprint',
+  'beijing',
+  'Beijing',
+  'en',
+  'route_seed',
+  'Beijing 3 days route blueprint',
+  'Capital grammar for first-time China travelers (3 days).
+Best for: First-time visitors who need Beijing to explain imperial order without exhausting the trip.
+Route logic: Start human-scale, move into ceremonial scale, then choose one deeper anchor instead of racing across the city.
+Daily sequence:
+1. Hutong soft landing, courtyard texture, local breakfast or noodles, and a northern dinner that explains Beijing as lived city.
+2. Central Axis and palace-space reading: gates, thresholds, courts, ceremonial movement, and why scale was political.
+3. Great Wall, Temple of Heaven, or a museum day selected by traveler profile: landscape defense, ritual order, or object history.
+Conversion prompt: Ask the concierge to choose the third-day anchor based on whether the traveler cares more about architecture, ritual, photography, or history.',
+  array['route_blueprint', 'itinerary', '3_days']::text[],
+  '{"sort_order":1,"duration":"3 days","best_for":"First-time visitors who need Beijing to explain imperial order without exhausting the trip.","day_count":3}'::jsonb,
+  'a-deeper-china-redesign/lib/destination-itineraries.ts',
+  null,
+  'curated',
+  'v1-itinerary-blueprints'
+),
+(
+  'beijing:route_seed:beijing-5-days-route-blueprint',
+  'beijing',
+  'Beijing',
+  'en',
+  'route_seed',
+  'Beijing 5 days route blueprint',
+  'Beijing with enough time to breathe (5 days).
+Best for: Culture-led couples, families, and older travelers who want depth but still need good pacing.
+Route logic: Separate Beijing into neighborhood, axis, wall, ritual, and contemporary memory so the city does not become one heavy monument block.
+Daily sequence:
+1. Arrival, hotel area orientation, hutong walk, and a simple food route with no major museum pressure.
+2. Forbidden City or Central Axis route with contextual interpretation and a quiet courtyard meal afterward.
+3. Great Wall day planned for crowd avoidance, photography rhythm, and recovery time.
+4. Temple of Heaven, Lama Temple, or Confucian learning route paired with tea, calligraphy, or market texture.
+5. 798, museum, diplomatic quarter, or slower neighborhood day depending on whether the traveler wants modern China or older Beijing.
+Conversion prompt: Ask the concierge to balance wall logistics, palace tickets, walking tolerance, and one private expert-led hutong route.',
+  array['route_blueprint', 'itinerary', '5_days']::text[],
+  '{"sort_order":2,"duration":"5 days","best_for":"Culture-led couples, families, and older travelers who want depth but still need good pacing.","day_count":5}'::jsonb,
+  'a-deeper-china-redesign/lib/destination-itineraries.ts',
+  null,
+  'curated',
+  'v1-itinerary-blueprints'
+),
+(
+  'beijing:route_seed:beijing-7-days-route-blueprint',
+  'beijing',
+  'Beijing',
+  'en',
+  'route_seed',
+  'Beijing 7 days route blueprint',
+  'Beijing as the opening chapter of China (7 days).
+Best for: Travelers using Beijing as the foundation before Chengdu, Chongqing, Jingdezhen, Wudang, or Quanzhou.
+Route logic: Use a full week to build historical grammar, then convert that understanding into a stronger multi-city route.
+Daily sequence:
+1. Arrival and local-scale Beijing: hutongs, neighborhood rhythm, simple meal, sleep recovery.
+2. Central Axis and palace reading with clear explanation of imperial space.
+3. Temple and ritual day: Temple of Heaven, altar logic, seasonal order, and ceremony.
+4. Great Wall or Ming Tombs route with landscape and defense framing.
+5. Museum or object-history day, chosen around art, archaeology, diplomacy, or family interest.
+6. Modern Beijing contrast: 798, contemporary neighborhoods, or urban planning conversation.
+7. Route handoff day: decide whether the next city should be food-soft Chengdu, visual Chongqing, craft Jingdezhen, Taoist Wudang, port Quanzhou, or tea-slow Jingmai.
+Conversion prompt: Use /chat to turn Beijing into the first chapter of a two- or three-city China route instead of treating it as a standalone checklist.',
+  array['route_blueprint', 'itinerary', '7_days']::text[],
+  '{"sort_order":3,"duration":"7 days","best_for":"Travelers using Beijing as the foundation before Chengdu, Chongqing, Jingdezhen, Wudang, or Quanzhou.","day_count":7}'::jsonb,
+  'a-deeper-china-redesign/lib/destination-itineraries.ts',
+  null,
+  'curated',
+  'v1-itinerary-blueprints'
+),
+(
+  'chengdu:route_seed:chengdu-3-days-route-blueprint',
+  'chengdu',
+  'Chengdu',
+  'en',
+  'route_seed',
+  'Chengdu 3 days route blueprint',
+  'Pandas, food, and the Chengdu rhythm (3 days).
+Best for: Families, food-first travelers, and first-timers who want China to feel warm and manageable.
+Route logic: Use pandas as emotional entry, then let meals, parks, tea, and markets explain why Chengdu is loved.
+Daily sequence:
+1. Early panda visit, gentle lunch, snack walk, and a controlled Sichuan dinner calibrated for spice tolerance.
+2. Market ingredients, tea-house sitting, park life, and a slower neighborhood food route.
+3. Cooking class, Sichuan opera, Dujiangyan, or a countryside/craft extension depending on traveler type.
+Conversion prompt: Ask the concierge to design a Chengdu route around spice tolerance, panda timing, family comfort, and one serious food evening.',
+  array['route_blueprint', 'itinerary', '3_days']::text[],
+  '{"sort_order":1,"duration":"3 days","best_for":"Families, food-first travelers, and first-timers who want China to feel warm and manageable.","day_count":3}'::jsonb,
+  'a-deeper-china-redesign/lib/destination-itineraries.ts',
+  null,
+  'curated',
+  'v1-itinerary-blueprints'
+),
+(
+  'chengdu:route_seed:chengdu-5-days-route-blueprint',
+  'chengdu',
+  'Chengdu',
+  'en',
+  'route_seed',
+  'Chengdu 5 days route blueprint',
+  'Food-first Chengdu with local ease (5 days).
+Best for: Travelers who understand culture through eating, sitting, conversation, and daily life.
+Route logic: Make meals the route structure, not an afterthought; each day should have one flavor lesson and one slow-life moment.
+Daily sequence:
+1. Arrival, neighborhood orientation, simple noodles or snacks, and tea-house decompression.
+2. Pandas early, then lunch, park life, and an introductory hotpot or chuanchuan night.
+3. Market-to-table day: ingredients, cooking, ordering logic, and a food street without turning it into a tourist crawl.
+4. Dujiangyan, Qingcheng Mountain, or a soft countryside day if the traveler wants history and landscape.
+5. Flexible day for opera, massage, craft, cafe neighborhoods, or a food expert session before moving to Chongqing or Beijing.
+Conversion prompt: Use /chat to decide whether Chengdu should stay soft and food-led or become the first half of a Chengdu-Chongqing contrast route.',
+  array['route_blueprint', 'itinerary', '5_days']::text[],
+  '{"sort_order":2,"duration":"5 days","best_for":"Travelers who understand culture through eating, sitting, conversation, and daily life.","day_count":5}'::jsonb,
+  'a-deeper-china-redesign/lib/destination-itineraries.ts',
+  null,
+  'curated',
+  'v1-itinerary-blueprints'
+),
+(
+  'chengdu:route_seed:chengdu-7-days-route-blueprint',
+  'chengdu',
+  'Chengdu',
+  'en',
+  'route_seed',
+  'Chengdu 7 days route blueprint',
+  'Sichuan soft landing and deeper appetite (7 days).
+Best for: Food travelers, families, and repeat visitors who want Chengdu as a base rather than a two-night stop.
+Route logic: Build from emotional icons to deeper Sichuan: pandas, tea, spice, water systems, mountain edge, performance, and social ease.
+Daily sequence:
+1. Arrival and soft landing: tea, park, simple local meal.
+2. Pandas and first flavor map: noodles, snacks, hotpot logic.
+3. Market, cooking, and ordering day with a local food specialist.
+4. Dujiangyan and Qingcheng-style landscape/history day, paced for comfort.
+5. Tea-house culture, mahjong observation, bookshop/cafe neighborhoods, and slow social rhythm.
+6. Optional Leshan, countryside, craft, or wellness day depending on energy.
+7. Final Chengdu food review and handoff: either Chongqing for intensity or another culture city for contrast.
+Conversion prompt: Ask the concierge to build a Sichuan week around heat level, panda priority, family needs, and whether Chongqing should be added.',
+  array['route_blueprint', 'itinerary', '7_days']::text[],
+  '{"sort_order":3,"duration":"7 days","best_for":"Food travelers, families, and repeat visitors who want Chengdu as a base rather than a two-night stop.","day_count":7}'::jsonb,
+  'a-deeper-china-redesign/lib/destination-itineraries.ts',
+  null,
+  'curated',
+  'v1-itinerary-blueprints'
+),
+(
+  'chongqing:route_seed:chongqing-3-days-route-blueprint',
+  'chongqing',
+  'Chongqing',
+  'en',
+  'route_seed',
+  'Chongqing 3 days route blueprint',
+  'The cinematic 8D mountain city (3 days).
+Best for: Visual travelers, creators, younger premium guests, and repeat China visitors who want urban intensity.
+Route logic: Do not chase isolated viral stops. Build a physical sequence through levels, rails, bridges, stairs, river fog, and night food.
+Daily sequence:
+1. Vertical orientation: rail, stairs, river edge, viewpoints, and a route that makes the city''s levels understandable.
+2. Night city sequence: bridges, skyline, old streets, hotpot steam, and controlled late-evening movement.
+3. Dazu, wartime memory, or deeper neighborhood day depending on whether the traveler wants culture, history, or more city texture.
+Conversion prompt: Ask /chat to design a Chongqing night route that avoids random viral hopping and sequences viewpoints, transit, and hotpot properly.',
+  array['route_blueprint', 'itinerary', '3_days']::text[],
+  '{"sort_order":1,"duration":"3 days","best_for":"Visual travelers, creators, younger premium guests, and repeat China visitors who want urban intensity.","day_count":3}'::jsonb,
+  'a-deeper-china-redesign/lib/destination-itineraries.ts',
+  null,
+  'curated',
+  'v1-itinerary-blueprints'
+),
+(
+  'chongqing:route_seed:chongqing-5-days-route-blueprint',
+  'chongqing',
+  'Chongqing',
+  'en',
+  'route_seed',
+  'Chongqing 5 days route blueprint',
+  'Chongqing beyond the viral reel (5 days).
+Best for: Travelers who like atmosphere but still need cultural depth, food, and slower recovery blocks.
+Route logic: Alternate intense visual movement with deeper context so the city becomes readable, not just overwhelming.
+Daily sequence:
+1. Arrival and first vertical walk: rail, hillside streets, river orientation.
+2. Full 8D city day: Liziba-style transit moment, bridges, stairs, elevators, market texture, and night view.
+3. Hotpot and food structure day: spice, ordering, broth, neighborhood meals, and late-night rhythm.
+4. Dazu Rock Carvings or wartime Chongqing layer for historical depth.
+5. Slow city day: old neighborhoods, river ferry, cafe/tea pause, and final night photography.
+Conversion prompt: Use the concierge to filter mobility, humidity tolerance, food heat level, and photography priorities before locking the route.',
+  array['route_blueprint', 'itinerary', '5_days']::text[],
+  '{"sort_order":2,"duration":"5 days","best_for":"Travelers who like atmosphere but still need cultural depth, food, and slower recovery blocks.","day_count":5}'::jsonb,
+  'a-deeper-china-redesign/lib/destination-itineraries.ts',
+  null,
+  'curated',
+  'v1-itinerary-blueprints'
+),
+(
+  'chongqing:route_seed:chongqing-7-days-route-blueprint',
+  'chongqing',
+  'Chongqing',
+  'en',
+  'route_seed',
+  'Chongqing 7 days route blueprint',
+  'Chongqing as urban spectacle and river culture (7 days).
+Best for: Photographers, city obsessives, food travelers, and guests who want China to feel visually unfamiliar.
+Route logic: Extend beyond downtown spectacle into rock carvings, river memory, wartime layers, food, and neighborhood adaptation to topography.
+Daily sequence:
+1. Arrival and base orientation around one accessible neighborhood.
+2. Transit and levels day: rail, stairs, bridges, elevators, and street-to-roof transitions.
+3. Night route day: river reflections, skyline, cliffside buildings, and hotpot.
+4. Dazu Rock Carvings or heritage excursion for contrast with urban intensity.
+5. Wartime and river-history day to explain the city''s strategic memory.
+6. Food and neighborhood day focused on local meals beyond hotpot.
+7. Flexible creator route: sunrise, fog, ferry, final viewpoint, and Chengdu or Zhangjiajie-style onward decision.
+Conversion prompt: Ask /chat to decide whether a 7-day Chongqing route should stay urban or pair with Chengdu for emotional contrast.',
+  array['route_blueprint', 'itinerary', '7_days']::text[],
+  '{"sort_order":3,"duration":"7 days","best_for":"Photographers, city obsessives, food travelers, and guests who want China to feel visually unfamiliar.","day_count":7}'::jsonb,
+  'a-deeper-china-redesign/lib/destination-itineraries.ts',
+  null,
+  'curated',
+  'v1-itinerary-blueprints'
+),
+(
+  'quanzhou:route_seed:quanzhou-3-days-route-blueprint',
+  'quanzhou',
+  'Quanzhou',
+  'en',
+  'route_seed',
+  'Quanzhou 3 days route blueprint',
+  'Maritime Silk Road and Hokkien memory (3 days).
+Best for: Southeast Asian Chinese diaspora, UNESCO travelers, and culture travelers who prefer layered cities over famous skylines.
+Route logic: Read Quanzhou as a port civilization: trade, worship, migration, food, and old streets all have to be connected.
+Daily sequence:
+1. Old city and port orientation: UNESCO components, street texture, food, and Zayton/Maritime Silk Road context.
+2. Plural religion route: mosque, temples, shrines, churches, and ancestor-hall logic where relevant.
+3. Living culture day: zanhua, Nanyin, incense, tea, food memory, or Dehua/Anxi extension depending on profile.
+Conversion prompt: Ask the concierge to adapt Quanzhou by ancestry, religion interest, food memory, and whether the traveler has Hokkien family roots.',
+  array['route_blueprint', 'itinerary', '3_days']::text[],
+  '{"sort_order":1,"duration":"3 days","best_for":"Southeast Asian Chinese diaspora, UNESCO travelers, and culture travelers who prefer layered cities over famous skylines.","day_count":3}'::jsonb,
+  'a-deeper-china-redesign/lib/destination-itineraries.ts',
+  null,
+  'curated',
+  'v1-itinerary-blueprints'
+),
+(
+  'quanzhou:route_seed:quanzhou-5-days-route-blueprint',
+  'quanzhou',
+  'Quanzhou',
+  'en',
+  'route_seed',
+  'Quanzhou 5 days route blueprint',
+  'Quanzhou as connected China (5 days).
+Best for: Travelers from the Philippines, Malaysia, Singapore, Indonesia, Thailand, the Middle East, Europe, and heritage-focused North America.
+Route logic: Give the city time to move from world heritage to family memory, craft, food, and sensory culture.
+Daily sequence:
+1. Arrival and old-city introduction: lanes, food, temples, and port vocabulary.
+2. UNESCO and maritime route: trade, officials, sailors, goods, language, and port-city logic.
+3. Religious coexistence day with interpretation for Islam, Buddhism, folk belief, Christianity, and ancestor practice.
+4. Living-culture day: zanhua, Nanyin, tea, incense, or food craft.
+5. Anxi tea, Dehua porcelain, coastal village, or family-root route depending on traveler identity.
+Conversion prompt: Use /chat to choose between diaspora-root, UNESCO-depth, halal-aware, food-led, or craft-led Quanzhou versions.',
+  array['route_blueprint', 'itinerary', '5_days']::text[],
+  '{"sort_order":2,"duration":"5 days","best_for":"Travelers from the Philippines, Malaysia, Singapore, Indonesia, Thailand, the Middle East, Europe, and heritage-focused North America.","day_count":5}'::jsonb,
+  'a-deeper-china-redesign/lib/destination-itineraries.ts',
+  null,
+  'curated',
+  'v1-itinerary-blueprints'
+),
+(
+  'quanzhou:route_seed:quanzhou-7-days-route-blueprint',
+  'quanzhou',
+  'Quanzhou',
+  'en',
+  'route_seed',
+  'Quanzhou 7 days route blueprint',
+  'Quanzhou plus craft and ancestral routes (7 days).
+Best for: High-value cultural travelers who want a less obvious China story with strong expert interpretation.
+Route logic: Build a full Fujian cultural chapter around port memory, Hokkien roots, tea, porcelain, incense, women-led zanhua, and music.
+Daily sequence:
+1. Old city arrival, food orientation, and first port-memory walk.
+2. UNESCO core route with maritime trade interpretation.
+3. Multi-faith route and Hokkien community memory.
+4. Zanhua, Nanyin, local food, and evening street culture.
+5. Anxi Tieguanyin tea day with mountain, processing, and tasting context.
+6. Dehua porcelain or Yongchun incense day for craft and material culture.
+7. Coastal village, ancestral hall, or custom family-root day before moving to Xiamen, Jingdezhen, or Beijing.
+Conversion prompt: Ask the concierge to build a Quanzhou route around surname roots, language background, religious needs, and craft interests.',
+  array['route_blueprint', 'itinerary', '7_days']::text[],
+  '{"sort_order":3,"duration":"7 days","best_for":"High-value cultural travelers who want a less obvious China story with strong expert interpretation.","day_count":7}'::jsonb,
+  'a-deeper-china-redesign/lib/destination-itineraries.ts',
+  null,
+  'curated',
+  'v1-itinerary-blueprints'
+),
+(
+  'jingdezhen:route_seed:jingdezhen-3-days-route-blueprint',
+  'jingdezhen',
+  'Jingdezhen',
+  'en',
+  'route_seed',
+  'Jingdezhen 3 days route blueprint',
+  'Porcelain as process, not shopping (3 days).
+Best for: Design travelers, artists, collectors, museum visitors, and culture travelers who like material stories.
+Route logic: Teach the traveler how to look at porcelain before asking them to buy or make anything.
+Daily sequence:
+1. Kiln and museum context: clay, fire, glaze, labor, court taste, and global porcelain history.
+2. Studio and workshop day with maker conversations, tools, glaze tests, and market reading.
+3. Hands-on making, collector''s eye session, or contemporary studio route depending on traveler interest.
+Conversion prompt: Ask /chat to decide whether the traveler needs a maker-led, collector-led, design-led, or family-friendly Jingdezhen route.',
+  array['route_blueprint', 'itinerary', '3_days']::text[],
+  '{"sort_order":1,"duration":"3 days","best_for":"Design travelers, artists, collectors, museum visitors, and culture travelers who like material stories.","day_count":3}'::jsonb,
+  'a-deeper-china-redesign/lib/destination-itineraries.ts',
+  null,
+  'curated',
+  'v1-itinerary-blueprints'
+),
+(
+  'jingdezhen:route_seed:jingdezhen-5-days-route-blueprint',
+  'jingdezhen',
+  'Jingdezhen',
+  'en',
+  'route_seed',
+  'Jingdezhen 5 days route blueprint',
+  'Jingdezhen for makers and collectors (5 days).
+Best for: People who want to understand craft ecosystems, not just visit a famous ceramics city.
+Route logic: Move from historical authority to working process, then into contemporary studios, markets, and object judgment.
+Daily sequence:
+1. Arrival and porcelain grammar: what makes Jingdezhen important and how to recognize quality.
+2. Museum, kiln, and imperial-production context.
+3. Working studio day: forming, carving, glazing, firing risk, and maker economics.
+4. Market and collector route with guidance on taste, price logic, and what not to buy blindly.
+5. Hands-on, design studio, or countryside/material-source day depending on the traveler.
+Conversion prompt: Use the concierge to plan appointments around studio access, market days, shipment needs, and whether the traveler wants to buy.',
+  array['route_blueprint', 'itinerary', '5_days']::text[],
+  '{"sort_order":2,"duration":"5 days","best_for":"People who want to understand craft ecosystems, not just visit a famous ceramics city.","day_count":5}'::jsonb,
+  'a-deeper-china-redesign/lib/destination-itineraries.ts',
+  null,
+  'curated',
+  'v1-itinerary-blueprints'
+),
+(
+  'jingdezhen:route_seed:jingdezhen-7-days-route-blueprint',
+  'jingdezhen',
+  'Jingdezhen',
+  'en',
+  'route_seed',
+  'Jingdezhen 7 days route blueprint',
+  'Porcelain, tea, and design culture (7 days).
+Best for: Creative professionals and repeat China travelers who want a craft-intensive week.
+Route logic: Give enough time for process, failure, repetition, collecting, contemporary design, and a possible tea or architecture pairing.
+Daily sequence:
+1. Orientation and porcelain history.
+2. Kiln, museum, and imperial system day.
+3. Workshop process day with hands and tools.
+4. Studio visits and contemporary maker district.
+5. Market, collecting, and shipping-practicality day.
+6. Hands-on class or private maker session with feedback.
+7. Pairing decision: continue to Jingmai for tea, Beijing for museums, or Quanzhou for maritime craft routes.
+Conversion prompt: Ask /chat to build a craft week with appointment timing, object-buying rules, and the best onward city pairing.',
+  array['route_blueprint', 'itinerary', '7_days']::text[],
+  '{"sort_order":3,"duration":"7 days","best_for":"Creative professionals and repeat China travelers who want a craft-intensive week.","day_count":7}'::jsonb,
+  'a-deeper-china-redesign/lib/destination-itineraries.ts',
+  null,
+  'curated',
+  'v1-itinerary-blueprints'
+),
+(
+  'jingmai-mountain:route_seed:jingmai-mountain-3-days-route-blueprint',
+  'jingmai_mountain',
+  'Jingmai Mountain',
+  'en',
+  'route_seed',
+  'Jingmai Mountain 3 days route blueprint',
+  'Ancient tea forest slow landing (3 days).
+Best for: Tea lovers, photographers, slow-luxury travelers, and people who need decompression after major cities.
+Route logic: Protect quiet time. Jingmai fails if it is treated as a fast scenic stop.
+Daily sequence:
+1. Arrive slowly, settle into village rhythm, simple meal, and first tea without overprogramming.
+2. Ancient tea forest walk, ecology explanation, household tea session, and hosted meal.
+3. Mist morning, village observation, photography, second tasting, and departure buffer.
+Conversion prompt: Ask the concierge to decide whether Jingmai should be a quiet ending, a tea-focused core, or a visual retreat after Chongqing or Beijing.',
+  array['route_blueprint', 'itinerary', '3_days']::text[],
+  '{"sort_order":1,"duration":"3 days","best_for":"Tea lovers, photographers, slow-luxury travelers, and people who need decompression after major cities.","day_count":3}'::jsonb,
+  'a-deeper-china-redesign/lib/destination-itineraries.ts',
+  null,
+  'curated',
+  'v1-itinerary-blueprints'
+),
+(
+  'jingmai-mountain:route_seed:jingmai-mountain-5-days-route-blueprint',
+  'jingmai_mountain',
+  'Jingmai Mountain',
+  'en',
+  'route_seed',
+  'Jingmai Mountain 5 days route blueprint',
+  'Tea landscape and village continuity (5 days).
+Best for: Travelers willing to trade convenience for atmosphere, hospitality, and landscape depth.
+Route logic: Use repeated tea sessions and weather changes to make tea feel like ecology, family, and time.
+Daily sequence:
+1. Arrival buffer and village orientation.
+2. Tea forest, ecology, cultivation, and tasting basics.
+3. Household hospitality, processing context, and comparison tasting.
+4. Neighboring village or viewpoint day, adjusted for weather and road conditions.
+5. Quiet morning, final tea session, and route handoff to city or airport.
+Conversion prompt: Use /chat to balance road time, comfort expectations, photography, tea seriousness, and whether private hosting is needed.',
+  array['route_blueprint', 'itinerary', '5_days']::text[],
+  '{"sort_order":2,"duration":"5 days","best_for":"Travelers willing to trade convenience for atmosphere, hospitality, and landscape depth.","day_count":5}'::jsonb,
+  'a-deeper-china-redesign/lib/destination-itineraries.ts',
+  null,
+  'curated',
+  'v1-itinerary-blueprints'
+),
+(
+  'jingmai-mountain:route_seed:jingmai-mountain-7-days-route-blueprint',
+  'jingmai_mountain',
+  'Jingmai Mountain',
+  'en',
+  'route_seed',
+  'Jingmai Mountain 7 days route blueprint',
+  'A contemplative tea week (7 days).
+Best for: Repeat China visitors, writers, photographers, tea buyers, and travelers building a slow China route.
+Route logic: Make slowness the product: weather, cups, paths, hosts, village rhythms, and the difference between tea as beverage and tea as landscape.
+Daily sequence:
+1. Arrival and rest with no heavy program.
+2. Tea forest and ecological reading.
+3. Village life, hosted meal, and household tea practice.
+4. Processing, storage, taste comparison, and buyer-awareness session if relevant.
+5. Weather-buffer day for mist, photography, walking, or road delays.
+6. Neighboring village, market, or regional cultural extension.
+7. Quiet close, final tea, and onward decision to Chengdu, Jingdezhen, or Beijing.
+Conversion prompt: Ask the concierge to build a Jingmai week only if the traveler values stillness, tea, hosting, and mountain logistics.',
+  array['route_blueprint', 'itinerary', '7_days']::text[],
+  '{"sort_order":3,"duration":"7 days","best_for":"Repeat China visitors, writers, photographers, tea buyers, and travelers building a slow China route.","day_count":7}'::jsonb,
+  'a-deeper-china-redesign/lib/destination-itineraries.ts',
+  null,
+  'curated',
+  'v1-itinerary-blueprints'
+),
+(
+  'wudang-mountain:route_seed:wudang-mountain-3-days-route-blueprint',
+  'wudang_mountain',
+  'Wudang Mountain',
+  'en',
+  'route_seed',
+  'Wudang Mountain 3 days route blueprint',
+  'Taoist mountain and Taiji entry (3 days).
+Best for: Travelers interested in Taoism, martial culture, philosophy, wellness-adjacent travel, and mountain atmosphere.
+Route logic: Combine sacred architecture, early light, walking, and a short practice session so Taoism becomes physical, not abstract.
+Daily sequence:
+1. Arrival, temple orientation, sacred mountain vocabulary, and early rest.
+2. Morning route through mountain architecture plus Taiji or breath practice with context.
+3. Reflective second route, quieter halls, weather time, and departure buffer.
+Conversion prompt: Ask /chat to adapt Wudang around walking ability, practice interest, early-start tolerance, and whether the traveler wants philosophy or photography.',
+  array['route_blueprint', 'itinerary', '3_days']::text[],
+  '{"sort_order":1,"duration":"3 days","best_for":"Travelers interested in Taoism, martial culture, philosophy, wellness-adjacent travel, and mountain atmosphere.","day_count":3}'::jsonb,
+  'a-deeper-china-redesign/lib/destination-itineraries.ts',
+  null,
+  'curated',
+  'v1-itinerary-blueprints'
+),
+(
+  'wudang-mountain:route_seed:wudang-mountain-5-days-route-blueprint',
+  'wudang_mountain',
+  'Wudang Mountain',
+  'en',
+  'route_seed',
+  'Wudang Mountain 5 days route blueprint',
+  'Wudang without turning it into performance (5 days).
+Best for: Meaning-seeking travelers and repeat China visitors who want a slower spiritual register.
+Route logic: Give enough time for mist, courtyards, stairs, fatigue, silence, and practice rather than rushing peak photos.
+Daily sequence:
+1. Arrival and base orientation with light temple context.
+2. Main mountain sequence: gates, halls, courtyards, and spatial meaning.
+3. Taiji/internal practice session, breath, posture, and Taoist body logic.
+4. Secondary walking route, quiet photography, and flexible weather buffer.
+5. Reflection day and onward pairing with Beijing, Chengdu, or Jingdezhen.
+Conversion prompt: Use the concierge to avoid overclaiming martial arts and instead build an honest Taoist mountain route.',
+  array['route_blueprint', 'itinerary', '5_days']::text[],
+  '{"sort_order":2,"duration":"5 days","best_for":"Meaning-seeking travelers and repeat China visitors who want a slower spiritual register.","day_count":5}'::jsonb,
+  'a-deeper-china-redesign/lib/destination-itineraries.ts',
+  null,
+  'curated',
+  'v1-itinerary-blueprints'
+),
+(
+  'wudang-mountain:route_seed:wudang-mountain-7-days-route-blueprint',
+  'wudang_mountain',
+  'Wudang Mountain',
+  'en',
+  'route_seed',
+  'Wudang Mountain 7 days route blueprint',
+  'Taoist practice, mountain weather, and stillness (7 days).
+Best for: Travelers who want a deeper retreat-like China segment, not only a scenic stop.
+Route logic: Structure a week around repeated practice, architecture, walking, rest, and philosophical interpretation.
+Daily sequence:
+1. Arrival and quiet acclimatization.
+2. Main sacred architecture route.
+3. Introductory Taiji or internal practice with teacher context.
+4. Mountain walking and secondary temple day.
+5. Weather-buffer day for clouds, light, fatigue, or slower observation.
+6. Second practice or philosophy session tied to what the traveler has already seen.
+7. Departure reflection and route handoff to Beijing for ritual scale or Jingdezhen for material culture.
+Conversion prompt: Ask /chat whether the traveler is suited for a full Wudang week or only needs a 3-day mountain chapter.',
+  array['route_blueprint', 'itinerary', '7_days']::text[],
+  '{"sort_order":3,"duration":"7 days","best_for":"Travelers who want a deeper retreat-like China segment, not only a scenic stop.","day_count":7}'::jsonb,
+  'a-deeper-china-redesign/lib/destination-itineraries.ts',
+  null,
+  'curated',
+  'v1-itinerary-blueprints'
+),
+(
   'beijing:market_profile:beijing-for-north-american-first-timers',
   'beijing',
   'Beijing',

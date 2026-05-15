@@ -5,6 +5,11 @@ import vm from "node:vm";
 const rootDir = process.cwd();
 const sourcePath = path.join(rootDir, "lib", "destination-positioning.ts");
 const guideSourcePath = path.join(rootDir, "lib", "destination-guides.ts");
+const itinerarySourcePath = path.join(
+	rootDir,
+	"lib",
+	"destination-itineraries.ts",
+);
 const outputDir = path.join(rootDir, "content", "rag");
 const outputPath = path.join(outputDir, "destination-knowledge.jsonl");
 const detailCardFilePattern =
@@ -42,6 +47,22 @@ function readGuidesObject() {
 
 	if (start === -1 || end === -1 || end <= start) {
 		throw new Error("Could not locate destinationGuides export.");
+	}
+
+	const objectSource = source.slice(start + startToken.length, end);
+	return vm.runInNewContext(`(${objectSource})`, {}, { timeout: 1000 });
+}
+
+function readItinerariesObject() {
+	const source = fs.readFileSync(itinerarySourcePath, "utf8");
+	const startToken = "export const destinationItineraryBlueprints = ";
+	const start = source.indexOf(startToken);
+	const end = source.lastIndexOf(
+		" satisfies Record<DestinationSlug, DestinationItineraryBlueprint[]>;",
+	);
+
+	if (start === -1 || end === -1 || end <= start) {
+		throw new Error("Could not locate destinationItineraryBlueprints export.");
 	}
 
 	const objectSource = source.slice(start + startToken.length, end);
@@ -307,12 +328,55 @@ function buildGuideRecords(guidesBySlug) {
 	return records;
 }
 
+function buildItineraryRecords(itinerariesBySlug) {
+	const records = [];
+
+	for (const [slug, blueprints] of Object.entries(itinerariesBySlug)) {
+		const cityName = cityLabels[slug] ?? slug;
+
+		for (const [index, blueprint] of blueprints.entries()) {
+			records.push(
+				createRecord({
+					slug,
+					type: "route_seed",
+					title: `${cityName} ${blueprint.duration} route blueprint`,
+					text: [
+						`${blueprint.title} (${blueprint.duration}).`,
+						`Best for: ${blueprint.bestFor}`,
+						`Route logic: ${blueprint.routeLogic}`,
+						"Daily sequence:",
+						...blueprint.days.map((day, dayIndex) => `${dayIndex + 1}. ${day}`),
+						`Conversion prompt: ${blueprint.conversionPrompt}`,
+					].join("\n"),
+					tags: [
+						"route_blueprint",
+						"itinerary",
+						blueprint.duration.replace(/\s+/g, "_"),
+					],
+					metadata: {
+						sort_order: index + 1,
+						duration: blueprint.duration,
+						best_for: blueprint.bestFor,
+						day_count: blueprint.days.length,
+					},
+					source: "a-deeper-china-redesign/lib/destination-itineraries.ts",
+					version: "v1-itinerary-blueprints",
+				}),
+			);
+		}
+	}
+
+	return records;
+}
+
 const positioningBySlug = readPositioningObject();
 const guidesBySlug = readGuidesObject();
+const itinerariesBySlug = readItinerariesObject();
 const detailCards = readDetailCards();
 const records = [
 	...buildRecords(positioningBySlug),
 	...buildGuideRecords(guidesBySlug),
+	...buildItineraryRecords(itinerariesBySlug),
 	...detailCards.map((card) =>
 		createRecord({
 			...card,
