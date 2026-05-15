@@ -10,6 +10,11 @@ const itinerarySourcePath = path.join(
 	"lib",
 	"destination-itineraries.ts",
 );
+const routeCombinationSourcePath = path.join(
+	rootDir,
+	"lib",
+	"route-combinations.ts",
+);
 const outputDir = path.join(rootDir, "content", "rag");
 const outputPath = path.join(outputDir, "destination-knowledge.jsonl");
 const detailCardFilePattern =
@@ -23,6 +28,7 @@ const cityLabels = {
 	jingdezhen: "Jingdezhen",
 	"jingmai-mountain": "Jingmai Mountain",
 	"wudang-mountain": "Wudang Mountain",
+	"multi-city": "Multi-city routes",
 };
 
 function readPositioningObject() {
@@ -63,6 +69,20 @@ function readItinerariesObject() {
 
 	if (start === -1 || end === -1 || end <= start) {
 		throw new Error("Could not locate destinationItineraryBlueprints export.");
+	}
+
+	const objectSource = source.slice(start + startToken.length, end);
+	return vm.runInNewContext(`(${objectSource})`, {}, { timeout: 1000 });
+}
+
+function readRouteCombinationsObject() {
+	const source = fs.readFileSync(routeCombinationSourcePath, "utf8");
+	const startToken = "export const routeCombinations = ";
+	const start = source.indexOf(startToken);
+	const end = source.lastIndexOf(" satisfies RouteCombination[];");
+
+	if (start === -1 || end === -1 || end <= start) {
+		throw new Error("Could not locate routeCombinations export.");
 	}
 
 	const objectSource = source.slice(start + startToken.length, end);
@@ -369,14 +389,56 @@ function buildItineraryRecords(itinerariesBySlug) {
 	return records;
 }
 
+function buildRouteCombinationRecords(routeCombinations) {
+	return routeCombinations.flatMap((route, index) =>
+		route.cities.map((slug) =>
+			createRecord({
+				slug,
+				type: "route_seed",
+				title: `${route.title} route combination`,
+				text: [
+					`${route.title} (${route.duration}).`,
+					`Cities: ${route.cities.join(", ")}`,
+					`Best for: ${route.bestFor}`,
+					`Route logic: ${route.routeLogic}`,
+					"City order:",
+					...route.cityOrder.map(
+						(step, stepIndex) => `${stepIndex + 1}. ${step}`,
+					),
+					`Why it is not generic: ${route.whyNotGeneric}`,
+					`Conversion question: ${route.conversionQuestion}`,
+				].join("\n"),
+				tags: [
+					"route_combination",
+					"multi_city",
+					"itinerary",
+					...route.cities,
+				],
+				metadata: {
+					sort_order: index + 1,
+					route_id: route.id,
+					duration: route.duration,
+					cities: route.cities,
+					primary_record_for: slug,
+					best_for: route.bestFor,
+				},
+				source: "a-deeper-china-redesign/lib/route-combinations.ts",
+				version: "v1-route-combinations",
+			}),
+		),
+	);
+}
+
 const positioningBySlug = readPositioningObject();
 const guidesBySlug = readGuidesObject();
 const itinerariesBySlug = readItinerariesObject();
+const routeCombinations = readRouteCombinationsObject();
 const detailCards = readDetailCards();
 const records = [
 	...buildRecords(positioningBySlug),
 	...buildGuideRecords(guidesBySlug),
 	...buildItineraryRecords(itinerariesBySlug),
+	...buildRouteCombinationRecords(routeCombinations),
 	...detailCards.map((card) =>
 		createRecord({
 			...card,

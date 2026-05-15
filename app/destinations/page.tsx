@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { cityShowcase } from "@/lib/city-showcase";
+import { routeCombinations } from "@/lib/route-combinations";
 
 const highlightedSlugs = [
 	"beijing",
@@ -32,6 +33,7 @@ export default function DestinationsPage() {
 	const cities = highlightedSlugs
 		.map((slug) => cityShowcase.find((city) => city.slug === slug))
 		.filter((city): city is (typeof cityShowcase)[number] => Boolean(city));
+	const cityNameBySlug = new Map(cities.map((city) => [city.slug, city.name]));
 
 	return (
 		<main className="relative min-h-[calc(100vh-76px)] overflow-hidden bg-[#f4ede4] px-6 py-8 text-[#231815]">
@@ -108,7 +110,7 @@ export default function DestinationsPage() {
 											{city.name}
 										</h2>
 										<span className="text-sm text-white/78 transition group-hover:translate-x-1">
-											Enter →
+											Enter -&gt;
 										</span>
 									</div>
 								</div>
@@ -139,6 +141,102 @@ export default function DestinationsPage() {
 							</div>
 						</Link>
 					))}
+				</section>
+
+				<section className="rounded-[2rem] border border-white/60 bg-[linear-gradient(180deg,rgba(255,252,247,0.82),rgba(244,236,225,0.72))] p-5 shadow-[0_30px_80px_-44px_rgba(58,36,24,0.28)] backdrop-blur-2xl sm:p-6">
+					<div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
+						<div>
+							<p className="text-[11px] uppercase tracking-[0.26em] text-[#8f725d]">
+								Route combinations
+							</p>
+							<h2 className="mt-4 max-w-3xl text-3xl font-semibold tracking-[-0.04em] text-[#241915] sm:text-[2.2rem]">
+								The strongest trips come from contrast, not coverage.
+							</h2>
+						</div>
+						<p className="max-w-xl text-sm leading-7 text-[#634f47] sm:text-[15px]">
+							These combinations help the concierge answer the real planning
+							question: which version of China should this traveler understand,
+							and in what order?
+						</p>
+					</div>
+
+					<div className="mt-6 grid gap-4 lg:grid-cols-2">
+						{routeCombinations.map((route) => (
+							<article
+								key={route.id}
+								className="rounded-[1.75rem] border border-[#decbb4]/70 bg-[rgba(255,251,246,0.9)] p-5 shadow-[0_22px_58px_-38px_rgba(58,36,24,0.22)]"
+							>
+								<div className="flex flex-wrap items-center justify-between gap-3">
+									<p className="text-[10px] uppercase tracking-[0.22em] text-[#9d7e63]">
+										{route.duration}
+									</p>
+									<div className="flex flex-wrap gap-1.5">
+										{route.cities.map((slug) => (
+											<span
+												key={slug}
+												className="rounded-full border border-[#e3d2bf] bg-[#fffaf5] px-2.5 py-1 text-[11px] text-[#6b574e]"
+											>
+												{cityNameBySlug.get(slug) ?? slug}
+											</span>
+										))}
+									</div>
+								</div>
+								<h3 className="mt-3 text-2xl font-semibold tracking-[-0.04em] text-[#241915]">
+									{route.title}
+								</h3>
+								<p className="mt-3 text-sm leading-7 text-[#634f47]">
+									{route.routeLogic}
+								</p>
+								<div className="mt-4 grid gap-3 md:grid-cols-[0.9fr_1.1fr]">
+									<div className="rounded-[1.25rem] border border-[#eadbca] bg-white/62 p-4">
+										<p className="text-[10px] uppercase tracking-[0.22em] text-[#9d7e63]">
+											Best for
+										</p>
+										<p className="mt-2 text-sm leading-6 text-[#6a554d]">
+											{route.bestFor}
+										</p>
+									</div>
+									<div className="rounded-[1.25rem] border border-[#eadbca] bg-white/62 p-4">
+										<p className="text-[10px] uppercase tracking-[0.22em] text-[#9d7e63]">
+											Why it is different
+										</p>
+										<p className="mt-2 text-sm leading-6 text-[#6a554d]">
+											{route.whyNotGeneric}
+										</p>
+									</div>
+								</div>
+								<div className="mt-4 rounded-[1.25rem] border border-[#eadbca] bg-[#fffaf5]/72 p-4">
+									<p className="text-[10px] uppercase tracking-[0.22em] text-[#9d7e63]">
+										Order logic
+									</p>
+									<ol className="mt-3 grid gap-2">
+										{route.cityOrder.map((step, index) => (
+											<li
+												key={step}
+												className="grid grid-cols-[2rem_1fr] gap-3 text-sm leading-6 text-[#604c44]"
+											>
+												<span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#2a211d] text-[11px] font-semibold text-white">
+													{index + 1}
+												</span>
+												<span>{step}</span>
+											</li>
+										))}
+									</ol>
+								</div>
+								<div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+									<p className="text-sm leading-6 text-[#6a554d]">
+										{route.conversionQuestion}
+									</p>
+									<Link
+										href={`/chat?q=${encodeURIComponent(`Plan ${route.title}`)}`}
+										className="inline-flex min-h-[46px] shrink-0 items-center justify-center rounded-full bg-[#241915] px-5 text-sm font-medium text-white transition hover:brightness-110"
+									>
+										Shape this route
+									</Link>
+								</div>
+							</article>
+						))}
+					</div>
 				</section>
 
 				<section className="grid gap-4 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">

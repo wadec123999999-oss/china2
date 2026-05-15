@@ -77,7 +77,7 @@ export const cityShowcase = [
 		rhythm:
 			"Slow afternoons, layered flavors, and an urban life built around comfort, conversation, and return visits.",
 		detail:
-			"Chengdu helps foreign travelers understand that depth in China is not only found in monuments. It can also live in a city’s pace, appetite, and social habits. Tea houses, neighborhood life, and Sichuan food create a version of cultural travel that feels intimate, lived-in, and easy to love.",
+			"Chengdu helps foreign travelers understand that depth in China is not only found in monuments. It can also live in a city's pace, appetite, and social habits. Tea houses, neighborhood life, and Sichuan food create a version of cultural travel that feels intimate, lived-in, and easy to love.",
 	},
 	{
 		slug: "jingmai-mountain",

@@ -3116,6 +3116,576 @@ Conversion prompt: Ask /chat whether the traveler is suited for a full Wudang we
   'v1-itinerary-blueprints'
 ),
 (
+  'beijing:route_seed:first-china-cultural-arc-route-combination',
+  'beijing',
+  'Beijing',
+  'en',
+  'route_seed',
+  'First China cultural arc route combination',
+  'First China cultural arc (9-12 days).
+Cities: beijing, chengdu, chongqing
+Best for: First-time visitors who want history, comfort, food, pandas, and one visually unforgettable modern city.
+Route logic: Begin with Beijing for historical grammar, soften into Chengdu through pandas, food, and tea, then finish with Chongqing for 8D urban intensity.
+City order:
+1. Beijing: power, ritual, axis, hutongs, and the first framework for China.
+2. Chengdu: food, pandas, tea houses, parks, and emotional ease.
+3. Chongqing: vertical geography, nightscape, hotpot, and cinematic energy.
+Why it is not generic: This is not a Beijing-Xian-Shanghai standard route. It teaches China through capital order, Sichuan social life, and mountain-city urbanism.
+Conversion question: Should the route be family-friendly and soft, or more visual, food-heavy, and late-night?',
+  array['route_combination', 'multi_city', 'itinerary', 'beijing', 'chengdu', 'chongqing']::text[],
+  '{"sort_order":1,"route_id":"first-china-cultural-arc","duration":"9-12 days","cities":["beijing","chengdu","chongqing"],"primary_record_for":"beijing","best_for":"First-time visitors who want history, comfort, food, pandas, and one visually unforgettable modern city."}'::jsonb,
+  'a-deeper-china-redesign/lib/route-combinations.ts',
+  null,
+  'curated',
+  'v1-route-combinations'
+),
+(
+  'chengdu:route_seed:first-china-cultural-arc-route-combination',
+  'chengdu',
+  'Chengdu',
+  'en',
+  'route_seed',
+  'First China cultural arc route combination',
+  'First China cultural arc (9-12 days).
+Cities: beijing, chengdu, chongqing
+Best for: First-time visitors who want history, comfort, food, pandas, and one visually unforgettable modern city.
+Route logic: Begin with Beijing for historical grammar, soften into Chengdu through pandas, food, and tea, then finish with Chongqing for 8D urban intensity.
+City order:
+1. Beijing: power, ritual, axis, hutongs, and the first framework for China.
+2. Chengdu: food, pandas, tea houses, parks, and emotional ease.
+3. Chongqing: vertical geography, nightscape, hotpot, and cinematic energy.
+Why it is not generic: This is not a Beijing-Xian-Shanghai standard route. It teaches China through capital order, Sichuan social life, and mountain-city urbanism.
+Conversion question: Should the route be family-friendly and soft, or more visual, food-heavy, and late-night?',
+  array['route_combination', 'multi_city', 'itinerary', 'beijing', 'chengdu', 'chongqing']::text[],
+  '{"sort_order":1,"route_id":"first-china-cultural-arc","duration":"9-12 days","cities":["beijing","chengdu","chongqing"],"primary_record_for":"chengdu","best_for":"First-time visitors who want history, comfort, food, pandas, and one visually unforgettable modern city."}'::jsonb,
+  'a-deeper-china-redesign/lib/route-combinations.ts',
+  null,
+  'curated',
+  'v1-route-combinations'
+),
+(
+  'chongqing:route_seed:first-china-cultural-arc-route-combination',
+  'chongqing',
+  'Chongqing',
+  'en',
+  'route_seed',
+  'First China cultural arc route combination',
+  'First China cultural arc (9-12 days).
+Cities: beijing, chengdu, chongqing
+Best for: First-time visitors who want history, comfort, food, pandas, and one visually unforgettable modern city.
+Route logic: Begin with Beijing for historical grammar, soften into Chengdu through pandas, food, and tea, then finish with Chongqing for 8D urban intensity.
+City order:
+1. Beijing: power, ritual, axis, hutongs, and the first framework for China.
+2. Chengdu: food, pandas, tea houses, parks, and emotional ease.
+3. Chongqing: vertical geography, nightscape, hotpot, and cinematic energy.
+Why it is not generic: This is not a Beijing-Xian-Shanghai standard route. It teaches China through capital order, Sichuan social life, and mountain-city urbanism.
+Conversion question: Should the route be family-friendly and soft, or more visual, food-heavy, and late-night?',
+  array['route_combination', 'multi_city', 'itinerary', 'beijing', 'chengdu', 'chongqing']::text[],
+  '{"sort_order":1,"route_id":"first-china-cultural-arc","duration":"9-12 days","cities":["beijing","chengdu","chongqing"],"primary_record_for":"chongqing","best_for":"First-time visitors who want history, comfort, food, pandas, and one visually unforgettable modern city."}'::jsonb,
+  'a-deeper-china-redesign/lib/route-combinations.ts',
+  null,
+  'curated',
+  'v1-route-combinations'
+),
+(
+  'chengdu:route_seed:sichuan-basin-contrast-route-combination',
+  'chengdu',
+  'Chengdu',
+  'en',
+  'route_seed',
+  'Sichuan Basin contrast route combination',
+  'Sichuan Basin contrast (5-7 days).
+Cities: chengdu, chongqing
+Best for: Food travelers, families with older children, photographers, and travelers choosing between comfort and intensity.
+Route logic: Put Chengdu first because it makes Sichuan feel relaxed and generous; put Chongqing second because it raises the volume through heat, slopes, river fog, and night movement.
+City order:
+1. Chengdu: pandas, tea-house rhythm, markets, controlled Sichuan flavor.
+2. Chongqing: 8D movement, rails, bridges, stairs, hotpot, and night views.
+Why it is not generic: The point is not to see two nearby cities. The value is emotional contrast: soft Sichuan first, cinematic Sichuan second.
+Conversion question: How much spice, stairs, humidity, and late-night walking can the traveler enjoy?',
+  array['route_combination', 'multi_city', 'itinerary', 'chengdu', 'chongqing']::text[],
+  '{"sort_order":2,"route_id":"sichuan-basin-contrast","duration":"5-7 days","cities":["chengdu","chongqing"],"primary_record_for":"chengdu","best_for":"Food travelers, families with older children, photographers, and travelers choosing between comfort and intensity."}'::jsonb,
+  'a-deeper-china-redesign/lib/route-combinations.ts',
+  null,
+  'curated',
+  'v1-route-combinations'
+),
+(
+  'chongqing:route_seed:sichuan-basin-contrast-route-combination',
+  'chongqing',
+  'Chongqing',
+  'en',
+  'route_seed',
+  'Sichuan Basin contrast route combination',
+  'Sichuan Basin contrast (5-7 days).
+Cities: chengdu, chongqing
+Best for: Food travelers, families with older children, photographers, and travelers choosing between comfort and intensity.
+Route logic: Put Chengdu first because it makes Sichuan feel relaxed and generous; put Chongqing second because it raises the volume through heat, slopes, river fog, and night movement.
+City order:
+1. Chengdu: pandas, tea-house rhythm, markets, controlled Sichuan flavor.
+2. Chongqing: 8D movement, rails, bridges, stairs, hotpot, and night views.
+Why it is not generic: The point is not to see two nearby cities. The value is emotional contrast: soft Sichuan first, cinematic Sichuan second.
+Conversion question: How much spice, stairs, humidity, and late-night walking can the traveler enjoy?',
+  array['route_combination', 'multi_city', 'itinerary', 'chengdu', 'chongqing']::text[],
+  '{"sort_order":2,"route_id":"sichuan-basin-contrast","duration":"5-7 days","cities":["chengdu","chongqing"],"primary_record_for":"chongqing","best_for":"Food travelers, families with older children, photographers, and travelers choosing between comfort and intensity."}'::jsonb,
+  'a-deeper-china-redesign/lib/route-combinations.ts',
+  null,
+  'curated',
+  'v1-route-combinations'
+),
+(
+  'quanzhou:route_seed:port-and-porcelain-culture-route-combination',
+  'quanzhou',
+  'Quanzhou',
+  'en',
+  'route_seed',
+  'Port and porcelain culture route combination',
+  'Port and porcelain culture (7-9 days).
+Cities: quanzhou, jingdezhen
+Best for: Design travelers, museum patrons, diaspora travelers, and people interested in trade, objects, craft, and global China.
+Route logic: Use Quanzhou to explain maritime exchange and plural religion, then use Jingdezhen to show how Chinese material culture moved through the world.
+City order:
+1. Quanzhou: Maritime Silk Road, Hokkien roots, temples, food, Nanyin, zanhua, incense.
+2. Jingdezhen: clay, kilns, glaze, workshops, makers, porcelain taste, and global collecting.
+Why it is not generic: This route replaces famous-city sightseeing with a sharper story: how goods, belief, people, and objects made China international.
+Conversion question: Is the traveler more interested in diaspora memory, religious coexistence, maker studios, or collecting?',
+  array['route_combination', 'multi_city', 'itinerary', 'quanzhou', 'jingdezhen']::text[],
+  '{"sort_order":3,"route_id":"port-and-porcelain-culture","duration":"7-9 days","cities":["quanzhou","jingdezhen"],"primary_record_for":"quanzhou","best_for":"Design travelers, museum patrons, diaspora travelers, and people interested in trade, objects, craft, and global China."}'::jsonb,
+  'a-deeper-china-redesign/lib/route-combinations.ts',
+  null,
+  'curated',
+  'v1-route-combinations'
+),
+(
+  'jingdezhen:route_seed:port-and-porcelain-culture-route-combination',
+  'jingdezhen',
+  'Jingdezhen',
+  'en',
+  'route_seed',
+  'Port and porcelain culture route combination',
+  'Port and porcelain culture (7-9 days).
+Cities: quanzhou, jingdezhen
+Best for: Design travelers, museum patrons, diaspora travelers, and people interested in trade, objects, craft, and global China.
+Route logic: Use Quanzhou to explain maritime exchange and plural religion, then use Jingdezhen to show how Chinese material culture moved through the world.
+City order:
+1. Quanzhou: Maritime Silk Road, Hokkien roots, temples, food, Nanyin, zanhua, incense.
+2. Jingdezhen: clay, kilns, glaze, workshops, makers, porcelain taste, and global collecting.
+Why it is not generic: This route replaces famous-city sightseeing with a sharper story: how goods, belief, people, and objects made China international.
+Conversion question: Is the traveler more interested in diaspora memory, religious coexistence, maker studios, or collecting?',
+  array['route_combination', 'multi_city', 'itinerary', 'quanzhou', 'jingdezhen']::text[],
+  '{"sort_order":3,"route_id":"port-and-porcelain-culture","duration":"7-9 days","cities":["quanzhou","jingdezhen"],"primary_record_for":"jingdezhen","best_for":"Design travelers, museum patrons, diaspora travelers, and people interested in trade, objects, craft, and global China."}'::jsonb,
+  'a-deeper-china-redesign/lib/route-combinations.ts',
+  null,
+  'curated',
+  'v1-route-combinations'
+),
+(
+  'jingdezhen:route_seed:tea-and-porcelain-slow-craft-route-combination',
+  'jingdezhen',
+  'Jingdezhen',
+  'en',
+  'route_seed',
+  'Tea and porcelain slow craft route combination',
+  'Tea and porcelain slow craft (8-11 days).
+Cities: jingdezhen, jingmai-mountain
+Best for: Creative professionals, tea drinkers, photographers, writers, and slow-luxury travelers.
+Route logic: Begin with porcelain as object and process, then move to Jingmai where tea becomes forest, hospitality, and time.
+City order:
+1. Jingdezhen: material culture, studios, kilns, glaze, tools, and object judgment.
+2. Jingmai: ancient tea forest, village rhythm, hosted meals, cups, mist, and quiet.
+Why it is not generic: The route is built around use and touch: the cup, the leaf, the hand, the host, and the time needed to understand them.
+Conversion question: Does the traveler want maker access, tea buying context, photography time, or a quieter retreat ending?',
+  array['route_combination', 'multi_city', 'itinerary', 'jingdezhen', 'jingmai-mountain']::text[],
+  '{"sort_order":4,"route_id":"tea-and-porcelain-slow-craft","duration":"8-11 days","cities":["jingdezhen","jingmai-mountain"],"primary_record_for":"jingdezhen","best_for":"Creative professionals, tea drinkers, photographers, writers, and slow-luxury travelers."}'::jsonb,
+  'a-deeper-china-redesign/lib/route-combinations.ts',
+  null,
+  'curated',
+  'v1-route-combinations'
+),
+(
+  'jingmai-mountain:route_seed:tea-and-porcelain-slow-craft-route-combination',
+  'jingmai_mountain',
+  'Jingmai Mountain',
+  'en',
+  'route_seed',
+  'Tea and porcelain slow craft route combination',
+  'Tea and porcelain slow craft (8-11 days).
+Cities: jingdezhen, jingmai-mountain
+Best for: Creative professionals, tea drinkers, photographers, writers, and slow-luxury travelers.
+Route logic: Begin with porcelain as object and process, then move to Jingmai where tea becomes forest, hospitality, and time.
+City order:
+1. Jingdezhen: material culture, studios, kilns, glaze, tools, and object judgment.
+2. Jingmai: ancient tea forest, village rhythm, hosted meals, cups, mist, and quiet.
+Why it is not generic: The route is built around use and touch: the cup, the leaf, the hand, the host, and the time needed to understand them.
+Conversion question: Does the traveler want maker access, tea buying context, photography time, or a quieter retreat ending?',
+  array['route_combination', 'multi_city', 'itinerary', 'jingdezhen', 'jingmai-mountain']::text[],
+  '{"sort_order":4,"route_id":"tea-and-porcelain-slow-craft","duration":"8-11 days","cities":["jingdezhen","jingmai-mountain"],"primary_record_for":"jingmai-mountain","best_for":"Creative professionals, tea drinkers, photographers, writers, and slow-luxury travelers."}'::jsonb,
+  'a-deeper-china-redesign/lib/route-combinations.ts',
+  null,
+  'curated',
+  'v1-route-combinations'
+),
+(
+  'beijing:route_seed:ritual-and-mountain-cultivation-route-combination',
+  'beijing',
+  'Beijing',
+  'en',
+  'route_seed',
+  'Ritual and mountain cultivation route combination',
+  'Ritual and mountain cultivation (6-8 days).
+Cities: beijing, wudang-mountain
+Best for: Travelers interested in architecture, Taoism, ritual, philosophy, martial culture, and the body as cultural lens.
+Route logic: Use Beijing for state ritual and axial order, then move to Wudang for mountain Taoism, breath, practice, and sacred landscape.
+City order:
+1. Beijing: state order, palace sequence, altars, gates, and political space.
+2. Wudang: Taoist architecture, mountain paths, Taiji, early light, and internal cultivation.
+Why it is not generic: This is not a temple checklist. It contrasts two forms of Chinese order: capital ceremony and mountain practice.
+Conversion question: Does the traveler want intellectual history, light practice, serious Taiji context, or contemplative walking?',
+  array['route_combination', 'multi_city', 'itinerary', 'beijing', 'wudang-mountain']::text[],
+  '{"sort_order":5,"route_id":"ritual-and-mountain-cultivation","duration":"6-8 days","cities":["beijing","wudang-mountain"],"primary_record_for":"beijing","best_for":"Travelers interested in architecture, Taoism, ritual, philosophy, martial culture, and the body as cultural lens."}'::jsonb,
+  'a-deeper-china-redesign/lib/route-combinations.ts',
+  null,
+  'curated',
+  'v1-route-combinations'
+),
+(
+  'wudang-mountain:route_seed:ritual-and-mountain-cultivation-route-combination',
+  'wudang_mountain',
+  'Wudang Mountain',
+  'en',
+  'route_seed',
+  'Ritual and mountain cultivation route combination',
+  'Ritual and mountain cultivation (6-8 days).
+Cities: beijing, wudang-mountain
+Best for: Travelers interested in architecture, Taoism, ritual, philosophy, martial culture, and the body as cultural lens.
+Route logic: Use Beijing for state ritual and axial order, then move to Wudang for mountain Taoism, breath, practice, and sacred landscape.
+City order:
+1. Beijing: state order, palace sequence, altars, gates, and political space.
+2. Wudang: Taoist architecture, mountain paths, Taiji, early light, and internal cultivation.
+Why it is not generic: This is not a temple checklist. It contrasts two forms of Chinese order: capital ceremony and mountain practice.
+Conversion question: Does the traveler want intellectual history, light practice, serious Taiji context, or contemplative walking?',
+  array['route_combination', 'multi_city', 'itinerary', 'beijing', 'wudang-mountain']::text[],
+  '{"sort_order":5,"route_id":"ritual-and-mountain-cultivation","duration":"6-8 days","cities":["beijing","wudang-mountain"],"primary_record_for":"wudang-mountain","best_for":"Travelers interested in architecture, Taoism, ritual, philosophy, martial culture, and the body as cultural lens."}'::jsonb,
+  'a-deeper-china-redesign/lib/route-combinations.ts',
+  null,
+  'curated',
+  'v1-route-combinations'
+),
+(
+  'quanzhou:route_seed:hokkien-roots-and-living-culture-route-combination',
+  'quanzhou',
+  'Quanzhou',
+  'en',
+  'route_seed',
+  'Hokkien roots and living culture route combination',
+  'Hokkien roots and living culture (5-8 days).
+Cities: quanzhou, chengdu
+Best for: Southeast Asian Chinese diaspora travelers who want ancestral memory plus an easy food-led city.
+Route logic: Use Quanzhou for Hokkien roots, port memory, religion, and family resonance; use Chengdu afterward for softer food, pandas, and comfort.
+City order:
+1. Quanzhou: Hokkien origin, old streets, temples, food memory, Maritime Silk Road.
+2. Chengdu: pandas, Sichuan meals, tea houses, parks, and decompression.
+Why it is not generic: This route respects emotional heritage first, then protects comfort and pleasure so the trip does not become only ancestry work.
+Conversion question: Should Quanzhou be built around surname roots, temple memory, food, zanhua, Nanyin, or a lighter heritage introduction?',
+  array['route_combination', 'multi_city', 'itinerary', 'quanzhou', 'chengdu']::text[],
+  '{"sort_order":6,"route_id":"hokkien-roots-and-living-culture","duration":"5-8 days","cities":["quanzhou","chengdu"],"primary_record_for":"quanzhou","best_for":"Southeast Asian Chinese diaspora travelers who want ancestral memory plus an easy food-led city."}'::jsonb,
+  'a-deeper-china-redesign/lib/route-combinations.ts',
+  null,
+  'curated',
+  'v1-route-combinations'
+),
+(
+  'chengdu:route_seed:hokkien-roots-and-living-culture-route-combination',
+  'chengdu',
+  'Chengdu',
+  'en',
+  'route_seed',
+  'Hokkien roots and living culture route combination',
+  'Hokkien roots and living culture (5-8 days).
+Cities: quanzhou, chengdu
+Best for: Southeast Asian Chinese diaspora travelers who want ancestral memory plus an easy food-led city.
+Route logic: Use Quanzhou for Hokkien roots, port memory, religion, and family resonance; use Chengdu afterward for softer food, pandas, and comfort.
+City order:
+1. Quanzhou: Hokkien origin, old streets, temples, food memory, Maritime Silk Road.
+2. Chengdu: pandas, Sichuan meals, tea houses, parks, and decompression.
+Why it is not generic: This route respects emotional heritage first, then protects comfort and pleasure so the trip does not become only ancestry work.
+Conversion question: Should Quanzhou be built around surname roots, temple memory, food, zanhua, Nanyin, or a lighter heritage introduction?',
+  array['route_combination', 'multi_city', 'itinerary', 'quanzhou', 'chengdu']::text[],
+  '{"sort_order":6,"route_id":"hokkien-roots-and-living-culture","duration":"5-8 days","cities":["quanzhou","chengdu"],"primary_record_for":"chengdu","best_for":"Southeast Asian Chinese diaspora travelers who want ancestral memory plus an easy food-led city."}'::jsonb,
+  'a-deeper-china-redesign/lib/route-combinations.ts',
+  null,
+  'curated',
+  'v1-route-combinations'
+),
+(
+  'chongqing:route_seed:visual-china-for-creators-route-combination',
+  'chongqing',
+  'Chongqing',
+  'en',
+  'route_seed',
+  'Visual China for creators route combination',
+  'Visual China for creators (7-10 days).
+Cities: chongqing, jingmai-mountain, beijing
+Best for: Photographers, filmmakers, writers, and travelers who want strong atmosphere rather than famous-name coverage.
+Route logic: Open with Chongqing''s 8D urban spectacle, decompress in Jingmai''s tea forest, then end in Beijing with historical structure if international flights require it.
+City order:
+1. Chongqing: neon, fog, river, rail, stairs, and hotpot steam.
+2. Jingmai: mist, tea forest, village roofs, quiet hospitality, and slow mornings.
+3. Beijing: axis, hutongs, ritual architecture, and exit-city clarity.
+Why it is not generic: The route is built around atmosphere and visual contrast: cyberpunk city, ancient tea forest, and capital geometry.
+Conversion question: Does the traveler need a photo-led route, a creator schedule, or a more comfortable premium version with fewer rough edges?',
+  array['route_combination', 'multi_city', 'itinerary', 'chongqing', 'jingmai-mountain', 'beijing']::text[],
+  '{"sort_order":7,"route_id":"visual-china-for-creators","duration":"7-10 days","cities":["chongqing","jingmai-mountain","beijing"],"primary_record_for":"chongqing","best_for":"Photographers, filmmakers, writers, and travelers who want strong atmosphere rather than famous-name coverage."}'::jsonb,
+  'a-deeper-china-redesign/lib/route-combinations.ts',
+  null,
+  'curated',
+  'v1-route-combinations'
+),
+(
+  'jingmai-mountain:route_seed:visual-china-for-creators-route-combination',
+  'jingmai_mountain',
+  'Jingmai Mountain',
+  'en',
+  'route_seed',
+  'Visual China for creators route combination',
+  'Visual China for creators (7-10 days).
+Cities: chongqing, jingmai-mountain, beijing
+Best for: Photographers, filmmakers, writers, and travelers who want strong atmosphere rather than famous-name coverage.
+Route logic: Open with Chongqing''s 8D urban spectacle, decompress in Jingmai''s tea forest, then end in Beijing with historical structure if international flights require it.
+City order:
+1. Chongqing: neon, fog, river, rail, stairs, and hotpot steam.
+2. Jingmai: mist, tea forest, village roofs, quiet hospitality, and slow mornings.
+3. Beijing: axis, hutongs, ritual architecture, and exit-city clarity.
+Why it is not generic: The route is built around atmosphere and visual contrast: cyberpunk city, ancient tea forest, and capital geometry.
+Conversion question: Does the traveler need a photo-led route, a creator schedule, or a more comfortable premium version with fewer rough edges?',
+  array['route_combination', 'multi_city', 'itinerary', 'chongqing', 'jingmai-mountain', 'beijing']::text[],
+  '{"sort_order":7,"route_id":"visual-china-for-creators","duration":"7-10 days","cities":["chongqing","jingmai-mountain","beijing"],"primary_record_for":"jingmai-mountain","best_for":"Photographers, filmmakers, writers, and travelers who want strong atmosphere rather than famous-name coverage."}'::jsonb,
+  'a-deeper-china-redesign/lib/route-combinations.ts',
+  null,
+  'curated',
+  'v1-route-combinations'
+),
+(
+  'beijing:route_seed:visual-china-for-creators-route-combination',
+  'beijing',
+  'Beijing',
+  'en',
+  'route_seed',
+  'Visual China for creators route combination',
+  'Visual China for creators (7-10 days).
+Cities: chongqing, jingmai-mountain, beijing
+Best for: Photographers, filmmakers, writers, and travelers who want strong atmosphere rather than famous-name coverage.
+Route logic: Open with Chongqing''s 8D urban spectacle, decompress in Jingmai''s tea forest, then end in Beijing with historical structure if international flights require it.
+City order:
+1. Chongqing: neon, fog, river, rail, stairs, and hotpot steam.
+2. Jingmai: mist, tea forest, village roofs, quiet hospitality, and slow mornings.
+3. Beijing: axis, hutongs, ritual architecture, and exit-city clarity.
+Why it is not generic: The route is built around atmosphere and visual contrast: cyberpunk city, ancient tea forest, and capital geometry.
+Conversion question: Does the traveler need a photo-led route, a creator schedule, or a more comfortable premium version with fewer rough edges?',
+  array['route_combination', 'multi_city', 'itinerary', 'chongqing', 'jingmai-mountain', 'beijing']::text[],
+  '{"sort_order":7,"route_id":"visual-china-for-creators","duration":"7-10 days","cities":["chongqing","jingmai-mountain","beijing"],"primary_record_for":"beijing","best_for":"Photographers, filmmakers, writers, and travelers who want strong atmosphere rather than famous-name coverage."}'::jsonb,
+  'a-deeper-china-redesign/lib/route-combinations.ts',
+  null,
+  'curated',
+  'v1-route-combinations'
+),
+(
+  'beijing:route_seed:seven-city-founder-map-route-combination',
+  'beijing',
+  'Beijing',
+  'en',
+  'route_seed',
+  'Seven-city founder map route combination',
+  'Seven-city founder map (18-24 days).
+Cities: beijing, chengdu, chongqing, quanzhou, jingdezhen, jingmai-mountain, wudang-mountain
+Best for: Long-stay cultural travelers, researchers, creators, or prospective clients testing the full Deeper China idea.
+Route logic: Treat each city as a different China: capital order, food ease, urban intensity, maritime memory, porcelain craft, tea ecology, and Taoist mountain cultivation.
+City order:
+1. Beijing: historical grammar.
+2. Chengdu: food and emotional ease.
+3. Chongqing: 8D visual intensity.
+4. Quanzhou: port memory and Hokkien roots.
+5. Jingdezhen: porcelain and maker culture.
+6. Jingmai: tea forest and slow hospitality.
+7. Wudang: Taoist mountain and body practice.
+Why it is not generic: This is not a grand tour of famous landmarks. It is a thesis route proving that China can be read through systems, materials, appetite, belief, and landscape.
+Conversion question: Which three city identities matter most to the traveler: history, food, visuals, roots, craft, tea, or spiritual practice?',
+  array['route_combination', 'multi_city', 'itinerary', 'beijing', 'chengdu', 'chongqing', 'quanzhou', 'jingdezhen', 'jingmai-mountain', 'wudang-mountain']::text[],
+  '{"sort_order":8,"route_id":"seven-city-founder-map","duration":"18-24 days","cities":["beijing","chengdu","chongqing","quanzhou","jingdezhen","jingmai-mountain","wudang-mountain"],"primary_record_for":"beijing","best_for":"Long-stay cultural travelers, researchers, creators, or prospective clients testing the full Deeper China idea."}'::jsonb,
+  'a-deeper-china-redesign/lib/route-combinations.ts',
+  null,
+  'curated',
+  'v1-route-combinations'
+),
+(
+  'chengdu:route_seed:seven-city-founder-map-route-combination',
+  'chengdu',
+  'Chengdu',
+  'en',
+  'route_seed',
+  'Seven-city founder map route combination',
+  'Seven-city founder map (18-24 days).
+Cities: beijing, chengdu, chongqing, quanzhou, jingdezhen, jingmai-mountain, wudang-mountain
+Best for: Long-stay cultural travelers, researchers, creators, or prospective clients testing the full Deeper China idea.
+Route logic: Treat each city as a different China: capital order, food ease, urban intensity, maritime memory, porcelain craft, tea ecology, and Taoist mountain cultivation.
+City order:
+1. Beijing: historical grammar.
+2. Chengdu: food and emotional ease.
+3. Chongqing: 8D visual intensity.
+4. Quanzhou: port memory and Hokkien roots.
+5. Jingdezhen: porcelain and maker culture.
+6. Jingmai: tea forest and slow hospitality.
+7. Wudang: Taoist mountain and body practice.
+Why it is not generic: This is not a grand tour of famous landmarks. It is a thesis route proving that China can be read through systems, materials, appetite, belief, and landscape.
+Conversion question: Which three city identities matter most to the traveler: history, food, visuals, roots, craft, tea, or spiritual practice?',
+  array['route_combination', 'multi_city', 'itinerary', 'beijing', 'chengdu', 'chongqing', 'quanzhou', 'jingdezhen', 'jingmai-mountain', 'wudang-mountain']::text[],
+  '{"sort_order":8,"route_id":"seven-city-founder-map","duration":"18-24 days","cities":["beijing","chengdu","chongqing","quanzhou","jingdezhen","jingmai-mountain","wudang-mountain"],"primary_record_for":"chengdu","best_for":"Long-stay cultural travelers, researchers, creators, or prospective clients testing the full Deeper China idea."}'::jsonb,
+  'a-deeper-china-redesign/lib/route-combinations.ts',
+  null,
+  'curated',
+  'v1-route-combinations'
+),
+(
+  'chongqing:route_seed:seven-city-founder-map-route-combination',
+  'chongqing',
+  'Chongqing',
+  'en',
+  'route_seed',
+  'Seven-city founder map route combination',
+  'Seven-city founder map (18-24 days).
+Cities: beijing, chengdu, chongqing, quanzhou, jingdezhen, jingmai-mountain, wudang-mountain
+Best for: Long-stay cultural travelers, researchers, creators, or prospective clients testing the full Deeper China idea.
+Route logic: Treat each city as a different China: capital order, food ease, urban intensity, maritime memory, porcelain craft, tea ecology, and Taoist mountain cultivation.
+City order:
+1. Beijing: historical grammar.
+2. Chengdu: food and emotional ease.
+3. Chongqing: 8D visual intensity.
+4. Quanzhou: port memory and Hokkien roots.
+5. Jingdezhen: porcelain and maker culture.
+6. Jingmai: tea forest and slow hospitality.
+7. Wudang: Taoist mountain and body practice.
+Why it is not generic: This is not a grand tour of famous landmarks. It is a thesis route proving that China can be read through systems, materials, appetite, belief, and landscape.
+Conversion question: Which three city identities matter most to the traveler: history, food, visuals, roots, craft, tea, or spiritual practice?',
+  array['route_combination', 'multi_city', 'itinerary', 'beijing', 'chengdu', 'chongqing', 'quanzhou', 'jingdezhen', 'jingmai-mountain', 'wudang-mountain']::text[],
+  '{"sort_order":8,"route_id":"seven-city-founder-map","duration":"18-24 days","cities":["beijing","chengdu","chongqing","quanzhou","jingdezhen","jingmai-mountain","wudang-mountain"],"primary_record_for":"chongqing","best_for":"Long-stay cultural travelers, researchers, creators, or prospective clients testing the full Deeper China idea."}'::jsonb,
+  'a-deeper-china-redesign/lib/route-combinations.ts',
+  null,
+  'curated',
+  'v1-route-combinations'
+),
+(
+  'quanzhou:route_seed:seven-city-founder-map-route-combination',
+  'quanzhou',
+  'Quanzhou',
+  'en',
+  'route_seed',
+  'Seven-city founder map route combination',
+  'Seven-city founder map (18-24 days).
+Cities: beijing, chengdu, chongqing, quanzhou, jingdezhen, jingmai-mountain, wudang-mountain
+Best for: Long-stay cultural travelers, researchers, creators, or prospective clients testing the full Deeper China idea.
+Route logic: Treat each city as a different China: capital order, food ease, urban intensity, maritime memory, porcelain craft, tea ecology, and Taoist mountain cultivation.
+City order:
+1. Beijing: historical grammar.
+2. Chengdu: food and emotional ease.
+3. Chongqing: 8D visual intensity.
+4. Quanzhou: port memory and Hokkien roots.
+5. Jingdezhen: porcelain and maker culture.
+6. Jingmai: tea forest and slow hospitality.
+7. Wudang: Taoist mountain and body practice.
+Why it is not generic: This is not a grand tour of famous landmarks. It is a thesis route proving that China can be read through systems, materials, appetite, belief, and landscape.
+Conversion question: Which three city identities matter most to the traveler: history, food, visuals, roots, craft, tea, or spiritual practice?',
+  array['route_combination', 'multi_city', 'itinerary', 'beijing', 'chengdu', 'chongqing', 'quanzhou', 'jingdezhen', 'jingmai-mountain', 'wudang-mountain']::text[],
+  '{"sort_order":8,"route_id":"seven-city-founder-map","duration":"18-24 days","cities":["beijing","chengdu","chongqing","quanzhou","jingdezhen","jingmai-mountain","wudang-mountain"],"primary_record_for":"quanzhou","best_for":"Long-stay cultural travelers, researchers, creators, or prospective clients testing the full Deeper China idea."}'::jsonb,
+  'a-deeper-china-redesign/lib/route-combinations.ts',
+  null,
+  'curated',
+  'v1-route-combinations'
+),
+(
+  'jingdezhen:route_seed:seven-city-founder-map-route-combination',
+  'jingdezhen',
+  'Jingdezhen',
+  'en',
+  'route_seed',
+  'Seven-city founder map route combination',
+  'Seven-city founder map (18-24 days).
+Cities: beijing, chengdu, chongqing, quanzhou, jingdezhen, jingmai-mountain, wudang-mountain
+Best for: Long-stay cultural travelers, researchers, creators, or prospective clients testing the full Deeper China idea.
+Route logic: Treat each city as a different China: capital order, food ease, urban intensity, maritime memory, porcelain craft, tea ecology, and Taoist mountain cultivation.
+City order:
+1. Beijing: historical grammar.
+2. Chengdu: food and emotional ease.
+3. Chongqing: 8D visual intensity.
+4. Quanzhou: port memory and Hokkien roots.
+5. Jingdezhen: porcelain and maker culture.
+6. Jingmai: tea forest and slow hospitality.
+7. Wudang: Taoist mountain and body practice.
+Why it is not generic: This is not a grand tour of famous landmarks. It is a thesis route proving that China can be read through systems, materials, appetite, belief, and landscape.
+Conversion question: Which three city identities matter most to the traveler: history, food, visuals, roots, craft, tea, or spiritual practice?',
+  array['route_combination', 'multi_city', 'itinerary', 'beijing', 'chengdu', 'chongqing', 'quanzhou', 'jingdezhen', 'jingmai-mountain', 'wudang-mountain']::text[],
+  '{"sort_order":8,"route_id":"seven-city-founder-map","duration":"18-24 days","cities":["beijing","chengdu","chongqing","quanzhou","jingdezhen","jingmai-mountain","wudang-mountain"],"primary_record_for":"jingdezhen","best_for":"Long-stay cultural travelers, researchers, creators, or prospective clients testing the full Deeper China idea."}'::jsonb,
+  'a-deeper-china-redesign/lib/route-combinations.ts',
+  null,
+  'curated',
+  'v1-route-combinations'
+),
+(
+  'jingmai-mountain:route_seed:seven-city-founder-map-route-combination',
+  'jingmai_mountain',
+  'Jingmai Mountain',
+  'en',
+  'route_seed',
+  'Seven-city founder map route combination',
+  'Seven-city founder map (18-24 days).
+Cities: beijing, chengdu, chongqing, quanzhou, jingdezhen, jingmai-mountain, wudang-mountain
+Best for: Long-stay cultural travelers, researchers, creators, or prospective clients testing the full Deeper China idea.
+Route logic: Treat each city as a different China: capital order, food ease, urban intensity, maritime memory, porcelain craft, tea ecology, and Taoist mountain cultivation.
+City order:
+1. Beijing: historical grammar.
+2. Chengdu: food and emotional ease.
+3. Chongqing: 8D visual intensity.
+4. Quanzhou: port memory and Hokkien roots.
+5. Jingdezhen: porcelain and maker culture.
+6. Jingmai: tea forest and slow hospitality.
+7. Wudang: Taoist mountain and body practice.
+Why it is not generic: This is not a grand tour of famous landmarks. It is a thesis route proving that China can be read through systems, materials, appetite, belief, and landscape.
+Conversion question: Which three city identities matter most to the traveler: history, food, visuals, roots, craft, tea, or spiritual practice?',
+  array['route_combination', 'multi_city', 'itinerary', 'beijing', 'chengdu', 'chongqing', 'quanzhou', 'jingdezhen', 'jingmai-mountain', 'wudang-mountain']::text[],
+  '{"sort_order":8,"route_id":"seven-city-founder-map","duration":"18-24 days","cities":["beijing","chengdu","chongqing","quanzhou","jingdezhen","jingmai-mountain","wudang-mountain"],"primary_record_for":"jingmai-mountain","best_for":"Long-stay cultural travelers, researchers, creators, or prospective clients testing the full Deeper China idea."}'::jsonb,
+  'a-deeper-china-redesign/lib/route-combinations.ts',
+  null,
+  'curated',
+  'v1-route-combinations'
+),
+(
+  'wudang-mountain:route_seed:seven-city-founder-map-route-combination',
+  'wudang_mountain',
+  'Wudang Mountain',
+  'en',
+  'route_seed',
+  'Seven-city founder map route combination',
+  'Seven-city founder map (18-24 days).
+Cities: beijing, chengdu, chongqing, quanzhou, jingdezhen, jingmai-mountain, wudang-mountain
+Best for: Long-stay cultural travelers, researchers, creators, or prospective clients testing the full Deeper China idea.
+Route logic: Treat each city as a different China: capital order, food ease, urban intensity, maritime memory, porcelain craft, tea ecology, and Taoist mountain cultivation.
+City order:
+1. Beijing: historical grammar.
+2. Chengdu: food and emotional ease.
+3. Chongqing: 8D visual intensity.
+4. Quanzhou: port memory and Hokkien roots.
+5. Jingdezhen: porcelain and maker culture.
+6. Jingmai: tea forest and slow hospitality.
+7. Wudang: Taoist mountain and body practice.
+Why it is not generic: This is not a grand tour of famous landmarks. It is a thesis route proving that China can be read through systems, materials, appetite, belief, and landscape.
+Conversion question: Which three city identities matter most to the traveler: history, food, visuals, roots, craft, tea, or spiritual practice?',
+  array['route_combination', 'multi_city', 'itinerary', 'beijing', 'chengdu', 'chongqing', 'quanzhou', 'jingdezhen', 'jingmai-mountain', 'wudang-mountain']::text[],
+  '{"sort_order":8,"route_id":"seven-city-founder-map","duration":"18-24 days","cities":["beijing","chengdu","chongqing","quanzhou","jingdezhen","jingmai-mountain","wudang-mountain"],"primary_record_for":"wudang-mountain","best_for":"Long-stay cultural travelers, researchers, creators, or prospective clients testing the full Deeper China idea."}'::jsonb,
+  'a-deeper-china-redesign/lib/route-combinations.ts',
+  null,
+  'curated',
+  'v1-route-combinations'
+),
+(
   'beijing:market_profile:beijing-for-north-american-first-timers',
   'beijing',
   'Beijing',
